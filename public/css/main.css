@@ -1,0 +1,16 @@
+.card {
+    float: left;
+    width: 55%;
+    height: auto;
+    margin: 50px 0 0 30px;
+    padding: 20px;
+}
+
+.login-card {
+    width: auto;
+    min-width: 35%;
+}
+
+.login-button {
+    margin: 0 0 0 30px;
+}
