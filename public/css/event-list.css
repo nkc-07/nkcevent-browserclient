@@ -1,0 +1,39 @@
+.card-columns {
+    display: inline;
+}
+
+.event-box {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, .125);
+}
+
+.event-box .card {
+    margin: 20px 0 0 20px;
+}
+
+.event-box .card,
+.event-box .card img {
+    width: 20rem;
+}
+
+a.card-rink {
+    color: #212529;
+}
+
+.card-body .day {
+    float: right;
+}
+
+.user-info {
+    float: right;
+}
+
+.user-info p {
+    float: left;
+    margin: 0 10px 10px 0;
+}
+
+.card-body .user-info .user-img {
+    width: 20px;
+}
