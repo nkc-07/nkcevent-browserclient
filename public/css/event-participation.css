@@ -1,47 +1,48 @@
 .mx-auto {
-  text-align: center;
+    text-align: center;
 }
 
 .card {
-  width: 90%;
-  margin: 50px 0 0 0;
-  padding: 20px;
-  display: inline-block;
-  /* margin-left: 5%;
+    width: 90%;
+    margin: 50px 0 0 0;
+    padding: 20px;
+    display: inline-block;
+    /* margin-left: 5%;
   margin-right: 5%; */
 }
 
 .car-outcard .card img {
-  width: 40%;
-  max-height: 180px;
-  position: relative;
+    width: 40%;
+    max-height: 180px;
+    position: relative;
 }
 
 .thumbnail {
-  float: left;
+    float: left;
 }
 
 .thumbnail a {
-  display: block;
-  text-align: start;
+    display: block;
+    text-align: start;
 }
 
 .col-md-8 {
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline;
 }
 
 .btn {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 .card-title {
-  font-size: xx-large;
+    font-size: xx-large;
 }
 
 .card-body {
-  text-align: start;
-  margin-left: 10px;
+    text-align: start;
+    margin-left: 10px;
 }
