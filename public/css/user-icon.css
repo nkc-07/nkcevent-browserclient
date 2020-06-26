@@ -12,3 +12,7 @@
     font-size: large;
     display: inline;
 }
+
+.card-link {
+    color: #212529;
+}

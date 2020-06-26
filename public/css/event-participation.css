@@ -22,7 +22,7 @@
     float: left;
 }
 
-.thumbnail a {
+.thumbnail p {
     display: block;
     text-align: start;
 }
