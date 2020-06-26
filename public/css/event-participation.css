@@ -1,10 +1,16 @@
+.card-box {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, .125);
+}
+
 .mx-auto {
+    margin: 10px 0 0 0;
     text-align: center;
 }
 
 .card {
     width: 90%;
-    margin: 50px 0 0 0;
     padding: 20px;
     display: inline-block;
     position: relative;
