@@ -51,6 +51,10 @@
     float: right;
 }
 
+.text-right .participation-event:disabled {
+    cursor: auto;
+}
+
 .text-right .under-button {
     float: none;
 }
