@@ -1,0 +1,16 @@
+.profile-img{
+    display:flex;
+    flex-direction: column;
+    float:left;
+    width:20%;
+    align-items:center;
+}
+
+.profile{
+    width:80%;
+    float:right;
+}
+
+.card{
+    display: inline-block;
+}

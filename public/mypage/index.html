@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../vender/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../vender/sidemenu/drawer.min/index.css">
+    <link rel="stylesheet" href="../css/sidemenu.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/profile.css">
+
+    <script src="../vender/jquery-3.5.1.min/index.js"></script>
+    <script src="../vender/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+    <script src="../vender/sidemenu/iscroll.min/index.js"></script>
+    <script src="../vender/sidemenu/drawer.3.2.2.min/index.js"></script>
+
+    <title>メインページ</title>
+</head>
+
+<body class="drawer drawer--right">
+    <header role="banner">
+        <nav class="navbar navbar-light bg-light navbar-dark bg-dark">
+            <a href="#" class="h1 navbar-brand text-white">マイページ</a>
+            <button type="button" class="text-white drawer-toggle drawer-hamburger">
+              <span class="sr-only">toggle navigation</span>
+            <span class="drawer-hamburger-icon"></span>
+            </button>
+            <nav class="drawer-nav navbar-dark bg-dark" role="navigation">
+                <ul class="drawer-menu">
+                    <li><a class="drawer-brand text-white" href="#">Test User</a></li>
+                    <li><a class="drawer-menu-item text-white" href="#">test</a></li>
+                    <li><a class="drawer-menu-item text-white" href="#">test</a></li>
+                    <li><a class="drawer-menu-item text-white" href="#">test</a></li>
+                    <li><a class="drawer-menu-item text-white" href="#">test</a></li>
+                </ul>
+            </nav>
+        </nav>
+    </header>
+
+    <main>
+        <div class="card">
+
+            <div class="profile-img">
+                <img src="../image/8439.png" width="98" height="98">
+                <button class="btn btn-primary">画像変更</button>
+            </div>
+
+            <div class="profile">
+                <h1>説明</h1>
+                <form>
+                    ニックネーム<br>
+                    <input type="text"><br> メールアドレス
+                    <br>
+                    <input type="text"><br>
+                    <button class="btn btn-primary">パスワード変更</button><br> 生年月日
+                    <p><input type="number">年
+                        <input type="number">月
+                        <input type="number">日</p>
+                    性別<br>
+                    <p><input type="radio" name="gender">男<input type="radio" name="gender">女<input type="radio" name="gender">その他</p>
+                    <p><button class="btn btn-primary">キャンセル</button>
+                        <button class="btn btn-primary">変更</button></p>
+                </form>
+            </div>
+        </div>
+
+        <div class="card login-card">
+            <ul>
+                <li>参加イベント</li>
+                <ul>
+                    <li>テスト</li>
+                    <li>テスト</li>
+                </ul>
+            </ul>
+            <button class="btn btn-primary">イベント詳細</button>
+        </div>
+    </main>
+
+    <script src="../js/sidemenu.js"></script>
+</body>
+
+</html>
