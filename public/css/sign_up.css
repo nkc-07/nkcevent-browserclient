@@ -1,3 +1,13 @@
-.malltitle {
-  font-size: x-large;
+p {
+  font-size: 50pt;
+}
+
+.main {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.radio {
+  width: 0.8em;
+  height: 0.8em;
 }
