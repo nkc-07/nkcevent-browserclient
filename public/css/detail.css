@@ -1,3 +1,8 @@
+.navbar a img {
+    width: 40px;
+    height: auto;
+}
+
 .detail-box {
     margin: 20px;
     padding: 20px;
@@ -59,7 +64,11 @@
     float: none;
 }
 
-.text-right .cancel {
+.cancel {
+    display: none;
+}
+
+.cancellation {
     display: none;
 }
 
