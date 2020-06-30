@@ -1,13 +1,13 @@
 p {
-  font-size: 50pt;
+  font-size: 25pt;
 }
 
-.main {
+.maininfo {
+  border: solid;
+  margin: 5pt 5pt 0 5pt;
+}
+
+.createBtn {
+  margin: 0 0 0 0;
   margin-right: auto;
-  margin-left: auto;
-}
-
-.radio {
-  width: 0.8em;
-  height: 0.8em;
 }

@@ -39,28 +39,36 @@
     </header>
 
     <main>
-        <p>メールアドレス<br>
-            <input type="text" name="mall"></p>
-    
-        <p>パスワード<br>
-            <input type="text" name="pass"></p> 
+        <div class="maininfo">
+            <div>
+                <p>メールアドレス</p>
+                <input type="text" name="mall">
+            </div>
 
-        <p>ニックネーム<br>
-            <input type="text" name="name"></p>
+            <div>
+                <p>パスワード</p>
+                <input type="text" name="pass">
+            </div>
 
-            
-        <p>性別<br>
-            <input type="radio" class="radio" name="gender" value="man" checked="checked">男
-            <input type="radio" class="radio" name="gender" value="wonman">女
-            <input type="radio" class="radio" name="gender" value="other">その他
-            
-        </p>      
+            <div>
+                <p>ニックネーム</p>
+                <input type="text" name="name">
+            </div>
+
+            <div>
+                <p>性別</p>
+                <input type="radio" class="radio" name="gender" value="man" checked="checked">男
+                <input type="radio" class="radio" name="gender" value="wonman">女
+                <input type="radio" class="radio" name="gender" value="other">その他
+            </div>
         
-        <span id="year_pulldown"></span>
-        <span id="month_pulldown"></span>
-        <span id="day_pulldown"></span><br><br>
+        
+            <span id="year_pulldown" class="date"></span>
+            <span id="month_pulldown" class="date"></span>
+            <span id="day_pulldown" class="date"></span><br><br>
 
-        <input type="submit">
+            <input type="submit" value="作成" class="create">
+        </div>
     </main>
 
     <script src="../js/sidemenu.js"></script>
