@@ -1,13 +1,15 @@
 p {
-  font-size: 25pt;
+  font-size: 20pt;
 }
 
 .maininfo {
   border: solid;
-  margin: 5pt 5pt 0 5pt;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .createBtn {
-  margin: 0 0 0 0;
-  margin-right: auto;
+  float: right;
+  font-size: 20pt;
 }
