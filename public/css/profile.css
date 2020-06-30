@@ -14,3 +14,20 @@
 .card{
     display: inline-block;
 }
+
+.card.login-card ul{
+    list-style:none;
+}
+
+.change-confirm-buttons :first-child{
+    margin-right:10%;
+}
+
+.card.login-card .btn{
+    margin-left:80%
+}
+
+.password-change{
+    margin-bottom:20px;
+    margin-top:20px;
+}
