@@ -72,8 +72,27 @@
     display: none;
 }
 
-.event-detail-box {
+.event-box {
     margin: 10px;
     margin-top: 30px;
     padding: 10px;
+}
+
+.tag-box {
+    border: 1px solid rgba(0, 0, 0, .125);
+    margin: 30px 10px 0 10px;
+    padding: 10px;
+}
+
+.tag-box .tag-card {
+    float: left;
+}
+
+.tag-box .tag-card img {
+    width: 25px;
+    margin: 0 0 0 10px;
+}
+
+.clear-float {
+    display: inline-block;
 }
