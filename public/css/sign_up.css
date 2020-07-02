@@ -14,3 +14,13 @@ p {
   margin: 0 0 0 auto;
   font-size: 20pt;
 }
+
+.radiosize {
+  font-size: 23px;
+}
+
+input[type="radio"] {
+  width: 23px;
+  height: 23px;
+  vertical-align: middle;
+}
