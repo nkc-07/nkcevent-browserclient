@@ -1,0 +1,66 @@
+.detail-box {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, .125);
+}
+
+.day-box {
+    background-image: url(../image/svg/day_icon.svg);
+    width: 100px;
+    height: 100px;
+    background-size: 100% auto;
+    float: left;
+    margin: 10px;
+}
+
+.event-top {
+    position: relative;
+    text-align: center;
+}
+
+.event-title {
+    text-align: left;
+}
+
+.event-img {
+    max-width: 900px;
+    height: auto;
+}
+
+.create-day {
+    float: right;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.user-icon {
+    margin: 20px 0 0 0;
+}
+
+.text-right .user-img {
+    height: 35px;
+    width: auto;
+}
+
+.text-right .participation-event {
+    background-color: #00152C;
+    color: #fff;
+    margin: 0 0 0 30px;
+    float: right;
+}
+
+.text-right .participation-event:disabled {
+    cursor: auto;
+}
+
+.text-right .under-button {
+    float: none;
+}
+
+.event-detail-box {
+    margin: 10px;
+    margin-top: 30px;
+    padding: 10px;
+}

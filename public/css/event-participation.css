@@ -1,0 +1,55 @@
+.card-box {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, .125);
+}
+
+.mx-auto {
+    margin: 10px 0 0 0;
+    text-align: center;
+}
+
+.card {
+    width: 90%;
+    padding: 20px;
+    display: inline-block;
+    position: relative;
+    /* margin-left: 5%;
+  margin-right: 5%; */
+}
+
+.car-outcard .card img {
+    width: 40%;
+    max-height: 180px;
+    position: relative;
+}
+
+.thumbnail {
+    float: left;
+}
+
+.thumbnail p {
+    display: block;
+    text-align: start;
+}
+
+.btn {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.card-title {
+    font-size: xx-large;
+}
+
+.card-body {
+    float: left;
+    text-align: start;
+}
+
+.user-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
