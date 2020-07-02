@@ -19,7 +19,10 @@
 <body class="drawer drawer--right">
     <header role="banner">
         <nav class="navbar navbar-light bg-light navbar-dark bg-dark">
-            <a href="#" class="h1 navbar-brand text-white">イベント詳細ページ</a>
+            <a href="#" class="h1 navbar-brand text-white">
+                イベント詳細ページ
+                <img class="cancellation" src="../../image/organizer_icon.jpeg">
+            </a>
             <button type="button" class="text-white drawer-toggle drawer-hamburger">
               <span class="sr-only">toggle navigation</span>
             <span class="drawer-hamburger-icon"></span>
@@ -54,12 +57,32 @@
                     <img class="user-img" src="../../image/svg/user_icon.svg">
                 </div>
             </div>
-            <div class="card event-detail-box">
+
+            <div class="tag-box">
+                <div class="clear-float">
+                    <div class="tag-card">
+                        <img src="../../image/tag_icon.jpg">
+                        <span>test_tag</span>
+                    </div>
+                    <div class="tag-card">
+                        <img src="../../image/tag_icon.jpg">
+                        <span>test_tag</span>
+                    </div>
+                    <div class="tag-card">
+                        <img src="../../image/tag_icon.jpg">
+                        <span>test_tag</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card event-box">
                 <h2>イベント詳細</h2>
                 <p>test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
                     test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test </p>
             </div>
             <div class="text-right">
+                <button type="submit" class="btn participation-event under-button cancellation">中止</button>
+                <button type="submit" class="btn participation-event under-button cancel">キャンセル</button>
                 <button type="submit" class="btn participation-event under-button">イベントに参加</button>
             </div>
         </div>
