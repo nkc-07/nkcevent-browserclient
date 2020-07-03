@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../vender/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../vender/sidemenu/drawer.min/index.css">
+    <link rel="stylesheet" href="../css/sidemenu.css">
+    <link rel="stylesheet" href="../css/sign_up.css">
+    
+    
+    <script src="../vender/jquery-3.5.1.min/index.js"></script>
+    <script src="../vender/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+    <script src="../vender/sidemenu/iscroll.min/index.js"></script>
+    <script src="../vender/sidemenu/drawer.3.2.2.min/index.js"></script>
+    <script src="../js/generatedate.js"></script>
+
+    <title></title>
+</head>
+
+<body class="drawer drawer--right">
+    <header role="banner">
+        <nav class="navbar navbar-light bg-light navbar-dark bg-dark">
+            <a href="#" class="h1 navbar-brand text-white">新規登録</a>
+            <button type="button" class="text-white drawer-toggle drawer-hamburger">
+              <span class="sr-only">toggle navigation</span>
+            <span class="drawer-hamburger-icon"></span>
+            </button>
+            <nav class="drawer-nav navbar-dark bg-dark" role="navigation">
+                <ul class="drawer-menu">
+                    <li><a class="drawer-brand text-white" href="#">Test User</a></li>
+                    <li><a class="drawer-menu-item text-white" href="#">test</a></li>
+                    <li><a class="drawer-menu-item text-white" href="#">test</a></li>
+                    <li><a class="drawer-menu-item text-white" href="#">test</a></li>
+                    <li><a class="drawer-menu-item text-white" href="#">test</a></li>
+                </ul>
+            </nav>
+        </nav>
+    </header>
+
+    <main>
+        <div class="title">
+            <p>新規登録</p>
+        </div>
+        <div class="maininfo">
+                <p>メールアドレス</p>
+                <input type="text" name="mall" class="malladress">
+            <br/>
+          
+
+            <div>
+                <p>パスワード</p>
+                <input type="password" name="pass">
+            </div><br/>
+
+            <div>
+                <p>ニックネーム</p>
+                <input type="text" name="name">
+            </div><br/>
+
+            <div> 
+                <p>性別</p>
+                <div class="radiosize">
+                    <input type="radio" class="radio" name="gender" value="man">男
+                    <input type="radio" class="radio" name="gender" value="wonman">女
+                    <input type="radio" class="radio" name="gender" value="other">その他
+                </div>
+            </div><br/>
+
+
+            <div>
+                <p>生年月日</p>
+                <span id="year_pulldown" class="date"></span>
+                <span id="month_pulldown" class="date"></span>
+                <span id="day_pulldown" class="date"></span><br><br>
+            </div>
+            <br>
+                <input type="submit" value="登録" class="create-btn" style="WIDTH: 400px;">
+        </div>
+    </main>
+
+    <script src="../js/sidemenu.js"></script>
+
+</body>
+
+</body>
+
+</html>
