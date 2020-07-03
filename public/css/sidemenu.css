@@ -3,3 +3,7 @@
 .drawer-hamburger-icon:before {
     background-color: white;
 }
+
+.drawer-hamburger {
+    position: static;
+}

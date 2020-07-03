@@ -2,12 +2,20 @@
 
 ## 階層構造
 ```
-─public
+├─api
+│  ├─event
+│  ├─member
+│  └─other
+├─php
+└─public
     ├─create-user
+    ├─css
     ├─event-list
     │  └─detail
+    ├─image
+    │  └─svg
+    ├─js
     ├─mypage
     │  └─event-participation
-    ├─js
-    └─css
+    └─vender
 ```
