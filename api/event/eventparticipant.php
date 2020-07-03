@@ -16,7 +16,7 @@ switch($_SERVER['REQUEST_METHOD']){
 	case "GET":
 
 		$param = $_GET;		
-		$ret = getMemberinfo($param);
+		$ret = getParticipant($param);
 		if($ret['success']){
 			$response['data'] = $ret['data'];
 		}else{
@@ -29,7 +29,7 @@ switch($_SERVER['REQUEST_METHOD']){
 	
 	case "POST":
 
-		$ret = postMemberinfo($_POST);
+		$ret = postParticipant($_POST);
 		if($ret['success']){
 			$response['data'] = $ret['data'];
 		}else{
@@ -43,7 +43,7 @@ switch($_SERVER['REQUEST_METHOD']){
 	case "PUT":
 
 		parse_str(file_get_contents('php://input'), $param);
-		$ret = deleteMemberinfo($param);
+		$ret = deleteParticipant($param);
 		if($ret['success']){
 			//$response['data'] = $ret['data'];
 		}else{
