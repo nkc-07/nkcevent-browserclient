@@ -175,11 +175,11 @@ function PutMemberInformation($param){
         if(empty($param['birthday']))			throw new ErrorException($errmsg."birthday"); //誕生日
         
         $sql = "UPDATE member m ,member_password mp
-                SET m.mailaddress = :mailadress
-                    m.nickname = :nickname
-                    m.gender = :gender
-                    m.birthday = :birthday
-                    m.icon = :icon
+                SET m.mailaddress = :mailadress,
+                    m.nickname = :nickname,
+                    m.gender = :gender,
+                    m.birthday = :birthday,
+                    m.icon = :icon,
                     mp.password = :'password'
                 WHERE m.member_id = :member_id
                 AND   mp.member_id = :member_id";
