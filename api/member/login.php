@@ -54,12 +54,12 @@ function getLogin($param){
         if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id");
         if(empty($param['password']))			throw new ErrorException($errmsg."password");
 		
-		$sql = "SELECT '*'
+		$sql = "SELECT COUNT(*)
 				FROM member m
 				INNER JOIN member_password p
 				ON m.member_id = p.member_id 
 				WHERE m.mailaddress = :mailaddress
-				AND p.passwordd = :'password'";
+				AND p.password = :'password'";
 
         $stmt = PDO()->prepare($sql);
         $stmt -> bindValue(':member_id', $param['member_id'], PDO::PARAM_INT);
