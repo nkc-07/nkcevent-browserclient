@@ -31,7 +31,11 @@ function getLogin(userID, password) {
         .done(function(response) {
             console.log('通信成功PostMembrparticipation');
             console.log(response);
-            if (response) { console.log('ログイン成功') }
+            if (response['data'] == 1) {
+                console.log('ログイン成功');
+            } else {
+                console.log('ログイン失敗');
+            }
         })
         .fail(function(response) {
             console.log('通信失敗');

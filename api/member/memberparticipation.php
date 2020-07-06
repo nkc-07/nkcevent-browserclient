@@ -143,15 +143,17 @@ function GetMembrparticipation($param){
     
 	//$db = new DB();
 	try{
-        if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id");
+        if(empty($param['event_id']))			throw new ErrorException($errmsg."event_id");
         $sql= "SELECT e.event_id,event_name,map,`image`,held_date,organizer,icon,event_cancellation
-               FROM event_participan ep 
-               INNER JOIN `event` e
-			   ON  e.event_id = ep.event_id
-			   WHERE member_id = :member_id";
+		FROM event_participant ep
+		INNER JOIN `event` e
+		ON  e.event_id = ep.event_id
+		INNER JOIN member m
+		ON m.member_id = e.organizer
+		WHERE e.event_id =:event_id";
 			   
 		$stmt = PDO()->prepare($sql);
-        $stmt -> bindValue(':member_id',  $param['member_id'],  PDO::PARAM_INT);
+        $stmt -> bindValue(':event_id',  $param['event_id'],  PDO::PARAM_INT);
 
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		
