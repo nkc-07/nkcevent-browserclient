@@ -175,11 +175,11 @@ function PutMemberInformation($param){
         if(empty($param['birthday']))			throw new ErrorException($errmsg."birthday"); //誕生日
         
         $sql = "UPDATE member m ,member_password mp
-                SET m.mailaddress = :mailadress
-                    m.nickname = :nickname
-                    m.gender = :gender
-                    m.birthday = :birthday
-                    m.icon = :icon
+                SET m.mailaddress = :mailadress,
+                    m.nickname = :nickname,
+                    m.gender = :gender,
+                    m.birthday = :birthday,
+                    m.icon = :icon,
                     mp.password = :'password'
                 WHERE m.member_id = :member_id
                 AND   mp.member_id = :member_id";
@@ -245,7 +245,7 @@ function GetMemberInformation($param){
                  ON et.event_tag = t.tag_id
 				 INNER JOIN event_participant as ep
 				 ON et.event_id = ep.event_id
-                 WHERE member_id = :member";
+                 WHERE member_id = :member_id";
 
 		$stmt = PDO()->prepare($sql2);
         $stmt -> bindValue(':member_id',  $param['member_id'],  PDO::PARAM_INT);
