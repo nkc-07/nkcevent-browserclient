@@ -118,13 +118,12 @@ function PostMemberInformation($param){
         if(empty($param['birthday']))			throw new ErrorException($errmsg."birthday"); //誕生日
         
         $sql1 = "INSERT INTO member(
-			    member_id,
                 mailaddress,
                 nickname,
                 gender,
                 birthday,
                 icon)
-                VALUES(:member_id,:mailaddress,:nickname,:gender,:birthday,'dummy.png')";
+                VALUES(:mailaddress,:nickname,:gender,:birthday,'dummy.png')";
 				
 		$sql2 = "INSERT INTO member_password(
 			     member_id,
