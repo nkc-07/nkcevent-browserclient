@@ -245,7 +245,7 @@ function GetMemberInformation($param){
                  ON et.event_tag = t.tag_id
 				 INNER JOIN event_participant as ep
 				 ON et.event_id = ep.event_id
-                 WHERE member_id = :member";
+                 WHERE member_id = :member_id";
 
 		$stmt = PDO()->prepare($sql2);
         $stmt -> bindValue(':member_id',  $param['member_id'],  PDO::PARAM_INT);
