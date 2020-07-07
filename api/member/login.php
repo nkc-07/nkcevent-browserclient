@@ -14,7 +14,7 @@ $resary = [
 switch($_SERVER['REQUEST_METHOD']){
 	case "GET":
 
-		$param = $_GET;		
+		$param = $_GET;
 		$ret = getLogin($param);
 		if($ret['success']){
 			$response['data'] = $ret['data'];
@@ -43,7 +43,7 @@ if($resary['success']){
 }
 
 function getLogin($param){
-   
+
 	$ret = [
 		'success' => true,
 		'msg' => "",
@@ -51,26 +51,31 @@ function getLogin($param){
 
 	//$db = new DB();
     try{
-        if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id");
+        if(empty($param['mailaddress']))			throw new ErrorException($errmsg."mailaddress");
         if(empty($param['password']))			throw new ErrorException($errmsg."password");
-		
-		$sql = "SELECT '*'
+
+		$sql = "SELECT COUNT(*)
 				FROM member m
 				INNER JOIN member_password p
-				ON m.member_id = p.member_id 
+				ON m.member_id = p.member_id
 				WHERE m.mailaddress = :mailaddress
-				AND p.passwordd = :'password'";
+				AND p.password = :password";
 
         $stmt = PDO()->prepare($sql);
-        $stmt -> bindValue(':member_id', $param['member_id'], PDO::PARAM_INT);
+        $stmt -> bindValue(':mailaddress', $param['mailaddress'], PDO::PARAM_INT);
         $stmt -> bindValue(':password', $param['password'], PDO::PARAM_STR);
         $stmt -> execute();
-		
-		if(empty($stmt))
-			$data = 0;
-		else
-			$data = 1;
-		
+
+		$ret['data'] = $stmt->fetchColumn();
+
+		// foreach($stmt as $item) {
+		// 	print_r($item[0]);
+		// }
+		// if(empty($stmt))
+		// 	$data = 0;
+		// else
+		// 	$data = 1;
+
 	}catch(Exception $err){
 		//exceptionErrorPut($err, "EXCEPTION");
         $ret['success'] = false;

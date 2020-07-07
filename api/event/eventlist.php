@@ -115,11 +115,15 @@ function getEventList($param){
 		$flag_Eid = 0;
 		$flag_Ename = 0;
 		$flag_Tid = 0;
-		$sql = "SELECT event_id, event_name, map, 'image', held_date,	
+		$sql = "SELECT e.event_id, event_name, map, 'image', held_date,	
 					m.nickname as organizer, icon, event_cancellation, member_limit
 				FROM 'event' e
 				INNER JOIN member m
 				ON e.organizer = m.member_id
+				INNER JOIN event_tag et
+				ON et.event_id = e.event_id
+                INNER JOIN tag t
+                ON t.tag_id = et.event_tag
 				WHERE held_date >= CURDATE()";
 
 		if($param['event_id']){ 
@@ -127,7 +131,7 @@ function getEventList($param){
 			$flag_Eid = 1;
 		}
 		if($param['event_name']){
-			$sql .= "AND event_name = :event_name";
+			$sql .= "AND event_name = event_name LIKE %:event_name%";
 			$flag_Ename = 1;
 		}
 			if($param['tag_id']){
@@ -139,7 +143,7 @@ function getEventList($param){
 			$stmt -> bindValue(':event_id', $param['event_id'], PDO::PARAM_INT);
 		if($flag_Ename == 1)
 			$stmt -> bindValue(':event_name', $param['event_name'], PDO::PARAM_STR);
-		if($flag_Tid ==1)
+		if($flag_Tid == 1)
 			$stmt -> bindValue(':tag_id', $param['tag_id'], PDO::PARAM_INT);
 		$stmt -> execute();
 		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
