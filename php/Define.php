@@ -11,7 +11,7 @@ date_default_timezone_set ('Asia/Tokyo');
 
 define("SERVER_HOST",			"http://localhost:3306");
 
-define("PDO_DSN",				"mysql:host=localhost:3306;dbname=卒研7班_西郷");
+define("PDO_DSN",				"mysql:host=localhost:3306;dbname=event");
 define("PDO_USER",				"sa");
 define("PDO_PASS",				"P@ssw0rd");
 

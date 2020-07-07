@@ -5,10 +5,9 @@ $(function () {
       url: '../../api/member/memberinfo.php',
       type: 'POST',
       data: {
-        mailaddress: 'gaiji810@denpa.ac.jp',
-        member_id: '1145141919',
+        mailaddress: '2gaiji810@denpa.ac.jp',
         password: 'P@ssw0rd',
-        nickname: '勲',
+        nickname: 'isao',
         gender: 1,
         birthday: '1949-08-15'
       }

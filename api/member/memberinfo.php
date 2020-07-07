@@ -30,7 +30,7 @@ switch($_SERVER['REQUEST_METHOD']){
 
 		$ret = PostMemberInformation($_POST);
 		if($ret['success']){
-			$response['data'] = $ret['data'];
+			$response['data'] = 'true';
 		}else{
 			$resary['success'] = false;
 			$resary['code'] = 400;
@@ -111,39 +111,48 @@ function PostMemberInformation($param){
 	//$db = new DB();
 	try{
         if(empty($param['mailaddress']))			throw new ErrorException($errmsg."mailaddress"); //メールアドレス
-        if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id"); //member_id
+        //if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id"); //member_id
         if(empty($param['password']))			throw new ErrorException($errmsg."password"); //パスワード
         if(empty($param['nickname']))			throw new ErrorException($errmsg."nickname"); //ニックネーム
         if(empty($param['gender']))			throw new ErrorException($errmsg."gender"); //性別
         if(empty($param['birthday']))			throw new ErrorException($errmsg."birthday"); //誕生日
         
-        $sql1 = "INSERT INTO member(
+        $sql_member = "INSERT INTO member(
                 mailaddress,
                 nickname,
                 gender,
                 birthday,
                 icon)
-                VALUES(:mailaddress,:nickname,:gender,:birthday,'dummy.png')";
+				VALUES(:mailaddress,:nickname,:gender,:birthday,'dummy.png')";
+			
+		$sql_id = "SELECT member_id 
+				   FROM member
+				   WHERE mailaddress = :mailaddress";
 				
-		$sql2 = "INSERT INTO member_password(
+		$sql_pass = "INSERT INTO member_password(
 			     member_id,
-				 'password')
-				 VALUES(:member_id,:'password')";
+				 password)
+				 VALUES(:member_id,:password)";
 
 
-        $stmt = PDO()->prepare($sql1);
+        $stmt = PDO()->prepare($sql_member);
         $stmt -> bindValue(':mailaddress', $param['mailaddress'], PDO::PARAM_STR);
-        $stmt -> bindValue(':member_id', $param['member_id'], PDO::PARAM_INT);
+        //$stmt -> bindValue(':member_id', $param['member_id'], PDO::PARAM_INT);
         $stmt -> bindValue(':nickname', $param['nickname'], PDO::PARAM_STR);
         $stmt -> bindValue(':gender', $param['gender'], PDO::PARAM_INT);
-        $stmt -> bindValue(':birthday', $param['birthday'], PDO::PARAM_INT);
+        $stmt -> bindValue(':birthday', $param['birthday'], PDO::PARAM_STR);
 		$stmt -> execute();
 		//$ret['data'] = $data;
 
-		$stmt = PDO()->prepare($sql2);
-        $stmt -> bindValue(':member_id', $param['member_id'], PDO::PARAM_INT);
-        $stmt -> bindValue(':password', $param['mailaddress'], PDO::PARAM_STR);
-		$stmt -> execute();
+		$stmt2 = PDO()->prepare($sql_id);
+        $stmt2 -> bindValue(':mailaddress', $param['mailaddress'], PDO::PARAM_STR);
+		$data2 = $stmt2->fetchColumn();
+		$stmt2 -> execute();
+		
+		$stmt3 = PDO()->prepare($sql_pass);
+        $stmt3 -> bindValue(':member_id', $data2, PDO::PARAM_INT);
+        $stmt3 -> bindValue(':password', $param['password'], PDO::PARAM_STR);
+		$stmt3 -> execute();
 		//$ret['data'] = $data;
 
 	}catch(Exception $err){
