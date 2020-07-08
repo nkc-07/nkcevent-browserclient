@@ -59,8 +59,15 @@
                     <label for="exampleInputPassword1">パスワード</label>
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                 </div>
+                <p class="login-err-text login-err">メールアドレスまたはパスワードが間違っています。</p>
                 <a href="event-list/">アカウントを作成</a>
-                <input type="button" class="btn btn-primary login-button" value="ログイン">
+                <button type="button" class="btn btn-primary login-button">
+                    <span class="login-text">ログイン</span>
+                    <div class="login-err loading-icon">
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        <span>Loading...</span>
+                    </div>
+                </button>
             </form>
         </div>
     </main>

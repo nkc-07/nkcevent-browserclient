@@ -1,24 +1,20 @@
+let userId;
+let password;
+
 // ログイン処理
 $(function() {
     $('input').on('keydown', function(e) {
         if (e.which == 13) {
-            getLogin(
-                $('#exampleInputEmail1').val(),
-                $('#exampleInputPassword1').val()
-            )
+            getLogin();
         }
     })
     $('.login-button').on('click', function() {
-        getLogin(
-            $('#exampleInputEmail1').val(),
-            $('#exampleInputPassword1').val()
-        )
+        getLogin();
     });
 });
 
-
 //ログイン処理
-function getLogin(userID, password) {
+function getLoginInfo(userID, password) {
     $.ajax({
             url: '../../api/member/login.php', //送信先
             type: 'GET', //送信方法
@@ -29,16 +25,31 @@ function getLogin(userID, password) {
             }
         })
         .done(function(response) {
-            console.log('通信成功PostMembrparticipation');
             console.log(response);
             if (response['data'] == 1) {
                 console.log('ログイン成功');
             } else {
-                console.log('ログイン失敗');
+                $('.login-button').prop('disabled', false);
+                $('.loading-icon').hide();
+                $('.login-button .login-text').show();
             }
         })
         .fail(function(response) {
             console.log('通信失敗');
             console.log(response);
         })
+}
+
+function getLogin() {
+    $('.login-button').prop('disabled', true);
+    $('.login-err').show();
+    $('.login-button .login-text').hide();
+
+    userId = $('#exampleInputEmail1').val()
+    password = $('#exampleInputPassword1').val()
+
+    getLoginInfo(
+        userId,
+        password
+    )
 }

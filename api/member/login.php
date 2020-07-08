@@ -62,9 +62,9 @@ function getLogin($param){
 				AND p.password = :password";
 
         $stmt = PDO()->prepare($sql);
-        $stmt -> bindValue(':mailaddress', $param['mailaddress'], PDO::PARAM_INT);
+        $stmt -> bindValue(':mailaddress', $param['mailaddress'], PDO::PARAM_STR);
         $stmt -> bindValue(':password', $param['password'], PDO::PARAM_STR);
-        $stmt -> execute();
+		$stmt -> execute();
 
 		$ret['data'] = $stmt->fetchColumn();
 
