@@ -13,6 +13,7 @@
 
 .login-err-text {
     color: red;
+    display: none;
 }
 
 .login-button {
