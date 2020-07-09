@@ -22,6 +22,8 @@ define("DATETIME",				date("Y-m-d H:i:s"));
 define("CURRENT_TIMESTAMP",		"CURRENT_TIMESTAMP");		// sqlで使う、サーバの時刻に依存するので必要ならここで変える
 define("DATE_INIT_VALUE",		"1899-12-30 00:00:00");		// 日付の初期値
 
+$errmsg = "";
+
 /**
  * ----------------------------------------------------------------------------
  * 汎用関数

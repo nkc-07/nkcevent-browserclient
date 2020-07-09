@@ -11,6 +11,15 @@
     min-width: 35%;
 }
 
+.login-err-text {
+    color: red;
+    display: none;
+}
+
 .login-button {
     margin: 0 0 0 30px;
+}
+
+.login-err {
+    display: none;
 }
