@@ -45,18 +45,20 @@
         <div class="maininfo">
                 <p>メールアドレス</p>
                 <input type="text" name="mall" class="malladress">
-            <br/>
+            <p class="mall-err-text">メールアドレスを入力してください。</p>
           
 
             <div>
                 <p>パスワード</p>
                 <input type="password" name="pass">
-            </div><br/>
+            </div>
+            <p class="pass-err-text">パスワードを入力してください。</p>
 
             <div>
                 <p>ニックネーム</p>
                 <input type="text" name="name">
-            </div><br/>
+            </div>
+            <p class="name-err-text">ニックネームを入力してください。</p>
 
             <div> 
                 <p>性別</p>
@@ -65,7 +67,8 @@
                     <input type="radio" class="radio" name="gender" value="wonman">女
                     <input type="radio" class="radio" name="gender" value="other">その他
                 </div>
-            </div><br/>
+            </div>
+            <p class="gender-err-text">性別を選択してください。</p>
 
 
             <div>
@@ -75,7 +78,7 @@
                 <span id="day_pulldown" class="date"></span><br><br>
             </div>
             <br>
-                <input type="submit"  id="ajax" value="登録" class="create-btn" style="WIDTH: 400px;">
+                <input type="submit" id="ajax" value="登録" class="create-btn" style="WIDTH: 400px;">
         </div>
 
         <script src="../js/sign_up.js"></script>
