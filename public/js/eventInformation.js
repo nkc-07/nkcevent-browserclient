@@ -1,5 +1,15 @@
 let eventInfo = {
-    "eventid": 1,
+    eventid: undefined,
+    eventname: undefined,
+    eventkana: undefined,
+    eventcomment: undefined,
+    map: undefined,
+    image: undefined,
+    postdate: undefined,
+    deadlinedate: undefined,
+    helddate: undefined,
+    organizer: undefined,
+    member_limit: undefined,
 };
 
 // formのイベント
@@ -34,6 +44,34 @@ function geteventdetail(){
     })
 }
 
+// 登録処理
+function registerevent(){
+    $.ajax({
+        url: '../../../api/event/eventinfo.php', //送信先
+        type: 'POST', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: {
+            'event_name': eventInfo['eventname'],
+            'event_kana': eventInfo['eventkana'],
+            'event_comment': eventInfo['eventcomment'],
+            'map': eventInfo['map'],
+            'image': eventInfo['image'],
+            'post_date': eventInfo['postdate'],
+            'deadline_date': eventInfo['deadlinedate'],
+            'held_date': eventInfo['helddate'],
+            'organizer': eventInfo['organizer'],
+            'member_limit': eventInfo['memberlimit']
+        }
+    })
+    .done(function(response) {
+        console.log(response);
+    })
+    .fail(function(response) {
+        console.log(response);
+    })
+}
+
+// 更新処理
 
 /*
 function getLogin() {
