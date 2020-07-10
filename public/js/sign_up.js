@@ -16,11 +16,15 @@ $(function () {
       .done(data => {
         $('.result').html(data)
         console.log(data)
+        location.href = '../index.html'
       })
       // Ajaxリクエストが失敗した時発動
       .fail(data => {
         $('.result').html(data)
         console.log(data)
+        if (!document.getElementById('mall').value) {
+          $('mall-err-text').show()
+        }
       })
       // Ajaxリクエストが成功・失敗どちらでも発動
       .always(data => {})
