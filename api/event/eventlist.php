@@ -4,7 +4,6 @@ require_once(__DIR__.'/../../php/Define.php');
 require_once(__DIR__.'/../../php/db.php');
 //require_once(__DIR__.'/../../php/ErrorHandling.php');
 
-
 $response = [];
 $resary = [
 	'success'=> true,
@@ -15,8 +14,8 @@ $resary = [
 switch($_SERVER['REQUEST_METHOD']){
 	case "GET":
 
-		$param = $_GET;		
-		$ret = getEventList($param);
+		$param = $_GET;
+			$ret = getEventList($param);
 		if($ret['success']){
 			$response['data'] = $ret['data'];
 		}else{
@@ -26,8 +25,8 @@ switch($_SERVER['REQUEST_METHOD']){
 		}
 
 		break;
-    
-    /*
+
+	/*
 	case "POST":
 
 		$ret = postParticipant($_POST);
@@ -112,38 +111,39 @@ function getEventList($param){
 
 	//$db = new DB();
 	try{
-		$flag_Eid = 0;
-		$flag_Ename = 0;
-		$flag_Tid = 0;
-		$sql = "SELECT e.event_id, event_name, map, 'image', held_date,	
-					m.nickname as organizer, icon, event_cancellation, member_limit
-				FROM 'event' e
-				INNER JOIN member m
-				ON e.organizer = m.member_id
-				INNER JOIN event_tag et
-				ON et.event_id = e.event_id
-                INNER JOIN tag t
-                ON t.tag_id = et.event_tag
-				WHERE held_date >= CURDATE()";
+		$flag_Eid = false;
+		$flag_Ename = false;
+		$flag_Tid = false;
 
-		if($param['event_id']){ 
+		$sql = "SELECT e.event_id, event_name, map, image, held_date,
+			m.nickname as organizer, icon, event_cancellation, member_limit
+			FROM event e
+			INNER JOIN member m
+			ON e.organizer = m.member_id
+			INNER JOIN event_tag et
+			ON et.event_id = e.event_id
+			INNER JOIN tag t
+			ON t.tag_id = et.event_tag
+			WHERE held_date >= CURDATE()";
+
+		if(array_key_exists('event_id', $param)){
 			$sql .= "AND event_id = :event_id";
-			$flag_Eid = 1;
+			$flag_Eid = true;
 		}
-		if($param['event_name']){
+		if(array_key_exists('event_name', $param)){
 			$sql .= "AND event_name = event_name LIKE %:event_name%";
-			$flag_Ename = 1;
+			$flag_Ename = true;
 		}
-			if($param['tag_id']){
+			if(array_key_exists('tag_id', $param)){
 			$sql .= "AND tag_id = :tag_id";
-			$flag_Tid = 1;
+			$flag_Tid = true;
 		}
 		$stmt = PDO()->prepare($sql);
-		if($flag_Eid == 1)
+		if($flag_Eid)
 			$stmt -> bindValue(':event_id', $param['event_id'], PDO::PARAM_INT);
-		if($flag_Ename == 1)
+		if($flag_Ename)
 			$stmt -> bindValue(':event_name', $param['event_name'], PDO::PARAM_STR);
-		if($flag_Tid == 1)
+		if($flag_Tid)
 			$stmt -> bindValue(':tag_id', $param['tag_id'], PDO::PARAM_INT);
 		$stmt -> execute();
 		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
