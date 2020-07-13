@@ -1,15 +1,20 @@
 $(function () {
   // Ajax button click
-  $('#ajax').on('click', function () {
+  $('#sign-up').on('click', function () {
     $.ajax({
       url: '../../api/member/memberinfo.php',
       type: 'POST',
       data: {
-        mailaddress: '2gaiji810@denpa.ac.jp',
-        password: 'P@ssw0rd',
-        nickname: 'isao',
-        gender: 1,
-        birthday: '1949-08-15'
+        mailaddress: $('input[name=mall]').val(),
+        password: $('input[name=pass]').val(),
+        nickname: $('input[name=name]').val(),
+        gender: $('[name=gender]:checked').val(),
+        birthday:
+          $('[name=year]').val() +
+          '-' +
+          $('[name=month]').val() +
+          '-' +
+          $('[name=day]').val()
       }
     })
       // Ajaxリクエストが成功した時発動
@@ -24,6 +29,14 @@ $(function () {
         console.log(data)
         if (!document.getElementById('mall').value) {
           $('mall-err-text').show()
+        }
+
+        if (!document.getElementById('pass').value) {
+          $('pass-err-text').show()
+        }
+
+        if (!document.getElementById('name').value) {
+          $('name-err-text').show()
         }
       })
       // Ajaxリクエストが成功・失敗どちらでも発動
