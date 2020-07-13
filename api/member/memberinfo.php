@@ -125,14 +125,14 @@ function PostMemberInformation($param){
                 icon)
 				VALUES(:mailaddress,:nickname,:gender,:birthday,'dummy.png')";
 			
-		$sql_id = "SELECT member_id 
+		$sql_id = "SELECT member_id
 				   FROM member
 				   WHERE mailaddress = :mailaddress";
 				
 		$sql_pass = "INSERT INTO member_password(
 			     member_id,
 				 password)
-				 VALUES(:member_id,:password)";
+				 VALUES(:member_id, :password)";
 
 
         $stmt = PDO()->prepare($sql_member);
@@ -146,8 +146,8 @@ function PostMemberInformation($param){
 
 		$stmt2 = PDO()->prepare($sql_id);
         $stmt2 -> bindValue(':mailaddress', $param['mailaddress'], PDO::PARAM_STR);
-		$data2 = $stmt2->fetchColumn();
 		$stmt2 -> execute();
+		$data2 = $stmt2->fetchColumn();
 		
 		$stmt3 = PDO()->prepare($sql_pass);
         $stmt3 -> bindValue(':member_id', $data2, PDO::PARAM_INT);
