@@ -1,4 +1,6 @@
 $(function() {
+    let cardDom = $('.card-rink').clone();
+
     $.ajax({
             url: '../../api/event/eventlist.php', //送信先
             type: 'GET', //送信方法
@@ -6,12 +8,21 @@ $(function() {
             data: {}
         })
         .done(function(response) {
-            let dom = $('.card-rink').clone();
-            $('.card-columns').append(dom.show());
+            eventCardInfo = response.data
 
-            dom = dom.clone();
-            $('.card-columns').append(dom.show());
-
+            eventCardInfo.forEach(function(cardItem) {
+                cardDom = cardDom.clone();
+                console.log(cardDom);
+                cardDom.attr('href', './detail/index.html?event-id=' + cardItem.event_id);
+                cardDom.find('img').attr('src', '../image/' + cardItem.image);
+                cardDom.find('.card-body .held-date').text(cardItem.held_date);
+                cardDom.find('.card-body .event-name').text(cardItem.event_name);
+                cardDom.find('.card-body .map').text(cardItem.map);
+                cardDom.find('.user-info p').text(cardItem.organizer);
+                cardDom.find('.user-info img').attr('src', '../image/svg/' + cardItem.icon);
+                cardDom.show();
+                $('.card-columns').append(cardDom);
+            })
         })
         .fail(function(response) {
             console.log('通信失敗');
