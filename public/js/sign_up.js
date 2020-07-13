@@ -1,13 +1,13 @@
 $(function () {
   // Ajax button click
-  $('#ajax').on('click', function () {
+  $('#sign_up').on('click', function () {
     $.ajax({
       url: '../../api/member/memberinfo.php',
       type: 'POST',
       data: {
-        mailaddress: '2gaiji810@denpa.ac.jp',
-        password: 'P@ssw0rd',
-        nickname: 'isao',
+        mailaddress: 'testgaiji810@denpa.ac.jp',
+        password: 'P@ssw0rdtest',
+        nickname: 'isaotest',
         gender: 1,
         birthday: '1949-08-15'
       }

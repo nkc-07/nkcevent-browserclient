@@ -63,7 +63,7 @@ function getLogin($param){
 
         $stmt = PDO()->prepare($sql);
         $stmt -> bindValue(':mailaddress', $param['mailaddress'], PDO::PARAM_STR);
-        $stmt -> bindValue(':password', $param['password'], PDO::PARAM_STR);
+        $stmt -> bindValue(':password', hash_hmac("sha256", $param['password'], "sionunofficialoffer"), PDO::PARAM_STR);
 		$stmt -> execute();
 
 		$ret['data'] = $stmt->fetchColumn();
