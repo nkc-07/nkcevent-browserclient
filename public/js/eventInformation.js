@@ -1,7 +1,6 @@
-let eventInfo = {
-    eventid: undefined,
+let geteventInfo = {
+    eventid: 3,
     eventname: undefined,
-    eventkana: undefined,
     eventcomment: undefined,
     map: undefined,
     image: undefined,
@@ -9,8 +8,24 @@ let eventInfo = {
     deadlinedate: undefined,
     helddate: undefined,
     organizer: undefined,
-    member_limit: undefined,
+    eventcancellation: undefined,
+    memberlimit: undefined
 };
+
+var eventTags = [];
+
+let sendeventInfo = {
+    event_name: "Linux協会",
+    event_kana: "りなっくすきょうかい",
+    event_comment: "みんなもLinuxを使いこなせるようになろう！",
+    map: "東京都大田区大森南５",
+    image: "Linux.png",
+    post_date: "2020-07-13",
+    deadline_date: "2020-09-09",
+    held_date: "2020-09-15",
+    organizer: 1,
+    member_limit: 30
+}
 
 // formのイベント
 $(function() {
@@ -20,7 +35,6 @@ $(function() {
         }
     })*/
     $("button").on('click', function() {
-        console.log("run");
         geteventdetail();
     });
 
@@ -36,8 +50,22 @@ function geteventdetail(){
             'event_id': eventInfo['eventid']
         }
     })
-    .done(function(response) {
-        console.log(response);
+    .done(function(response){
+        eventdata = response.data.info[0]
+        eventInfo['eventid'] = eventdata.event_id;
+        eventInfo['eventname'] = eventdata.event_name;
+        eventInfo['eventcomment'] = eventdata.event_comment;
+        eventInfo['map'] = eventdata.map;
+        eventInfo['image'] = eventdata.image;
+        eventInfo['postdate'] = eventdata.post_date;
+        eventInfo['deadlinedate'] = eventdata.deadline_date;
+        eventInfo['held_date'] = eventdata.held_date;
+        eventInfo['organizer'] = eventdata.organizer;
+        eventInfo['eventcancellation'] = eventdata.event_cancellation;
+        eventInfo['memberlimit'] = eventdata.member_limit;
+        console.log(eventInfo);
+        eventTags = response.data.event_tag;
+        console.log(eventTags)
     })
     .fail(function(response) {
         console.log(response);
@@ -45,23 +73,12 @@ function geteventdetail(){
 }
 
 // 登録処理
-function registerevent(){
+function posteventdetail(){
     $.ajax({
         url: '../../../api/event/eventinfo.php', //送信先
         type: 'POST', //送信方法
         datatype: 'json', //受け取りデータの種類
-        data: {
-            'event_name': eventInfo['eventname'],
-            'event_kana': eventInfo['eventkana'],
-            'event_comment': eventInfo['eventcomment'],
-            'map': eventInfo['map'],
-            'image': eventInfo['image'],
-            'post_date': eventInfo['postdate'],
-            'deadline_date': eventInfo['deadlinedate'],
-            'held_date': eventInfo['helddate'],
-            'organizer': eventInfo['organizer'],
-            'member_limit': eventInfo['memberlimit']
-        }
+        data: sendeventInfo
     })
     .done(function(response) {
         console.log(response);
@@ -72,94 +89,20 @@ function registerevent(){
 }
 
 // 更新処理
-
-/*
-function getLogin() {
-    $('.login-button').prop('disabled', true);
-    $('.login-err').show();
-    $('.login-button .login-text').hide();
-
-    loginInfo['userId'] = $('#exampleInputEmail1').val()
-    loginInfo['password'] = $('#exampleInputPassword1').val()
-
-    //GET
+function Puteventdetail(){
+    console.log("test");
     $.ajax({
-        url: '../../api/member/login.php', //送信先
-        type: 'GET', //送信方法
+        url: '../../../api/event/eventinfo.php', //送信先
+        type: 'PUT', //送信方法
         datatype: 'json', //受け取りデータの種類
-        data: {
-            'mailaddress': loginInfo['userId'],
-            'password': loginInfo['password'],
-        }
+        data:sendeventInfo
     })
+    //通信成功
     .done(function(response) {
         console.log(response);
-        if (response['data'] == 1) {
-            localStorage.setItem('logininfo', JSON.stringify(loginInfo));
-            window.location.href = "./mypage/";
-        } else {
-            $('.login-button').prop('disabled', false);
-            $('.loading-icon').hide();
-            $('.login-button .login-text').show();
-            $('.login-err-text').show();
-        }
     })
+    //通信失敗
     .fail(function(response) {
-        console.log('通信失敗');
         console.log(response);
     })
-    //POST
-    $.ajax({
-        url: '../../api/member/login.php', //送信先
-        type: 'POST', //送信方法
-        datatype: 'json', //受け取りデータの種類
-        data: {
-            'mailaddress': loginInfo['userId'],
-            'password': loginInfo['password'],
-        }
-    })
-    .done(function(response) {
-        console.log(response);
-        if (response['data'] == 1) {
-            localStorage.setItem('logininfo', JSON.stringify(loginInfo));
-            window.location.href = "./mypage/";
-        } else {
-            $('.login-button').prop('disabled', false);
-            $('.loading-icon').hide();
-            $('.login-button .login-text').show();
-            $('.login-err-text').show();
-        }
-    })
-    .fail(function(response) {
-        console.log('通信失敗');
-        console.log(response);
-    })
-    //PUT
-
-    $.ajax({
-            url: '../../api/member/login.php', //送信先
-            type: 'GET', //送信方法
-            datatype: 'json', //受け取りデータの種類
-            data: {
-                'mailaddress': loginInfo['userId'],
-                'password': loginInfo['password'],
-            }
-        })
-        .done(function(response) {
-            console.log(response);
-            if (response['data'] == 1) {
-                localStorage.setItem('logininfo', JSON.stringify(loginInfo));
-                window.location.href = "./mypage/";
-            } else {
-                $('.login-button').prop('disabled', false);
-                $('.loading-icon').hide();
-                $('.login-button .login-text').show();
-                $('.login-err-text').show();
-            }
-        })
-        .fail(function(response) {
-            console.log('通信失敗');
-            console.log(response);
-        })
 }
-*/
