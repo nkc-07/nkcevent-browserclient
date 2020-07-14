@@ -15,7 +15,7 @@
     <script src="../vender/sidemenu/drawer.3.2.2.min/index.js"></script>
     <script src="../js/generatedate.js"></script>
 
-    <title></title>
+    <title>新規登録</title>
 </head>
 
 <body class="drawer drawer--right">
@@ -44,28 +44,31 @@
         </div>
         <div class="maininfo">
                 <p>メールアドレス</p>
-                <input type="text" name="mall" class="malladress">
-            <br/>
-          
+                <input type="text" name="mall" class="malladress" id="mall">
+            <p class="mall-err-text" id="mall-err">メールアドレスを正しく入力してください。</p>
+        
 
             <div>
                 <p>パスワード</p>
-                <input type="password" name="pass">
-            </div><br/>
+                <input type="password" name="pass" id="pass">
+            </div>
+            <p class="pass-err-text" id="pass-err">パスワードを正しく入力してください。</p>
 
             <div>
                 <p>ニックネーム</p>
-                <input type="text" name="name">
-            </div><br/>
+                <input type="text" name="name" id="name">
+            </div>
+            <p class="name-err-text" id="name-err">ニックネームを入力してください。</p>
 
             <div> 
                 <p>性別</p>
                 <div class="radiosize">
-                    <input type="radio" class="radio" name="gender" value="man">男
-                    <input type="radio" class="radio" name="gender" value="wonman">女
-                    <input type="radio" class="radio" name="gender" value="other">その他
+                    <input type="radio" class="radio" name="gender" value="0">男
+                    <input type="radio" class="radio" name="gender" value="1">女
+                    <input type="radio" class="radio" name="gender" value="2">その他
                 </div>
-            </div><br/>
+            </div>
+            <p class="gender-err-text" id="gender-err">性別を選択してください。</p>
 
 
             <div>
@@ -75,7 +78,7 @@
                 <span id="day_pulldown" class="date"></span><br><br>
             </div>
             <br>
-                <input type="submit"  id="sign_up" value="登録" class="create-btn" style="WIDTH: 400px;">
+                <input type="submit" id="sign-up" value="登録" class="create-btn" style="WIDTH: 400px;">
         </div>
 
         <script src="../js/sign_up.js"></script>

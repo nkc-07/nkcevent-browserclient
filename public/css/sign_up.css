@@ -46,3 +46,13 @@ input[type="password"] {
 .title {
   text-align: center;
 }
+
+.mall-err-text,
+.pass-err-text,
+.name-err-text,
+.gender-err-text {
+  font-size: initial;
+  font-size: 15pt;
+  color: red;
+  display: none;
+}
