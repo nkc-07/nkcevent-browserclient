@@ -52,18 +52,18 @@ function geteventdetail(){
     })
     .done(function(response){
         eventdata = response.data.info[0]
-        eventInfo['eventid'] = eventdata.event_id;
-        eventInfo['eventname'] = eventdata.event_name;
-        eventInfo['eventcomment'] = eventdata.event_comment;
-        eventInfo['map'] = eventdata.map;
-        eventInfo['image'] = eventdata.image;
-        eventInfo['postdate'] = eventdata.post_date;
-        eventInfo['deadlinedate'] = eventdata.deadline_date;
-        eventInfo['held_date'] = eventdata.held_date;
-        eventInfo['organizer'] = eventdata.organizer;
-        eventInfo['eventcancellation'] = eventdata.event_cancellation;
-        eventInfo['memberlimit'] = eventdata.member_limit;
-        console.log(eventInfo);
+        geteventInfo['eventid'] = eventdata.event_id;
+        geteventInfo['eventname'] = eventdata.event_name;
+        geteventInfo['eventcomment'] = eventdata.event_comment;
+        geteventInfo['map'] = eventdata.map;
+        geteventInfo['image'] = eventdata.image;
+        geteventInfo['postdate'] = eventdata.post_date;
+        geteventInfo['deadlinedate'] = eventdata.deadline_date;
+        geteventInfo['held_date'] = eventdata.held_date;
+        geteventInfo['organizer'] = eventdata.organizer;
+        geteventInfo['eventcancellation'] = eventdata.event_cancellation;
+        geteventInfo['memberlimit'] = eventdata.member_limit;
+        console.log(geteventInfo);
         eventTags = response.data.event_tag;
         console.log(eventTags)
     })
