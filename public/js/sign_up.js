@@ -28,6 +28,7 @@ $(function () {
     } else {
       $('#gender-err').css('display', 'none')
     }
+
     $.ajax({
       url: '../../api/member/memberinfo.php',
       type: 'POST',

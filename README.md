@@ -19,3 +19,4 @@
     │  └─event-participation
     └─vender
 ```
+## パスワードはhmac-sha256で暗号化してある。(鍵:sionunofficialoffer)DBに入っている値がそのまま入力されたパスワードではないので注意

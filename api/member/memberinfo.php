@@ -151,7 +151,7 @@ function PostMemberInformation($param){
 		
 		$stmt3 = PDO()->prepare($sql_pass);
         $stmt3 -> bindValue(':member_id', $data2, PDO::PARAM_INT);
-        $stmt3 -> bindValue(':password', $param['password'], PDO::PARAM_STR);
+        $stmt3 -> bindValue(':password', hash_hmac("sha256", $param['password'], "sionunofficialoffer"), PDO::PARAM_STR);
 		$stmt3 -> execute();
 		//$ret['data'] = $data;
 
@@ -197,7 +197,7 @@ function PutMemberInformation($param){
         
         $stmt -> bindValue(':mailaddress', $param['mailaddress'], PDO::PARAM_STR);
         $stmt -> bindValue(':member_id', $param['member_id'], PDO::PARAM_INT);
-        $stmt -> bindValue(':password', $param['mailaddress'], PDO::PARAM_STR);
+        $stmt -> bindValue(':password', hash_hmac("sha256", $param['password'], "sionunofficialoffer"), PDO::PARAM_STR);
         $stmt -> bindValue(':nickname', $param['nickname'], PDO::PARAM_STR);
         $stmt -> bindValue(':gender', $param['gender'], PDO::PARAM_INT);
         $stmt -> bindValue(':birthday', $param['birthday'], PDO::PARAM_INT);
