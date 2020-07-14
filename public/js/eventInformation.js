@@ -47,7 +47,7 @@ function geteventdetail(){
         type: 'GET', //送信方法
         datatype: 'json', //受け取りデータの種類
         data: {
-            'event_id': eventInfo['eventid']
+            'event_id': geteventInfo['eventid']
         }
     })
     .done(function(response){
