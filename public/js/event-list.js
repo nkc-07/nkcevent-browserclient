@@ -2,7 +2,7 @@ $(function() {
     let cardDom = $('.card-rink').clone();
 
     $.ajax({
-            url: '../../api/event/eventlist.php', //送信先
+            url: '../../../api/event/eventlist.php', //送信先
             type: 'GET', //送信方法
             datatype: 'json', //受け取りデータの種類
             data: {}
@@ -19,7 +19,7 @@ $(function() {
                 cardDom.find('.card-body .event-name').text(cardItem.event_name);
                 cardDom.find('.card-body .map').text(cardItem.map);
                 cardDom.find('.user-info p').text(cardItem.organizer);
-                cardDom.find('.user-info img').attr('src', '../image/svg/' + cardItem.icon);
+                cardDom.find('.user-info img').attr('src', '../../image/svg/' + cardItem.icon);
                 cardDom.show();
                 $('.card-columns').append(cardDom);
             })
