@@ -27,6 +27,8 @@ let sendeventInfo = {
     member_limit: 30
 }
 
+var detailDom;
+
 // formのイベント
 $(function() {
 /*    $('input').on('keydown', function(e) {
@@ -34,9 +36,9 @@ $(function() {
             getLogin();
         }
     })*/
-    $("button").on('click', function() {
-        geteventdetail();
-    });
+    detailDom = $.find(".detail-box")[0];
+    console.log(detailDom);
+    geteventdetail();
 
 });
 
@@ -59,13 +61,26 @@ function geteventdetail(){
         geteventInfo['image'] = eventdata.image;
         geteventInfo['postdate'] = eventdata.post_date;
         geteventInfo['deadlinedate'] = eventdata.deadline_date;
-        geteventInfo['held_date'] = eventdata.held_date;
+        geteventInfo['helddate'] = eventdata.held_date;
         geteventInfo['organizer'] = eventdata.organizer;
         geteventInfo['eventcancellation'] = eventdata.event_cancellation;
         geteventInfo['memberlimit'] = eventdata.member_limit;
         console.log(geteventInfo);
         eventTags = response.data.event_tag;
         console.log(eventTags)
+
+        $(detailDom).find(".event-top .event-title").text(geteventInfo['eventname']);
+        $(detailDom).find(".event-box p").text(geteventInfo['eventcomment']);
+        $(detailDom).find(".event-top .event-img img").attr("src",geteventInfo["image"]);
+        $(detailDom).find(".event-top .create-day").text(geteventInfo["postdate"])
+        $(detailDom).find(".detail-box .day-box").attr("src",geteventInfo["deadlinedate"]);
+        var helddate = geteventInfo["helddate"].split(' ');
+        helddate = helddate[0].split('-');
+        let helddateday = helddate[2];
+        let helddatemonth = helddate[1];
+        console.log(helddate);
+        $(detailDom).find(".held-month").text(helddatemonth);
+        $(detailDom).find(".held-day").text(helddateday);
     })
     .fail(function(response) {
         console.log(response);
