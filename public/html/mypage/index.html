@@ -12,6 +12,7 @@
     <script src="../../vender/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
     <script src="../../vender/sidemenu/iscroll.min/index.js"></script>
     <script src="../../vender/sidemenu/drawer.3.2.2.min/index.js"></script>
+    <script src="/public/js/generatedate.js"></script>
 
     <title>マイページ</title>
 </head>
@@ -51,32 +52,21 @@
                     <input type="text"><br> メールアドレス
                     <br>
                     <input type="text"><br>
-                    <button class="btn btn-primary password-change">パスワード変更</button><br> 生年月日
-                    <p><select>
-                        <option>1900</option>
-                        <option>2000</option>
-                        </select>年
-                        <select>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                        </select>月
-                        <select>
-                        <option>1</option>
-                        <option>10</option>
-                        <option>20</option>
-                        <option>30</option>
-                        <option>31</option>
-                        </select>日</p>
+                    <button class="btn btn-primary password-change">パスワード変更</button>
+                    <p>
+                        <div>
+                            <p>生年月日</p>
+                            <select id="year">
+                            <option value="0">----</option>
+                        </select> 年
+                            <select id="month">
+                            <option value="0">--</option>
+                        </select> 月
+                            <select id="date">
+                            <option value="0">--</option>
+                        </select> 日<br><br>
+                        </div>
+                    </p>
                     性別<br>
                     <p><input type="radio" name="gender">男<input type="radio" name="gender">女<input type="radio" name="gender">その他</p>
                     <div class="change-confirm-buttons">
@@ -97,9 +87,8 @@
             </ul>
             <button class="btn btn-primary">イベント詳細</button>
         </div>
+        <script src="../../js/general/sidemenu.js"></script>
     </main>
-
-    <script src="../../js/general/sidemenu.js"></script>
 </body>
 
 </html>
