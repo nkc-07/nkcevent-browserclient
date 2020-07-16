@@ -21,6 +21,7 @@
 .event-top {
     position: relative;
     text-align: center;
+
 }
 
 .event-title {
@@ -30,6 +31,7 @@
 .event-img {
     max-width: 900px;
     height: auto;
+    width: 75%; 
 }
 
 .create-day {
