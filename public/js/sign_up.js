@@ -1,6 +1,6 @@
 $(function () {
   // Ajax button click
-  var reg = /^@mailg.denpa.ac.jp/
+  var reg = /^[a-z]{2}[0-9]*@mailg.denpa.ac.jp/
 
   $('#sign-up').on('click', function () {
     $(function () {
