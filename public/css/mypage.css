@@ -28,8 +28,7 @@
 }
 
 .password-change {
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin: 10px 0 20px 0;
 }
 
 .card {
@@ -56,4 +55,10 @@
 
 .login-err {
     display: none;
+}
+
+.user-icon {
+    width: 98px;
+    height: 98px;
+    margin: 0 0 5px 0;
 }

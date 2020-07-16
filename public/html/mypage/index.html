@@ -41,33 +41,34 @@
         <div class="card">
 
             <div class="profile-img">
-                <img src="../../image/8439.png" width="98" height="98">
+                <img class="user-icon" src="../../image/8439.png">
                 <button class="btn btn-primary">画像変更</button>
             </div>
 
             <div class="profile">
-                <h1>説明</h1>
                 <form>
-                    ニックネーム<br>
-                    <input type="text"><br> メールアドレス
-                    <br>
-                    <input type="text"><br>
+                    <span>ニックネーム</span>
+                    <div>
+                        <input type="text">
+                    </div>
+                    <span>メールアドレス</span>
+                    <div>
+                        <input type="text">
+                    </div>
                     <button class="btn btn-primary password-change">パスワード変更</button>
-                    <p>
-                        <div>
-                            <p>生年月日</p>
-                            <select id="year">
+                    <div>
+                        <p>生年月日</p>
+                        <select id="year">
                             <option value="0">----</option>
                         </select> 年
-                            <select id="month">
+                        <select id="month">
                             <option value="0">--</option>
                         </select> 月
-                            <select id="date">
+                        <select id="date">
                             <option value="0">--</option>
-                        </select> 日<br><br>
-                        </div>
-                    </p>
-                    性別<br>
+                        </select> 日
+                    </div>
+                    <span>性別</span>
                     <p><input type="radio" name="gender">男<input type="radio" name="gender">女<input type="radio" name="gender">その他</p>
                     <div class="change-confirm-buttons">
                         <button class="btn btn-primary">キャンセル</button>
