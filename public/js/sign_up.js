@@ -1,8 +1,31 @@
 $(function () {
   // Ajax button click
-  var reg = /^[a-z]{2}[0-9]*@mailg.denpa.ac.jp/
+  var reg = /^@mailg.denpa.ac.jp/
 
   $('#sign-up').on('click', function () {
+    $(function () {
+      var h = $(window).height()
+
+      $('#loader-bg ,#loader')
+        .height(h)
+        .css('display', 'block')
+    })
+
+    //10秒たったら強制的にロード画面を非表示
+    $(function () {
+      setTimeout('stopload()', 10000)
+    })
+
+    function stopload () {
+      $('#wrap').css('display', 'block')
+      $('#loader-bg')
+        .delay(900)
+        .fadeOut(800)
+      $('#loader')
+        .delay(600)
+        .fadeOut(300)
+    }
+
     if (
       !$('input[name=mall]').val() ||
       $('input[name=mall]').val() == '' ||
@@ -34,6 +57,16 @@ $(function () {
       $('#gender-err').css('display', 'none')
     }
 
+    if (
+      $('[id=year]').val() == 0 ||
+      $('[id=month]').val() == 0 ||
+      $('[id=date]').val() == 0
+    ) {
+      $('#birthday-err').css('display', 'block')
+    } else {
+      $('#birthday-err').css('display', 'none')
+    }
+
     $.ajax({
       url: '../../../api/member/memberinfo.php',
       type: 'POST',
@@ -43,11 +76,11 @@ $(function () {
         nickname: $('input[name=name]').val(),
         gender: $('[name=gender]:checked').val(),
         birthday:
-          $('[name=year]').val() +
+          $('[id=year]').val() +
           '-' +
-          $('[name=month]').val() +
+          $('[id=month]').val() +
           '-' +
-          $('[name=day]').val()
+          $('[id=day]').val()
       }
     })
 
@@ -60,9 +93,8 @@ $(function () {
       // Ajaxリクエストが失敗した時発動
       .fail(data => {
         $('.result').html(data)
-        $('#sign-up').on('click', function () {
-          console.log(data)
-        })
+        console.log(data)
+        $('#loader-bg').css('display', 'block')
         // Ajaxリクエストが成功・失敗どちらでも発動
 
         // .always(data => {})

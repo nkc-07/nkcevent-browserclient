@@ -19,6 +19,12 @@
 </head>
 
 <body class="drawer drawer--right">
+    <div id="loader-bg">
+        <div id="loader">
+          <img src="../../image/img-loading.gif" width="80" height="80" alt="Now Loading..." />
+          <p>Now Loading...</p>
+        </div>
+    </div>
     <header role="banner">
         <nav class="navbar navbar-light bg-light navbar-dark bg-dark">
             <a href="#" class="h1 navbar-brand text-white">新規登録</a>
@@ -37,6 +43,7 @@
             </nav>
         </nav>
     </header>
+    </div>
 
     <main>
         <div class="title">
@@ -73,17 +80,18 @@
 
             <div>
                 <p>生年月日</p>
-            <select id="year">
+            <select id="year" name="year">
                 <option value="0">----</option>
             </select> 年
-            <select id="month">
+            <select id="month" name="month">
                 <option value="0">--</option>
             </select> 月
-            <select id="date">
+            <select id="date" name="day">
                 <option value="0">--</option>
             </select> 日<br><br>
             </div>
-            <br>
+            <p class="birthday-err-text" id="birthday-err">生年月日を入力してください。</p>
+
             <input type="submit" id="sign-up" value="登録" class="create-btn" style="WIDTH: 400px;">
         </div>
 
