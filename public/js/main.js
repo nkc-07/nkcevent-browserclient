@@ -35,9 +35,9 @@ function getLogin() {
         })
         .done(function(response) {
             console.log(response);
-            if (response['data'] == 1) {
+            if (response['data']) {
                 localStorage.setItem('logininfo', JSON.stringify(loginInfo));
-                window.location.href = "./mypage/";
+                // window.location.href = "./mypage/";
             } else {
                 $('.login-button').prop('disabled', false);
                 $('.loading-icon').hide();
