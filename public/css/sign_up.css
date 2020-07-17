@@ -47,7 +47,7 @@ input[type="password"] {
   text-align: center;
 }
 
-.mall-err-text,
+.mail-err-text,
 .pass-err-text,
 .name-err-text,
 .gender-err-text,
@@ -56,28 +56,4 @@ input[type="password"] {
   font-size: 15pt;
   color: red;
   display: none;
-}
-
-#loader-bg {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0px;
-  left: 0px;
-  background: black;
-  z-index: 1;
-}
-#loader {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 200px;
-  height: 200px;
-  margin-top: -100px;
-  margin-left: -100px;
-  text-align: center;
-  color: #fff;
-  z-index: 2;
 }

@@ -11,29 +11,14 @@ $(function () {
         .css('display', 'block')
     })
 
-    //10秒たったら強制的にロード画面を非表示
-    $(function () {
-      setTimeout('stopload()', 10000)
-    })
-
-    function stopload () {
-      $('#wrap').css('display', 'block')
-      $('#loader-bg')
-        .delay(900)
-        .fadeOut(800)
-      $('#loader')
-        .delay(600)
-        .fadeOut(300)
-    }
-
     if (
-      !$('input[name=mall]').val() ||
-      $('input[name=mall]').val() == '' ||
-      !reg.test(!$('input[name=mall]'))
+      !$('input[name=mail]').val() ||
+      $('input[name=mail]').val() == '' ||
+      !reg.test($('input[name=mail]').val())
     ) {
-      $('#mall-err').css('display', 'block')
+      $('#mail-err').css('display', 'block')
     } else {
-      $('#mall-err').css('display', 'none')
+      $('#mail-err').css('display', 'none')
     }
 
     if (!$('input[name=pass]').val() || $('input[name=pass]').val() == '') {
@@ -71,7 +56,7 @@ $(function () {
       url: '../../../api/member/memberinfo.php',
       type: 'POST',
       data: {
-        mailaddress: $('input[name=mall]').val(),
+        mailaddress: $('input[name=mail]').val(),
         password: $('input[name=pass]').val(),
         nickname: $('input[name=name]').val(),
         gender: $('[name=gender]:checked').val(),
@@ -94,8 +79,7 @@ $(function () {
       .fail(data => {
         $('.result').html(data)
         console.log(data)
-        $('#loader-bg').css('display', 'block')
-        // Ajaxリクエストが成功・失敗どちらでも発動
+        $('#loader-bg').css('display', 'none')
 
         // .always(data => {})
       })
