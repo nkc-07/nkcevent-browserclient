@@ -14,7 +14,7 @@ $resary = [
 switch($_SERVER['REQUEST_METHOD']){
 	case "GET":
 
-		$param = $_GET;		
+		$param = $_GET;
 		$ret = GetMemberInformation($param);
 		if($ret['success']){
 			$response['data'] = $ret['data'];
@@ -86,19 +86,11 @@ if($resary['success']){
 	echo json_encode($response, JSON_UNESCAPED_UNICODE);
 }
 
-
-
 /**
  * ----------------------------------------------------------------------------
  * 	以下関数
  * ----------------------------------------------------------------------------
  */
-
-/**
- * 
- */
-
-
 
  //会員情報の登録
 function PostMemberInformation($param){
@@ -193,8 +185,7 @@ function PutMemberInformation($param){
                 AND   mp.member_id = :member_id";
 
         $stmt = PDO()->prepare($sql);
-        
-        
+
         $stmt -> bindValue(':mailaddress', $param['mailaddress'], PDO::PARAM_STR);
         $stmt -> bindValue(':member_id', $param['member_id'], PDO::PARAM_INT);
         $stmt -> bindValue(':password', hash_hmac("sha256", $param['password'], "sionunofficialoffer"), PDO::PARAM_STR);
@@ -205,7 +196,7 @@ function PutMemberInformation($param){
 
 		$stmt -> execute();
 		//$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		$ret['data'] = $data;
 
 	}catch(Exception $err){
@@ -217,9 +208,6 @@ function PutMemberInformation($param){
 	return $ret;
 }
 
-
-
-
 //会員情報更新
 function GetMemberInformation($param){
 
@@ -230,25 +218,25 @@ function GetMemberInformation($param){
 
 	//$db = new DB();
 	try{
-        if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id"); //member_id
-		
-		
+        if(empty($param['token']))			throw new ErrorException($errmsg."member_id"); //member_id
+
 		//会員情報取得SQL文
-        $sql1 = "SELECT m.mailaddress,m.member_id,'mp.password',m.nickname,m.gender,m.birthday,m.icon
-                FROM member m
-                INNER JOIN member_password mp 
-                ON m.member_id = mp.member_id
-                WHERE m.member_id = :member_id";
+        $sql1 = "SELECT m.mailaddress, m.member_id, m.nickname ,m.gender, m.birthday, m.icon
+				FROM member m
+				INNER JOIN access_token token
+				ON m.member_id = token.member_id
+				WHERE token.token_id = :token_id";
 
         $stmt = PDO()->prepare($sql1);
-        $stmt -> bindValue('member_id', $param[':member_id'], PDO::PARAM_INT);
-        $stmt -> execute();
-		$memberiinfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		$ret['data']['info'] = $memberiinfo;
+        $stmt -> bindValue(':token_id', $param['token'], PDO::PARAM_INT);
+		$stmt -> execute();
+
+		$memberinfo = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
+		$ret['data']['info'] = $memberinfo;
 
 		//イベントタグの取得
-		$sql2=  "SELECT et.event_tag, tag_name 
-                 FROM `event_tag` as et
+		$sql2=  "SELECT et.event_tag, tag_name
+                 FROM event_tag as et
                  INNER JOIN tag as t
                  ON et.event_tag = t.tag_id
 				 INNER JOIN event_participant as ep
@@ -256,10 +244,10 @@ function GetMemberInformation($param){
                  WHERE member_id = :member_id";
 
 		$stmt = PDO()->prepare($sql2);
-        $stmt -> bindValue(':member_id',  $param['member_id'],  PDO::PARAM_INT);
+        $stmt -> bindValue(':member_id',  $memberinfo['member_id'],  PDO::PARAM_INT);
 		$stmt -> execute();
 		$tag = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		$ret['data']['event_tag'] = $tag;
 
 	}catch(Exception $err){
@@ -270,5 +258,4 @@ function GetMemberInformation($param){
 
 	return $ret;
 }
-
 ?>
