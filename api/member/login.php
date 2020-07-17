@@ -12,12 +12,12 @@ $resary = [
 ];
 
 switch($_SERVER['REQUEST_METHOD']){
-	case "GET":
+	case "POST":
 
-		$param = $_GET;
+		$param = $_POST;
 		$ret = getLogin($param);
 		if($ret['success']){
-			$response['data'] = $ret['data'];
+			$response['data'] = $ret;
 		}else{
 			$resary['success'] = false;
 			$resary['code'] = 400;
@@ -49,12 +49,11 @@ function getLogin($param){
 		'msg' => "",
 	];
 
-	//$db = new DB();
     try{
         if(empty($param['mailaddress']))			throw new ErrorException($errmsg."mailaddress");
         if(empty($param['password']))			throw new ErrorException($errmsg."password");
 
-		$sql = "SELECT COUNT(*)
+		$sql = "SELECT m.member_id
 				FROM member m
 				INNER JOIN member_password p
 				ON m.member_id = p.member_id
@@ -65,19 +64,29 @@ function getLogin($param){
         $stmt -> bindValue(':mailaddress', $param['mailaddress'], PDO::PARAM_STR);
         $stmt -> bindValue(':password', hash_hmac("sha256", $param['password'], "sionunofficialoffer"), PDO::PARAM_STR);
 		$stmt -> execute();
+		$userCount = $stmt->fetchAll();
 
-		$ret['data'] = $stmt->fetchColumn();
+		if (count($userCount) == 1) {
+			$uniqueToken = uniqid();
+			$userId = $userCount[0]['member_id'];
 
-		// foreach($stmt as $item) {
-		// 	print_r($item[0]);
-		// }
-		// if(empty($stmt))
-		// 	$data = 0;
-		// else
-		// 	$data = 1;
+			$sqlToken = "UPDATE access_token
+						SET token_id = :token_id,
+						token_deadline = (NOW() + INTERVAL 1 MONTH)
+						WHERE member_id = :member_id";
+
+			$accessStmt = PDO()->prepare($sqlToken);
+			$accessStmt -> bindValue(':token_id', $uniqueToken, PDO::PARAM_STR);
+			$accessStmt -> bindValue(':member_id', $userId, PDO::PARAM_INT);
+			$accessStmt -> execute();
+
+			$ret['success'] = true;
+			$ret['token'] = $uniqueToken;
+		} else {
+			$ret['success'] = false;
+		}
 
 	}catch(Exception $err){
-		//exceptionErrorPut($err, "EXCEPTION");
         $ret['success'] = false;
 		$ret['msg'] = "[".date("Y-m-d H:i:s")."]".$err->getMessage();
     }
