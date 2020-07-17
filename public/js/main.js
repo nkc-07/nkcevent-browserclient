@@ -26,7 +26,7 @@ function getLogin() {
 
     $.ajax({
             url: '../../api/member/login.php', //送信先
-            type: 'GET', //送信方法
+            type: 'POST', //送信方法
             datatype: 'json', //受け取りデータの種類
             data: {
                 'mailaddress': loginInfo['userId'],

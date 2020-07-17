@@ -12,9 +12,9 @@ $resary = [
 ];
 
 switch($_SERVER['REQUEST_METHOD']){
-	case "GET":
+	case "POST":
 
-		$param = $_GET;
+		$param = $_POST;
 		$ret = getLogin($param);
 		if($ret['success']){
 			$response['data'] = $ret['data'];
