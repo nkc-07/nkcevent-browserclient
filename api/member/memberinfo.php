@@ -108,24 +108,28 @@ function PostMemberInformation($param){
         if(empty($param['nickname']))			throw new ErrorException($errmsg."nickname"); //ニックネーム
         if(empty($param['gender']))			throw new ErrorException($errmsg."gender"); //性別
         if(empty($param['birthday']))			throw new ErrorException($errmsg."birthday"); //誕生日
-        
+
         $sql_member = "INSERT INTO member(
-                mailaddress,
-                nickname,
-                gender,
-                birthday,
-                icon)
-				VALUES(:mailaddress,:nickname,:gender,:birthday,'dummy.png')";
-			
+					mailaddress,
+					nickname,
+					gender,
+					birthday,
+					icon)
+					VALUES(:mailaddress,:nickname,:gender,:birthday,'dummy.png')";
+
 		$sql_id = "SELECT member_id
 				   FROM member
 				   WHERE mailaddress = :mailaddress";
-				
-		$sql_pass = "INSERT INTO member_password(
-			     member_id,
-				 password)
-				 VALUES(:member_id, :password)";
 
+		$sql_pass = "INSERT INTO member_password(
+					member_id,
+					password)
+					VALUES(:member_id, :password)";
+
+		$sql_token = "INSERT INTO access_token(
+					member_id,
+					token_id)
+					VALUES(:member_id, :token_id)";
 
         $stmt = PDO()->prepare($sql_member);
         $stmt -> bindValue(':mailaddress', $param['mailaddress'], PDO::PARAM_STR);
@@ -140,12 +144,17 @@ function PostMemberInformation($param){
         $stmt2 -> bindValue(':mailaddress', $param['mailaddress'], PDO::PARAM_STR);
 		$stmt2 -> execute();
 		$data2 = $stmt2->fetchColumn();
-		
+
 		$stmt3 = PDO()->prepare($sql_pass);
         $stmt3 -> bindValue(':member_id', $data2, PDO::PARAM_INT);
         $stmt3 -> bindValue(':password', hash_hmac("sha256", $param['password'], "sionunofficialoffer"), PDO::PARAM_STR);
 		$stmt3 -> execute();
 		//$ret['data'] = $data;
+
+		$stmt4 = PDO()->prepare($sql_token);
+		$stmt4 -> bindValue(':member_id', $data2, PDO::PARAM_INT);
+        $stmt4 -> bindValue(':token_id', hash_hmac("sha256", $param['mailaddress'], "sionunofficialoffer"), PDO::PARAM_STR);
+		$stmt4 -> execute();
 
 	}catch(Exception $err){
 		//exceptionErrorPut($err, "EXCEPTION");
