@@ -80,10 +80,10 @@ function getLogin($param){
 			$accessStmt -> bindValue(':member_id', $userId, PDO::PARAM_INT);
 			$accessStmt -> execute();
 
-			$ret['data'] = true;
-			$ret['msg'] = $uniqueToken;
+			$ret['success'] = true;
+			$ret['token'] = $uniqueToken;
 		} else {
-			$ret['data'] = false;
+			$ret['success'] = false;
 		}
 
 	}catch(Exception $err){

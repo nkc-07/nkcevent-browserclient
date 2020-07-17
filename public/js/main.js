@@ -34,10 +34,9 @@ function getLogin() {
             }
         })
         .done(function(response) {
-            console.log(response);
-            if (response['data']) {
-                localStorage.setItem('logininfo', JSON.stringify(loginInfo));
-                // window.location.href = "./mypage/";
+            if (response['data']['success']) {
+                localStorage.setItem('token', response['data']['token']);
+                window.location.href = "./mypage/";
             } else {
                 $('.login-button').prop('disabled', false);
                 $('.loading-icon').hide();
