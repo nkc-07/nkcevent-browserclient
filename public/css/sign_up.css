@@ -51,7 +51,8 @@ input[type="password"] {
 .pass-err-text,
 .name-err-text,
 .gender-err-text,
-.birthday-err-text {
+.birthday-err-text,
+.repass-err-text {
   font-size: initial;
   font-size: 15pt;
   color: red;

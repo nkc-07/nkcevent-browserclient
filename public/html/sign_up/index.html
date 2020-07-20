@@ -52,15 +52,21 @@
         </div>
         <div class="maininfo">
             <p>メールアドレス</p>
-            <input type="text" name="mail" class="mailadress" id="mail">
+            <input type="text" name="mail" class="mailadress" id="mail" placeholder="学校のメールアドレスを入力してください。">
             <p class="mail-err-text" id="mail-err">メールアドレスを正しく入力してください。</p>
 
 
             <div>
                 <p>パスワード</p>
-                <input type="password" name="pass" id="pass">
+                <input type="password" name="pass" id="pass" placeholder="8文字以上で入力してください。">
             </div>
             <p class="pass-err-text" id="pass-err">パスワードを正しく入力してください。</p>
+
+            <div>
+                <p>パスワード（確認）</p>
+                <input type="password" name="repass" id="repass" placeholder="8文字以上で入力してください。">
+            </div>
+            <p class="repass-err-text" id="repass-err">パスワードが一致しません。</p>
 
             <div>
                 <p>ニックネーム</p>
