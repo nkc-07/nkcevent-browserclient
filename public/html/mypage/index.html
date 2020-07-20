@@ -46,49 +46,47 @@
             </div>
 
             <div class="profile">
-                <form>
-                    <span>ニックネーム</span>
+                <span>ニックネーム</span>
+                <div class="list-margin">
+                    <input class="nickname" type="text">
+                </div>
+
+                <span>メールアドレス</span>
+                <div class="list-margin">
+                    <input class="mailaddress" type="text">
+                </div>
+
+                <button class="btn btn-primary list-margin">パスワード変更</button>
+
+                <div>
+                    <span>生年月日</span>
                     <div class="list-margin">
-                        <input class="nickname" type="text">
-                    </div>
-
-                    <span>メールアドレス</span>
-                    <div class="list-margin">
-                        <input class="mailaddress" type="text">
-                    </div>
-
-                    <button class="btn btn-primary list-margin">パスワード変更</button>
-
-                    <div>
-                        <span>生年月日</span>
-                        <div class="list-margin">
-                            <select id="year">
+                        <select id="year">
                                 <option class="target-year" value="0"></option>
                             </select> 年
 
-                            <select id="month">
+                        <select id="month">
                                 <option class="target-month" value="0"></option>
                             </select> 月
 
-                            <select id="date">
+                        <select id="date">
                                 <option class="target-date" value="0"></option>
                             </select> 日
-                        </div>
                     </div>
+                </div>
 
-                    <span>性別</span>
-                    <div class="list-margin">
-                        <p>
-                            <input type="radio" name="gender" value="0">男
-                            <input type="radio" name="gender" value="1">女
-                            <input type="radio" name="gender" value="2">その他
-                        </p>
-                        <div class="change-confirm-buttons">
-                            <button class="btn btn-primary">キャンセル</button>
-                            <button class="btn btn-primary">変更</button>
-                        </div>
+                <span>性別</span>
+                <div class="list-margin">
+                    <p>
+                        <input type="radio" name="gender" value="0">男
+                        <input type="radio" name="gender" value="1">女
+                        <input type="radio" name="gender" value="2">その他
+                    </p>
+                    <div class="change-confirm-buttons">
+                        <button class="btn btn-primary">キャンセル</button>
+                        <button class="btn btn-primary">変更</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
 
