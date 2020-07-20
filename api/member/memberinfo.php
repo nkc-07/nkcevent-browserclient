@@ -178,7 +178,6 @@ function PutMemberInformation($param){
 	try{
         if(empty($param['mailaddress']))		throw new ErrorException($errmsg."mailaddress"); //メールアドレス
         if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id"); //member_id
-        if(empty($param['password']))			throw new ErrorException($errmsg."password"); //パスワード
         if(empty($param['nickname']))			throw new ErrorException($errmsg."nickname"); //ニックネーム
         if(empty($param['gender']))			    throw new ErrorException($errmsg."gender"); //性別
         if(empty($param['birthday']))			throw new ErrorException($errmsg."birthday"); //誕生日
@@ -189,7 +188,6 @@ function PutMemberInformation($param){
                     m.gender = :gender,
                     m.birthday = :birthday,
                     m.icon = :icon,
-                    mp.password = :'password'
                 WHERE m.member_id = :member_id
                 AND   mp.member_id = :member_id";
 
@@ -197,7 +195,6 @@ function PutMemberInformation($param){
 
         $stmt -> bindValue(':mailaddress', $param['mailaddress'], PDO::PARAM_STR);
         $stmt -> bindValue(':member_id', $param['member_id'], PDO::PARAM_INT);
-        $stmt -> bindValue(':password', hash_hmac("sha256", $param['password'], "sionunofficialoffer"), PDO::PARAM_STR);
         $stmt -> bindValue(':nickname', $param['nickname'], PDO::PARAM_STR);
         $stmt -> bindValue(':gender', $param['gender'], PDO::PARAM_INT);
         $stmt -> bindValue(':birthday', $param['birthday'], PDO::PARAM_INT);
@@ -206,7 +203,7 @@ function PutMemberInformation($param){
 		$stmt -> execute();
 		//$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-		$ret['data'] = $data;
+		// $ret['data'] = $data;
 
 	}catch(Exception $err){
 		//exceptionErrorPut($err, "EXCEPTION");
@@ -217,7 +214,7 @@ function PutMemberInformation($param){
 	return $ret;
 }
 
-//会員情報更新
+//会員情報の取得
 function GetMemberInformation($param){
 
 	$ret = [
