@@ -102,11 +102,11 @@ function PostMemberInformation($param){
 
 	//$db = new DB();
 	try{
-        if(empty($param['mailaddress']))			throw new ErrorException($errmsg."mailaddress"); //メールアドレス
-        //if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id"); //member_id
+        if(empty($param['mailaddress']))		throw new ErrorException($errmsg."mailaddress"); //メールアドレス
+        // if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id"); //member_id
         if(empty($param['password']))			throw new ErrorException($errmsg."password"); //パスワード
         if(empty($param['nickname']))			throw new ErrorException($errmsg."nickname"); //ニックネーム
-        if(empty($param['gender']))			throw new ErrorException($errmsg."gender"); //性別
+        if(!isset($param['gender']))			throw new ErrorException($errmsg."gender"); //性別
         if(empty($param['birthday']))			throw new ErrorException($errmsg."birthday"); //誕生日
 
         $sql_member = "INSERT INTO member(
@@ -233,7 +233,7 @@ function GetMemberInformation($param){
 				WHERE token.token_id = :token_id";
 
         $stmt = PDO()->prepare($sql1);
-        $stmt -> bindValue(':token_id', $param['token'], PDO::PARAM_INT);
+        $stmt -> bindValue(':token_id', $param['token'], PDO::PARAM_STR);
 		$stmt -> execute();
 
 		$memberinfo = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
