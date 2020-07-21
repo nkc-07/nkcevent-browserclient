@@ -1,5 +1,5 @@
 $(function() {
-    let cardDom = $('.card-rink').clone();
+    let cardDom = $('.card-rink');
 
     $.ajax({
             url: '../../../api/event/eventlist.php', //送信先

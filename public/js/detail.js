@@ -79,16 +79,21 @@ function geteventdetail() {
             $(detailDom).find(".event-top .event-img img").attr("src", geteventInfo["image"]);
             $(detailDom).find(".event-top .create-day").text(geteventInfo["postdate"])
             $(detailDom).find(".detail-box .day-box").attr("src", geteventInfo["deadlinedate"]);
-            $(detailDom).find(".drawer-menu .drawer-brand").text(geteventInfo["postdate"])
-                //tag関係
+            $(detailDom).find(".drawer-menu .drawer-brand").text(geteventInfo["postdate"]);
+
+            //tag関係
+            let userTag = $('.tag-card');
             eventTags.forEach(eventTag => {
-                $(".clear-float ").append('<div class="tag-card"><img src="/public/image/tag_icon.jpg"><span>' + eventTag.tag_name + '</span></div>');
+                let targetTag = userTag.clone()
+                targetTag.find('span').text(eventTag.tag_name);
+                $(".clear-float").append(
+                    targetTag.show()
+                );
+                // $(".clear-float").append('<div class="tag-card"><img src="/public/image/tag_icon.jpg"><span>' + eventTag.tag_name + '</span></div>');
             });
 
             //ユーザ名の追加
             $(detailDom).find(".user-icon span").text(geteventInfo["organizer"])
-
-
 
             var helddate = geteventInfo["helddate"].split(' ');
             helddate = helddate[0].split('-');
