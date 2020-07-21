@@ -9,14 +9,15 @@ $.ajax({
         }
     })
     .done(function(response) {
-        /* ユーザのステータスを変更するために使用 */
-        sendMemberInfo = response['data']['info'];
-
         let memberInfo = response['data']['info'];
         let memberTag = response['data']['tag'];
 
+        /* ユーザのステータスを変更するために使用 */
+        sendMemberInfo = memberInfo;
+        console.log(sendMemberInfo)
+
         let birtday = memberInfo['birthday'].split('-');
-        $('.user-icon').attr('src', `/public/image/svg/${memberInfo['icon']}`);
+        $('.user-icon').attr('src', memberInfo['icon']);
         $('.nickname').val(memberInfo['nickname']);
         $('.mailaddress').val(memberInfo['mailaddress']);
         $('.target-year').text(birtday[0]);
@@ -33,16 +34,22 @@ $.ajax({
     })
 
 $('.change-button').click(function(e) {
-    sendMemberInfo[icon] = $('.user-icon').attr();
-    sendMemberInfo[nickname] = $('.nickname').val();
-    sendMemberInfo[mailaddress] = $('.mailaddress').val();
+    sendMemberInfo['icon'] = $('.user-icon').attr('src');
+    sendMemberInfo['nickname'] = $('.nickname').val();
+    sendMemberInfo['mailaddress'] = $('.mailaddress').val();
+    sendMemberInfo['birthday'] = $('.target-year').val() + '-' +
+        $('.target-month').val() + '-' +
+        $('.target-date').val();
+    sendMemberInfo['gender'] = $('[name=gender]:checked')[0].value;
 
     $.ajax({
         url: '/api/member/memberinfo.php', //送信先
         type: 'PUT', //送信方法
         datatype: 'json', //受け取りデータの種類
-        data: {
-            sendMemberInfo
-        }
+        data: sendMemberInfo
+    }).done(function(response) {
+        location.href = "";
+    }).fail(function(response) {
+        console.log(response);
     })
 });
