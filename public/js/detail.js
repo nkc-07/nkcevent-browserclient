@@ -70,7 +70,7 @@ function geteventdetail() {
             eventTags = response.data.event_tag;
             console.log(eventTags)
 
-            
+
             console.log(geteventInfo['organizer'])
 
 
@@ -80,15 +80,15 @@ function geteventdetail() {
             $(detailDom).find(".event-top .create-day").text(geteventInfo["postdate"])
             $(detailDom).find(".detail-box .day-box").attr("src", geteventInfo["deadlinedate"]);
             $(detailDom).find(".drawer-menu .drawer-brand").text(geteventInfo["postdate"])
-            //tag関係
+                //tag関係
             eventTags.forEach(eventTag => {
-                $(".clear-float ").append('<div class="tag-card"><img src="../../../image/tag_icon.jpg"><span>'+ eventTag.tag_name +'</span></div>');    
+                $(".clear-float ").append('<div class="tag-card"><img src="/public/image/tag_icon.jpg"><span>' + eventTag.tag_name + '</span></div>');
             });
 
             //ユーザ名の追加
             $(detailDom).find(".user-icon span").text(geteventInfo["organizer"])
-            
-            
+
+
 
             var helddate = geteventInfo["helddate"].split(' ');
             helddate = helddate[0].split('-');
