@@ -53,3 +53,7 @@ $('.change-button').click(function(e) {
         console.log(response);
     })
 });
+
+$('.cancel-button').click(function(e) {
+    location.href = "";
+})
