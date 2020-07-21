@@ -1,5 +1,7 @@
+let getRequestParams = (new URL(document.location)).searchParams;
+
 let geteventInfo = {
-    eventid: 1,
+    eventid: getRequestParams.get('event-id'),
     eventname: undefined,
     eventcomment: undefined,
     map: undefined,
@@ -35,7 +37,7 @@ $(function() {
             type: 'GET', //送信方法
             datatype: 'json', //受け取りデータの種類
             data: {
-                'event_id': geteventInfo['eventid']
+                'event_id': getRequestParams.get('event-id')
             }
         })
         .done(function(response) {
