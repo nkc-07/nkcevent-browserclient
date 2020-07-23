@@ -20,6 +20,7 @@
 }
 
 .form-control {
+    float: left;
     position: relative;
     top: 10px;
     left: -110px;
