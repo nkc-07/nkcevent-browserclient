@@ -19,7 +19,7 @@
     margin: 10px;
 }
 
-.form-control {
+.input-day {
     float: left;
     position: relative;
     top: 10px;
@@ -50,6 +50,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .event-title {
     text-align: left;
+    width: 80%;
+    margin: 20px;
 }
 
 .event-img {

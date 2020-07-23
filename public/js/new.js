@@ -1,4 +1,4 @@
-$('.form-control').change(function(e) {
+$('.input-day').change(function(e) {
     let date = ($(this).val()).split('-');
 
     $('.held-month').text(date[1]);
