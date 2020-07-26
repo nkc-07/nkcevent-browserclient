@@ -4,3 +4,10 @@ $('.input-day').change(function(e) {
     $('.held-month').text(date[1]);
     $('.held-day').text(date[2]);
 });
+
+let toDay = new Date();
+$('.create-day').text(
+    toDay.getFullYear() + '/' +
+    toDay.getMonth() + '/' +
+    toDay.getDate()
+);
