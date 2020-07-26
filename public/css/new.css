@@ -56,11 +56,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .event-img {
     width: 800px;
-    height: 400px;
-    background-image: url(/public/image/no_image.png);
-    background-repeat: no-repeat;
-    background-size: 100% auto;
+    height: auto;
     background-color: lavender;
+    object-fit: cover;
+    max-height: 800px;
 }
 
 .send-event-img {
