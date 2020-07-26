@@ -55,9 +55,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .event-img {
-    max-width: 900px;
-    height: auto;
-    width: 75%;
+    width: 800px;
+    height: 400px;
+    background-image: url(/public/image/no_image.png);
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-color: lavender;
+}
+
+.send-event-img {
+    display: none;
 }
 
 .create-day {
