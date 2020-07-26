@@ -1,3 +1,7 @@
+input {
+    margin: 0 0 15px 0;
+}
+
 .navbar a img {
     width: 40px;
     height: auto;
@@ -19,7 +23,7 @@
     margin: 10px;
 }
 
-.input-day {
+.held-date {
     float: left;
     position: relative;
     top: 10px;
@@ -48,10 +52,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     text-align: center;
 }
 
-.event-title {
+.event-name {
     text-align: left;
     width: 80%;
-    margin: 20px;
 }
 
 .event-img {
