@@ -74,6 +74,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     text-align: right;
 }
 
+.nickname {
+    display: inline;
+}
+
 .user-icon {
     margin: 20px 0 0 0;
 }
