@@ -27,11 +27,12 @@ $.ajax({
     createEventInfo['organizer'] = memberInfo['nickname'];
 });
 
-$('.input-day').change(function(e) {
-    let date = ($(this).val()).split('-');
+$('.held-date').change(function(e) {
+    let date = $(this).val().split('-');
 
     $('.held-month').text(date[1]);
-    $('.held-day').text(date[2]);
+    $('.held-day').text(date[2].split('T')[0]);
+    $('.held-time').text(date[2].split('T')[1]);
 });
 
 let toDayObjcr = new Date();
@@ -51,13 +52,13 @@ $('.send-event-img').on('change', function(e) {
 
 $('.participation-event').click(function(e) {
     createEventInfo['event_name'] = $('.event-name').val();
-    createEventInfo['event_kana'] = undefined;
+    createEventInfo['event_kana'] = 'test_kana';
     createEventInfo['event_comment'] = $('.event-comment').val();
     createEventInfo['map'] = $('.map').val();
     createEventInfo['image'] = $('.send-event-img').prop('files')[0].name;
-    createEventInfo['deadline_date'] = undefined;
+    createEventInfo['deadline_date'] = $('.deadline_date').val();
     createEventInfo['held_date'] = $('.held-date').val();
-    createEventInfo['member_limit'] = undefined;
+    createEventInfo['member_limit'] = $('.member_limit').val();
 
     // $.ajax({
     //     url: '/api/member/memberinfo.php', //送信先
@@ -66,5 +67,7 @@ $('.participation-event').click(function(e) {
     //     data: {
     //         createEventInfo
     //     }
+    // }).done(function(e) {
+    //     console.log('success');
     // })
 });

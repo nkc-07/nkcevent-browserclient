@@ -34,7 +34,7 @@ input {
     padding: 0px;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+.held-date[type="datetime-local"]::-webkit-calendar-picker-indicator {
     position: absolute;
     top: 0;
     left: 0;
