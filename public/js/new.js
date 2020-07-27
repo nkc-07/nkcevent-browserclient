@@ -55,19 +55,22 @@ $('.participation-event').click(function(e) {
     createEventInfo['event_kana'] = 'test_kana';
     createEventInfo['event_comment'] = $('.event-comment').val();
     createEventInfo['map'] = $('.map').val();
-    createEventInfo['image'] = $('.send-event-img').prop('files')[0].name;
+    if (typeof $('.send-event-img').prop('files')[0] !== "undefined") {
+        createEventInfo['image'] = $('.send-event-img').prop('files')[0].name;
+    }
     createEventInfo['deadline_date'] = $('.deadline_date').val();
     createEventInfo['held_date'] = $('.held-date').val();
     createEventInfo['member_limit'] = $('.member_limit').val();
 
-    // $.ajax({
-    //     url: '/api/member/memberinfo.php', //送信先
-    //     type: 'POST', //送信方法
-    //     datatype: 'json', //受け取りデータの種類
-    //     data: {
-    //         createEventInfo
-    //     }
-    // }).done(function(e) {
-    //     console.log('success');
-    // })
+    $.ajax({
+        url: '/api/event/eventinfo.php', //送信先
+        type: 'POST', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: createEventInfo
+    }).done(function(e) {
+        console.log('success');
+    }).fail(function(response) {
+        console.log('通信失敗');
+        console.log(response);
+    });
 });

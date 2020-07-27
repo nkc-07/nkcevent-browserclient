@@ -137,7 +137,7 @@ function postEventinfo($param){
 		if(empty($param['event_name']))			throw new ErrorException($errmsg."event_name");
 		if(empty($param['event_kana']))			throw new ErrorException($errmsg."event_kana");
 		if(empty($param['event_comment']))		throw new ErrorException($errmsg."event_comment");
-		if(empty($param['map']))				$param['map'] = NULL;
+		if(empty($param['map']))				throw new ErrorException($errmsg."map");
 		if(empty($param['image']))				$param['image'] = "dummy.png";
 		if(empty($param['post_date']))			throw new ErrorException($errmsg."post_date");
 		if(empty($param['deadline_date']))		throw new ErrorException($errmsg."deadline_date");
