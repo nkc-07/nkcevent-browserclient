@@ -14,7 +14,12 @@
 
 .event-box .card,
 .event-box .card img {
-    width: 20rem;
+    width: 300px;
+}
+
+.event-image {
+    height: 200px;
+    object-fit: cover;
 }
 
 a.card-rink {
