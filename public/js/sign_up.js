@@ -26,7 +26,14 @@ $(function () {
       }
 
       //パスワードの正規表現
-      if (!$('input[name=pass]').val() || $('input[name=pass]').val() == '') {
+      if (
+        !$('input[name=pass]').val() ||
+        $('input[name=pass]').val() == '' ||
+        $('input[name=pass]').val().length < 7 ||
+        !$('input[name=pass]')
+          .val()
+          .match(/^(?=.*?[a-zA-Z])(?=.*?\d)[a-zA-Z\d]{8,100}$/)
+      ) {
         $('#pass-err').css('display', 'block')
         flg = false
       } else {
@@ -111,7 +118,6 @@ $(function () {
           })
       } else {
         $('#loader-bg').css('display', 'none')
-        console.log(2)
       }
     })
   })
