@@ -5,7 +5,7 @@
 */
 
 function chkPass(password) {
-    var Scorebar = $("scorebar");
+    var Scorebar = $(".scorebar")[0];
     var level = 0;
     var pattern = 0;
     var hasLower = false;
@@ -88,6 +88,6 @@ function chkPass(password) {
     }
     //return level;
 
-    document.getElementsByClassName("scorebar").innerHTML = parseInt(level * 100) + "px";
-    //	Scorebar.style.backgroundPosition = "-" + parseInt(level * 4) + "px";
+    // document.getElementsByClassName("scorebar")[0].innerHTML = parseInt(level * 100) + "px";
+    Scorebar.style.backgroundPosition = "-" + parseInt(level * 100) + "px 0";
 }
