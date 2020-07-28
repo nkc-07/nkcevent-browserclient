@@ -15,6 +15,7 @@
     <script src="../../vender/sidemenu/iscroll.min/index.js"></script>
     <script src="../../vender/sidemenu/drawer.3.2.2.min/index.js"></script>
     <script src="../../js/generatedate.js"></script>
+    <script src="../../js/password_checker.js"></script>
 
     <title>新規登録</title>
 </head>
@@ -51,7 +52,7 @@
 
             <div>
                 <p>パスワード</p>
-                <input type="password" name="pass" id="pass">
+                <input type="password" name="pass" id="pass" onkeyup="chkPass(this.value)">
                 <div class="scorebar">&nbsp;</div>
             </div>
             <p class="pass-err-text" id="pass-err">パスワードを正しく入力してください。</p>
