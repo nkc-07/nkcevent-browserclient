@@ -120,10 +120,6 @@ function getEventList($param){
 			FROM event e
 			INNER JOIN member m
 			ON e.organizer = m.member_id
-			INNER JOIN event_tag et
-			ON et.event_id = e.event_id
-			INNER JOIN tag t
-			ON t.tag_id = et.event_tag
 			WHERE held_date >= CURDATE()";
 
 		if(array_key_exists('event_id', $param)){
