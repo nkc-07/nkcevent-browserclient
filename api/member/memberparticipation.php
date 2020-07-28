@@ -1,5 +1,4 @@
 <?php
-
 require_once(__DIR__.'/../../php/Define.php');
 require_once(__DIR__.'/../../php/db.php');
 //require_once(__DIR__.'/../../php/ErrorHandling.php');
@@ -111,9 +110,8 @@ function PostMembrparticipation($param){
 	try{
 		if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id");
         if(empty($param['event_id']))			throw new ErrorException($errmsg."event_id");
-        $sql= "INSERT INTO event_participant(
-			  event_id,member_id)
-              VALUES(:event_id:member_id)";
+        $sql= "INSERT INTO event_participant(event_id,member_id)
+              VALUES(:event_id,:member_id)";
               
 		$stmt = PDO()->prepare($sql);
         $stmt -> bindValue(':event_id',  $param['event_id'],  PDO::PARAM_INT);
