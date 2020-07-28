@@ -1,12 +1,12 @@
 let geteventInfo = {
-    memberid: 2, 
+    memberid: 2,
 }
 
 let eventparticipationDom;
 
 // formのイベント
 $(function() {
-    eventparticipationDom = $(".mx-auto:first").clone();
+    eventparticipationDom = $(".mx-auto:first");
     geteventparticipation();
 });
 
@@ -17,22 +17,23 @@ function geteventparticipation() {
             type: 'GET', //送信方法
             datatype: 'json', //受け取りデータの種類
             data: {
-                "member_id": geteventInfo['memberid'], 
+                "member_id": geteventInfo['memberid'],
             }
         })
         .done(function(response) {
             eventdataInfo = response.data
-            //console.log(eventdataInfo);
-            $(".card-box").empty();
-            eventdataInfo.forEach(function(card){
+                //console.log(eventdataInfo);
+                // $(".card-box").empty();
+            eventdataInfo.forEach(function(card) {
                 eventparticipationDom = eventparticipationDom.clone();
-                eventparticipationDom.find(".card-link").attr("href","../../event-list/detail/index.html");
-                eventparticipationDom.find(".thumbnail img").attr("src",card.image);
+                eventparticipationDom.find(".card-link").attr("href", "../../event-list/detail/index.html?event-id=" + card.event_id);
+                eventparticipationDom.find(".thumbnail img").attr("src", card.image);
                 eventparticipationDom.find(".thumbnail p").text(card.held_date);
                 eventparticipationDom.find(".card-body .card-title").text(card.event_name);
                 eventparticipationDom.find(".card-body p").text(card.map);
                 eventparticipationDom.find(".user-icon p").text(card.organizer);
-                eventparticipationDom.find(".user-icon img").attr("src",card.icon);
+                eventparticipationDom.find(".user-icon img").attr("src", card.icon);
+                eventparticipationDom.show();
                 $(".card-box").append(eventparticipationDom);
             });
             /*
@@ -42,7 +43,7 @@ function geteventparticipation() {
             $(eventparticipationDom).find(".user-icon p").text(eventdataInfo[1].organizer);
             */
 
-            
+
             /*
             //tag関係
             eventTags.forEach(eventTag => {
