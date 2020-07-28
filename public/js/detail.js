@@ -1,5 +1,7 @@
+let getRequestParams = (new URL(document.location)).searchParams;
+
 let geteventInfo = {
-    eventid: 1,
+    eventid: getRequestParams.get('event-id'),
     eventname: undefined,
     eventcomment: undefined,
     map: undefined,
@@ -28,29 +30,14 @@ let sendeventInfo = {
     member_limit: 30
 }
 
-var detailDom;
-
-// formのイベント
 $(function() {
-    /*    $('input').on('keydown', function(e) {
-            if (e.which == 13) {
-                getLogin();
-            }
-        })*/
-    detailDom = $.find(".detail-box")[0];
-    console.log(detailDom);
-    geteventdetail();
-
-});
-
-// 取得処理
-function geteventdetail() {
+    // 取得処理
     $.ajax({
             url: '/api/event/eventinfo.php', //送信先
             type: 'GET', //送信方法
             datatype: 'json', //受け取りデータの種類
             data: {
-                'event_id': geteventInfo['eventid']
+                'event_id': getRequestParams.get('event-id')
             }
         })
         .done(function(response) {
@@ -70,38 +57,40 @@ function geteventdetail() {
             eventTags = response.data.event_tag;
             console.log(eventTags)
 
-            
             console.log(geteventInfo['organizer'])
 
+            $(".event-top .event-title").text(geteventInfo['eventname']);
+            $(".event-box p").text(geteventInfo['eventcomment']);
+            $(".event-top .event-img img").attr("src", geteventInfo["image"]);
+            $(".event-top .create-day").text(geteventInfo["postdate"])
+            $(".detail-box .day-box").attr("src", geteventInfo["deadlinedate"]);
+            $(".drawer-menu .drawer-brand").text(geteventInfo["postdate"]);
 
-            $(detailDom).find(".event-top .event-title").text(geteventInfo['eventname']);
-            $(detailDom).find(".event-box p").text(geteventInfo['eventcomment']);
-            $(detailDom).find(".event-top .event-img img").attr("src", geteventInfo["image"]);
-            $(detailDom).find(".event-top .create-day").text(geteventInfo["postdate"])
-            $(detailDom).find(".detail-box .day-box").attr("src", geteventInfo["deadlinedate"]);
-            $(detailDom).find(".drawer-menu .drawer-brand").text(geteventInfo["postdate"])
             //tag関係
+            let userTag = $('.tag-card');
             eventTags.forEach(eventTag => {
-                $(".clear-float ").append('<div class="tag-card"><img src="../../../image/tag_icon.jpg"><span>'+ eventTag.tag_name +'</span></div>');    
+                let targetTag = userTag.clone()
+                targetTag.find('span').text(eventTag.tag_name);
+                $(".clear-float").append(
+                    targetTag.show()
+                );
             });
 
             //ユーザ名の追加
-            $(detailDom).find(".user-icon span").text(geteventInfo["organizer"])
-            
-            
+            $(".user-icon span").text(geteventInfo["organizer"])
 
-            var helddate = geteventInfo["helddate"].split(' ');
-            helddate = helddate[0].split('-');
+            helddate = geteventInfo["helddate"].split('-');
             let helddateday = helddate[2];
             let helddatemonth = helddate[1];
             console.log(helddate);
-            $(detailDom).find(".held-month").text(helddatemonth);
-            $(detailDom).find(".held-day").text(helddateday);
+            $(".held-month").text(helddatemonth);
+            $(".held-day").text(helddateday);
         })
         .fail(function(response) {
+            console.log('通信失敗');
             console.log(response);
         })
-}
+});
 
 // 登録処理
 function posteventdetail() {
