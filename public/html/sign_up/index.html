@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/public/vender/sidemenu/drawer.min/index.css">
     <link rel="stylesheet" href="/public/css/general/sidemenu.css">
     <link rel="stylesheet" href="/public/css/sign_up.css">
-    <link rel="stylesheet" href="/public/css/password_checker.css">
+    <link rel="stylesheet" href="/public/css/general/password_checker.css">
     <link rel="stylesheet" href="/public/css/general/loading.css">
 
 
@@ -16,7 +16,6 @@
     <script src="/public/vender/sidemenu/iscroll.min/index.js"></script>
     <script src="/public/vender/sidemenu/drawer.3.2.2.min/index.js"></script>
     <script src="/public/js/generatedate.js"></script>
-    <script src="/public/js/password_checker.js"></script>
 
     <title>新規登録</title>
 </head>
@@ -60,7 +59,7 @@
 
             <div>
                 <p>パスワード</p>
-                <input type="password" name="pass" id="pass" onkeyup="chkPass(this.value)" placeholder="8文字以上英数字を含めて入力してください。">
+                <input type="password" name="pass" id="pass" placeholder="8文字以上英数字を含めて入力してください。">
                 <div class="scorebar">&nbsp;</div>
             </div>
             <p class="pass-err-text" id="pass-err">パスワードを正しく入力してください。</p>
@@ -106,6 +105,7 @@
         </div>
 
         <script src="/public/js/sign_up.js"></script>
+        <script src="/public/js/general/password_checker.js"></script>
         <script src="/public/js/general/sidemenu.js"></script>
     </main>
 </body>

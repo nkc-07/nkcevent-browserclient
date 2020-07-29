@@ -3,8 +3,9 @@
     *8文字以上
     半角英数字のみ
 */
+$('#pass').keyup(function(e) {
+    let password = this.value;
 
-function chkPass(password) {
     var Scorebar = $(".scorebar")[0];
     var level = 0;
     var pattern = 0;
@@ -90,4 +91,4 @@ function chkPass(password) {
 
     // document.getElementsByClassName("scorebar")[0].innerHTML = parseInt(level * 100) + "px";
     Scorebar.style.backgroundPosition = "-" + parseInt(level * 100) + "px 0";
-}
+});
