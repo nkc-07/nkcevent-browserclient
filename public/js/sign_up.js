@@ -82,7 +82,7 @@ $(function() {
 
             if (flg == true) {
                 $.ajax({
-                    url: '../../../api/member/memberinfo.php',
+                    url: '/api/member/memberinfo.php',
                     type: 'POST',
                     data: {
                         mailaddress: $('input[name=mail]').val(),
@@ -101,7 +101,7 @@ $(function() {
                 .done(data => {
                         $('.result').html(data)
                         console.log(data)
-                        location.href = '../index.html'
+                        location.href = '/public/html/index.html'
                     })
                     // Ajaxリクエストが失敗した時発動
                     .fail(data => {
