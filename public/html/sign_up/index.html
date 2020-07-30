@@ -59,7 +59,7 @@
 
             <div>
                 <p>パスワード</p>
-                <input type="password" name="pass" id="pass" placeholder="8文字以上英数字を含めて入力してください。">
+                <input type="password" name="pass" id="pass" placeholder="8文字以上英数字を含めて入力してください。" onkeyup="chkPass(this.value)">
                 <div class="scorebar">&nbsp;</div>
             </div>
             <p class="pass-err-text" id="pass-err">パスワードを正しく入力してください。</p>
