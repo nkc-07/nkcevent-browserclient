@@ -25,7 +25,7 @@ function getLogin() {
     loginInfo['password'] = $('#exampleInputPassword1').val()
 
     $.ajax({
-            url: '../../api/member/login.php', //送信先
+            url: '/api/member/login.php', //送信先
             type: 'POST', //送信方法
             datatype: 'json', //受け取りデータの種類
             data: {

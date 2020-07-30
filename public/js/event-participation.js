@@ -26,7 +26,7 @@ function geteventparticipation() {
                 // $(".card-box").empty();
             eventdataInfo.forEach(function(card) {
                 eventparticipationDom = eventparticipationDom.clone();
-                eventparticipationDom.find(".card-link").attr("href", "../../event-list/detail/index.html?event-id=" + card.event_id);
+                eventparticipationDom.find(".card-link").attr("href", "/public/event-list/detail/index.html?event-id=" + card.event_id);
                 eventparticipationDom.find(".thumbnail img").attr("src", card.image);
                 eventparticipationDom.find(".thumbnail p").text(card.held_date);
                 eventparticipationDom.find(".card-body .card-title").text(card.event_name);
