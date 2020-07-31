@@ -1,16 +1,8 @@
-let getRequestParams = (new URL(document.location)).searchParams;
 $(function() {
-    $('[type=serch]').val(getRequestParams.get('event_name'));
-    let sendURL = '/api/event/eventlist.php?' +
-        (
-            getRequestParams.get('event_name') !== null ?
-            'event_name=' + getRequestParams.get('event_name') : ''
-        );
-
     let cardDom = $('.card-rink');
 
     $.ajax({
-            url: sendURL, //送信先
+            url: searchUrlGenerater(), //送信先
             type: 'GET', //送信方法
             datatype: 'json', //受け取りデータの種類
             data: {}
