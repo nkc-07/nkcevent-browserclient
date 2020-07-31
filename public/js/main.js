@@ -25,7 +25,7 @@ function getLogin() {
     loginInfo['password'] = $('#exampleInputPassword1').val()
 
     $.ajax({
-            url: '../../api/member/login.php', //送信先
+            url: '/api/member/login.php', //送信先
             type: 'POST', //送信方法
             datatype: 'json', //受け取りデータの種類
             data: {
@@ -36,7 +36,7 @@ function getLogin() {
         .done(function(response) {
             if (response['data']['success']) {
                 localStorage.setItem('token', response['data']['token']);
-                window.location.href = "./mypage/";
+                window.location.href = "/public/html/mypage/";
             } else {
                 $('.login-button').prop('disabled', false);
                 $('.loading-icon').hide();
@@ -47,5 +47,9 @@ function getLogin() {
         .fail(function(response) {
             console.log('通信失敗');
             console.log(response);
+            $('.login-button').prop('disabled', false);
+            $('.loading-icon').hide();
+            $('.login-button .login-text').show();
+            $('.login-err-text').show();
         })
 }
