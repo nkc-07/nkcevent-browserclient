@@ -127,23 +127,25 @@ function getEventList($param){
 			$flag_Eid = true;
 		}
 		if(array_key_exists('event_name', $param)){
-			$sql .= "AND event_name = event_name LIKE %:event_name%";
+			$sql .= "AND event_name LIKE :event_name";
 			$flag_Ename = true;
 		}
-			if(array_key_exists('tag_id', $param)){
+		if(array_key_exists('tag_id', $param)){
 			$sql .= "AND tag_id = :tag_id";
 			$flag_Tid = true;
 		}
+
 		$stmt = PDO()->prepare($sql);
 		if($flag_Eid)
 			$stmt -> bindValue(':event_id', $param['event_id'], PDO::PARAM_INT);
 		if($flag_Ename)
-			$stmt -> bindValue(':event_name', $param['event_name'], PDO::PARAM_STR);
+			$stmt -> bindValue(':event_name', '%'.$param['event_name'].'%', PDO::PARAM_STR);
 		if($flag_Tid)
 			$stmt -> bindValue(':tag_id', $param['tag_id'], PDO::PARAM_INT);
+
 		$stmt -> execute();
 		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		$ret['data'] = $data;
 
 	}catch(Exception $err){
