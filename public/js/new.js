@@ -43,6 +43,26 @@ $('.create-day').text(toDayStr);
 createEventInfo['post_date'] = toDayStr;
 
 $('.send-event-img').on('change', function(e) {
+    let file = $('.send-event-img').prop('files')[0];
+    let fd = new FormData();
+    fd.append("file",file);
+    console.log(file);
+    console.log(fd);
+    $.ajax({
+        url: '/api/event/eventimage.php', //送信先
+        type: 'POST', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: {
+            "image": fd["file"]['name'],
+        }
+    }).done(function(e) {
+        console.log('success');
+        console.log(e);
+    }).fail(function(response) {
+        console.log('通信失敗');
+        console.log(response);
+    });
+
     let reader = new FileReader();
     reader.onload = function(e) {
         $('.event-img').attr('src', e.target.result);
