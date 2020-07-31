@@ -1,5 +1,7 @@
 let getRequestParams = (new URL(document.location)).searchParams;
 
+let postRequestParamsb = (new URL(document.location)).searchParams;
+
 let geteventInfo = {
     eventid: getRequestParams.get('event-id'),
     eventname: undefined,
@@ -29,6 +31,21 @@ let sendeventInfo = {
     organizer: 1,
     member_limit: 30
 }
+
+//参加登録用
+let sendjoinInfo = {
+    member_id : 4,
+    event_id : postRequestParamsb.get('event-id')
+}
+
+
+//イベントキャンセルデータテスト
+let eventcancel = {
+    member_id : 4,
+    event_id : 4
+}
+
+
 
 $(function() {
     // 取得処理
@@ -126,3 +143,77 @@ function Puteventdetail() {
             console.log(response);
         })
 }
+
+//イベント参加処理
+function eventparticipation(){
+ $.ajax({
+    url: '/api/event/eventparticipant.php', //送信先
+    type: 'POST', //送信方法
+    datatype: 'json', //受け取りデータの種類
+    data: sendjoinInfo
+ })
+ //通信成功
+ .done(function(response) {
+     console.log(response);
+ })
+ //通信失敗
+ .fail(function(response) {
+     console.log(response);
+ })
+}
+
+//イベントキャンセル
+function eventcan(){
+    $.ajax({
+       url: '/api/event/eventparticipant.php', //送信先
+       type: 'PUT', //送信方法
+       datatype: 'json', //受け取りデータの種類
+       data: eventcancel
+    })
+    //通信成功
+    .done(function(response) {
+        console.log(response);
+    })
+    //通信失敗
+    .fail(function(response) {
+        console.log(response);
+    })
+   }
+
+//イベント中止
+function eventcancellation(){
+    $.ajax({
+       url: '/api/event/eventparticipant.php', //送信先
+       type: 'PUT', //送信方法
+       datatype: 'json', //受け取りデータの種類
+       data: eventcancel
+    })
+    //通信成功
+    .done(function(response) {
+        console.log(response);
+    })
+    //通信失敗
+    .fail(function(response) {
+        console.log(response);
+    })
+   }
+
+
+
+//イベント参加ボタン処理
+$(".participation").click(eventparticipation())
+//イベントキャンセルボタン
+$(".cancel").click(eventcan())
+//イベント中止ボタン
+$(".cancellation").click(eventparticipation())
+
+
+
+
+
+
+
+
+
+
+
