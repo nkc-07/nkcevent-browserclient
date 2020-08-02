@@ -60,7 +60,7 @@ $(function() {
             console.log(geteventInfo['organizer'])
 
             $(".event-top .event-title").text(geteventInfo['eventname']);
-            $(".event-box p").text(geteventInfo['eventcomment']);
+            $(".event-box p").html(geteventInfo['eventcomment'].replace(/\r?\n/g, '<br>'));
             $(".event-top .event-img img").attr("src", geteventInfo["image"]);
             $(".event-top .create-day").text(geteventInfo["postdate"])
             $(".detail-box .day-box").attr("src", geteventInfo["deadlinedate"]);

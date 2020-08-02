@@ -69,6 +69,7 @@ $('.participation-event').click(function(e) {
         data: createEventInfo
     }).done(function(e) {
         console.log('success');
+        location.href = '/public/html/event-list/'
     }).fail(function(response) {
         console.log('通信失敗');
         console.log(response);
