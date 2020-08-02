@@ -24,7 +24,8 @@ $.ajax({
 
     $('.user-img').attr('src', memberInfo['icon']);
     $('.nickname').text(memberInfo['nickname']);
-    createEventInfo['organizer'] = memberInfo['nickname'];
+
+    createEventInfo['organizer'] = memberInfo['member_id'];
 });
 
 $('.held-date').change(function(e) {
