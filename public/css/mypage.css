@@ -24,7 +24,7 @@
 }
 
 .card.event-card .btn {
-    margin-left: 80%;
+    float: right;
     white-space: nowrap;
 }
 

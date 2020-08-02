@@ -1,4 +1,6 @@
+/* ユーザ情報を表示するための処理 */
 let sendMemberInfo;
+let myMemberId;
 
 $.ajax({
         url: '/api/member/memberinfo.php', //送信先
@@ -14,6 +16,7 @@ $.ajax({
 
         /* ユーザのステータスを変更するために使用 */
         sendMemberInfo = memberInfo;
+        myMemberId = memberInfo['member_id']
         console.log(sendMemberInfo)
 
         let birtday = memberInfo['birthday'].split('-');
@@ -57,3 +60,31 @@ $('.change-button').click(function(e) {
 $('.cancel-button').click(function(e) {
     location.href = "";
 })
+
+/* 参加イベントを表示するための処理 */
+$(function() {
+    let eventparticipationDom = $('.participation-event');
+
+    $.ajax({
+            url: '/api/member/memberparticipation.php', //送信先
+            type: 'GET', //送信方法
+            datatype: 'json', //受け取りデータの種類
+            data: {
+                "member_id": 2,
+            }
+        })
+        .done(function(response) {
+            eventdataInfo = response.data
+
+            eventdataInfo.forEach(function(card) {
+                eventparticipationCloneDom = eventparticipationDom.clone();
+                eventparticipationCloneDom.find("a").attr("href", "/public/html/event-list/detail/index.html?event-id=" + card.event_id);
+                eventparticipationCloneDom.find("a").text(card.event_name);
+                eventparticipationCloneDom.show();
+                $(".participation-event:first").after(eventparticipationCloneDom);
+            });
+        })
+        .fail(function(response) {
+            console.log(response);
+        });
+});
