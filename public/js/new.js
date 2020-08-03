@@ -41,9 +41,14 @@ let toDayStr = toDayObjcr.getFullYear() + '-' +
     toDayObjcr.getDate();
 $('.create-day').text(toDayStr);
 createEventInfo['post_date'] = toDayStr;
-    
-    
 
+$('.send-event-img').on('change', function(e) {
+    let reader = new FileReader();
+    reader.onload = function(e) {
+        $('.event-img').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(e.target.files[0]);
+});
 
 $('.participation-event').click(function(e) {
     //画像
@@ -51,14 +56,14 @@ $('.participation-event').click(function(e) {
     var reader = new FileReader();
     var file = $('.send-event-img').prop('files')[0];
     console.log(file);
-    if (!file.type.match(/^image\/(bmp|png|jpeg|gif)$/)){
+    if (!file.type.match(/^image\/(bmp|png|jpeg|gif)$/)) {
         alert("対応画像ファイル[bmp|png|jpeg|gif]");
         return;
     }
-    
-    reader.onload = function(event){
-        img.onload = function(){
-            var data = {data:img.src.split(',')[1]};
+
+    reader.onload = function(event) {
+        img.onload = function() {
+            var data = { data: img.src.split(',')[1] };
             $.ajax({
                 url: '/api/event/eventimage.php', //送信先
                 type: 'POST', //送信方法
@@ -76,7 +81,7 @@ $('.participation-event').click(function(e) {
             });
         };
         img.src = event.target.result;
-    }; 
+    };
     reader.readAsDataURL(file);
     //イベント詳細
     createEventInfo['event_name'] = $('.event-name').val();
