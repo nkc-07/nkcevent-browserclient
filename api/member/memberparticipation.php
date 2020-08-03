@@ -140,25 +140,34 @@ function GetMembrparticipation($param){
 		'success' => true,
 		'msg' => "",
     ];
-    
+
 	//$db = new DB();
 	try{
-        if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id");
-        $sql= "SELECT e.event_id,event_name,map,image,held_date,m.nickname as organizer,icon,e.event_cancellation
-		FROM event_participant ep
-		INNER JOIN `event` e
-		ON  e.event_id = ep.event_id
-		INNER JOIN member m
-		ON m.member_id = e.organizer
-		WHERE ep.member_id =:member_id";
-			   
-		$stmt = PDO()->prepare($sql);
-        $stmt -> bindValue(':member_id',  $param['member_id'],  PDO::PARAM_INT);
+		$flag_Ename = false;
 
-    
-		
+        if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id");
+
+		$sql= "SELECT e.event_id,event_name,map,image,held_date,m.nickname as organizer,icon,e.event_cancellation
+			FROM event_participant ep
+			INNER JOIN event e
+			ON  e.event_id = ep.event_id
+			INNER JOIN member m
+			ON m.member_id = e.organizer
+			WHERE ep.member_id = :member_id ";
+
+		if(array_key_exists('event_name', $param)){
+			$sql .= "AND e.event_name LIKE :event_name";
+			$flag_Ename = true;
+		}
+
+		$stmt = PDO()->prepare($sql);
+		$stmt -> bindValue(':member_id',  $param['member_id'],  PDO::PARAM_INT);
+
+		if($flag_Ename)
+			$stmt -> bindValue(':event_name', '%'.$param['event_name'].'%', PDO::PARAM_STR);
+
 		$stmt -> execute();
-		
+
 		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		$ret['data'] = $data;
 
@@ -169,7 +178,6 @@ function GetMembrparticipation($param){
 	}
 
 	return $ret;
-    
 }
 
-?>  
+?>

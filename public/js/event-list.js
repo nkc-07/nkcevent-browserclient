@@ -2,7 +2,7 @@ $(function() {
     let cardDom = $('.card-rink');
 
     $.ajax({
-            url: '/api/event/eventlist.php', //送信先
+            url: searchUrlGenerater('/api/event/eventlist.php?'), //送信先
             type: 'GET', //送信方法
             datatype: 'json', //受け取りデータの種類
             data: {}

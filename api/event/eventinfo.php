@@ -144,11 +144,14 @@ function postEventinfo($param){
 		if(empty($param['held_date']))			throw new ErrorException($errmsg."held_date");
 		if(empty($param['organizer']))			throw new ErrorException($errmsg."organizer");
 		if(empty($param['member_limit']))		throw new ErrorException($errmsg."member_limit");
+
 		//event_cancellationは1で挿入(開催)
 		$sql = "INSERT INTO `event`(event_name, event_kana, event_comment, map, `image`, post_date, deadline_date, held_date, organizer, member_limit, event_cancellation) 
 				VALUES (:event_name, :event_kana, :event_comment, :map, :image,:post_date,
 				:deadline_date, :held_date, :organizer, :member_limit, 1)";
-		$stmt = PDO()->prepare($sql);
+
+		$pdo = PDO();
+		$stmt = $pdo->prepare($sql);
 		$stmt -> bindValue(':event_name',  	 $param['event_name'],  PDO::PARAM_STR);
 		$stmt -> bindValue(':event_kana', 	 $param['event_kana'], PDO::PARAM_STR);
 		$stmt -> bindValue(':event_comment', $param['event_comment'], PDO::PARAM_STR);
@@ -159,6 +162,12 @@ function postEventinfo($param){
 		$stmt -> bindValue(':held_date', 	 $param['held_date'], PDO::PARAM_STR);
 		$stmt -> bindValue(':organizer', 	 $param['organizer'], PDO::PARAM_INT);
 		$stmt -> bindValue(':member_limit',  $param['member_limit'], PDO::PARAM_INT);
+		$stmt -> execute();
+
+		$sql2 = "INSERT INTO event_participant (event_id, member_id) VALUES (:event_id, :member_id);";
+		$stmt =  PDO()->prepare($sql2);
+		$stmt -> bindValue(':event_id',  	 $pdo->lastInsertId('event_id'),  PDO::PARAM_INT);
+		$stmt -> bindValue(':member_id', 	 $param['organizer'], PDO::PARAM_INT);
 
 		$stmt -> execute();
 		//$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
