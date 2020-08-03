@@ -32,7 +32,7 @@ switch($_SERVER['REQUEST_METHOD']){
 		break;
 }
 
-header("Content-Type: application/json; charset=utf-8");
+//header("Content-Type: image/*");
 
 if($resary['success']){
 	echo json_encode($response, JSON_UNESCAPED_UNICODE);
