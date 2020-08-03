@@ -41,13 +41,15 @@ $(function() {
             }
         })
         .done(function(response) {
+            console.log(response);
+
             eventdata = response.data.info[0]
             geteventInfo['eventid'] = eventdata.event_id;
             geteventInfo['eventname'] = eventdata.event_name;
             geteventInfo['eventcomment'] = eventdata.event_comment;
             geteventInfo['map'] = eventdata.map;
             geteventInfo['image'] = eventdata.image;
-            geteventInfo['postdate'] = eventdata.post_date;
+            // geteventInfo['postdate'] = eventdata.post_date;
             geteventInfo['deadlinedate'] = eventdata.deadline_date;
             geteventInfo['helddate'] = eventdata.held_date;
             geteventInfo['organizer'] = eventdata.organizer;
@@ -61,10 +63,10 @@ $(function() {
 
             $(".event-top .event-title").text(geteventInfo['eventname']);
             $(".event-box p").html(geteventInfo['eventcomment'].replace(/\r?\n/g, '<br>'));
-            $(".event-top .event-img img").attr("src", geteventInfo["image"]);
+            $(".event-top .event-img").attr("src", geteventInfo["image"]);
             $(".event-top .create-day").text(geteventInfo["postdate"])
             $(".detail-box .day-box").attr("src", geteventInfo["deadlinedate"]);
-            $(".drawer-menu .drawer-brand").text(geteventInfo["postdate"]);
+            // $(".drawer-menu .drawer-brand").text(geteventInfo["postdate"]);
 
             //tag関係
             let userTag = $('.tag-card');
