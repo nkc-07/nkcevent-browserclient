@@ -16,16 +16,16 @@ switch($_SERVER['REQUEST_METHOD']){
 	case "POST":
 		$ret['success'] = 1;
 		//$_POST
-		$file_name = $_POST["name"]; // アップロード時のファイル名を設定
-		$file_save = "./images/" . $file_name; // アップロード対象のディレクトリを指定
-		$img = $_POST['image'];
-		$img = str_replace('data:image/png;base64,', '', $img);
-		$img = str_replace(' ', '+', $img);
+		$file_name = uniqid(); // アップロード時のファイル名を設定
+		$file_save = "../../image/" . $file_name .".jpg"; // アップロード対象のディレクトリを指定
+		$img = $_POST['image']['data'];
+		$img = str_replace('data:image/jpeg;base64,', '', $img);
+		//$img = str_replace(' ', '+', $img);
 		$fileData = base64_decode($img);
-		move_uploaded_file($file_save,$fileData); // アップロード処理
+		file_put_contents($file_save,$fileData); // アップロード処理
 		if($ret['success']){
 			$data = $img;
-			$response['data'] = $data;
+			$response['data'] = $file_name .".jpg";
 		}else{
 			$resary['success'] = false;
 			$resary['code'] = 400;
