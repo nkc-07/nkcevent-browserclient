@@ -13,7 +13,7 @@ $(function() {
 // 取得処理
 function geteventparticipation() {
     $.ajax({
-            url: '/api/member/memberparticipation.php', //送信先
+            url: searchUrlGenerater('/api/member/memberparticipation.php?'), //送信先
             type: 'GET', //送信方法
             datatype: 'json', //受け取りデータの種類
             data: {
@@ -26,7 +26,7 @@ function geteventparticipation() {
                 // $(".card-box").empty();
             eventdataInfo.forEach(function(card) {
                 eventparticipationDom = eventparticipationDom.clone();
-                eventparticipationDom.find(".card-link").attr("href", "../../event-list/detail/index.html?event-id=" + card.event_id);
+                eventparticipationDom.find(".card-link").attr("href", "/public/event-list/detail/index.html?event-id=" + card.event_id);
                 eventparticipationDom.find(".thumbnail img").attr("src", card.image);
                 eventparticipationDom.find(".thumbnail p").text(card.held_date)
                 eventparticipationDom.find(".card-body .card-title").text(card.event_name);

@@ -135,6 +135,7 @@ $.ajax({
     $(".detail-box .day-box").attr("src", geteventInfo["deadlinedate"]);
     $(".drawer-menu .drawer-brand").text(geteventInfo["postdate"]);
 
+
             //tag関係
     let userTag = $('.tag-card');
     eventTags.forEach(eventTag => {

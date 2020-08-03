@@ -20,7 +20,7 @@
 <body class="drawer drawer--right">
     <header role="banner">
         <nav class="navbar navbar-light bg-light navbar-dark bg-dark">
-            <a href="#" class="h1 navbar-brand text-white">イベント一覧ページ</a>
+            <a href="/public/html/index.html" class="h1 navbar-brand text-white">イベント一覧ページ</a>
             <button type="button" class="text-white drawer-toggle drawer-hamburger">
               <span class="sr-only">toggle navigation</span>
             <span class="drawer-hamburger-icon"></span>
@@ -39,8 +39,8 @@
 
     <main>
         <div class="search-box">
-            <form class="form-inline" action="#">
-                <input type="serch">
+            <form class="form-inline" method="get">
+                <input type="serch" name="event_name">
                 <button class="serch-button"></button>
             </form>
         </div>
@@ -64,12 +64,15 @@
 
             </div>
 
-            <a id="add-button" href="./new/">
+            <a id="add-button" href="/public/html/event-list/new/">
                 <img class="add-icon" src="/public/image/svg/add.svg"></img>
             </a>
+        </div>
+
+        <script src="/public/js/general/serch.js"></script>
+        <script src="/public/js/general/sidemenu.js"></script>
+        <script src="/public/js/event-list.js"></script>
     </main>
-    <script src="/public/js/general/sidemenu.js"></script>
-    <script src="/public/js/event-list.js"></script>
 </body>
 
 </html>

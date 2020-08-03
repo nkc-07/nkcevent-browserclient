@@ -47,10 +47,12 @@ input[type="password"] {
   text-align: center;
 }
 
-.mall-err-text,
+.mail-err-text,
 .pass-err-text,
 .name-err-text,
-.gender-err-text {
+.gender-err-text,
+.birthday-err-text,
+.repass-err-text {
   font-size: initial;
   font-size: 15pt;
   color: red;

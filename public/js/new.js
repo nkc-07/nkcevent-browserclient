@@ -24,7 +24,8 @@ $.ajax({
 
     $('.user-img').attr('src', memberInfo['icon']);
     $('.nickname').text(memberInfo['nickname']);
-    createEventInfo['organizer'] = memberInfo['nickname'];
+
+    createEventInfo['organizer'] = memberInfo['member_id'];
 });
 
 $('.held-date').change(function(e) {
@@ -69,6 +70,7 @@ $('.participation-event').click(function(e) {
         data: createEventInfo
     }).done(function(e) {
         console.log('success');
+        location.href = '/public/html/event-list/'
     }).fail(function(response) {
         console.log('通信失敗');
         console.log(response);
