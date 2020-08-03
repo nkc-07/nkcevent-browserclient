@@ -68,7 +68,6 @@ $('.participation-event').click(function(e) {
             $.ajax({
                 url: '/api/event/eventimage.php', //送信先
                 type: 'POST', //送信方法
-                //: 'xml', //受け取りデータの種類
                 data: {
                     "name": file["name"],
                     "image": data,
@@ -76,6 +75,33 @@ $('.participation-event').click(function(e) {
             }).done(function(response) {
                 console.log('success');
                 console.log(response);
+
+                let imageName = JSON.parse(response);
+
+                //イベント詳細
+                createEventInfo['event_name'] = $('.event-name').val();
+                createEventInfo['event_kana'] = 'test_kana';
+                createEventInfo['event_comment'] = $('.event-comment').val();
+                createEventInfo['map'] = $('.map').val();
+                if (typeof $('.send-event-img').prop('files')[0] !== "undefined") {
+                    createEventInfo['image'] = "/image/" + imageName['data'];
+                }
+                createEventInfo['deadline_date'] = $('.deadline_date').val();
+                createEventInfo['held_date'] = $('.held-date').val();
+                createEventInfo['member_limit'] = $('.member_limit').val();
+
+                $.ajax({
+                    url: '/api/event/eventinfo.php', //送信先
+                    type: 'POST', //送信方法
+                    datatype: 'json', //受け取りデータの種類
+                    data: createEventInfo
+                }).done(function(e) {
+                    console.log('success');
+                    location.href = '/public/html/event-list/'
+                }).fail(function(e) {
+                    console.log('通信失敗');
+                    console.log(e);
+                });
             }).fail(function(response) {
                 console.log('通信失敗');
                 console.log(response);
@@ -84,28 +110,4 @@ $('.participation-event').click(function(e) {
         img.src = event.target.result;
     };
     reader.readAsDataURL(file);
-    //イベント詳細
-    createEventInfo['event_name'] = $('.event-name').val();
-    createEventInfo['event_kana'] = 'test_kana';
-    createEventInfo['event_comment'] = $('.event-comment').val();
-    createEventInfo['map'] = $('.map').val();
-    if (typeof $('.send-event-img').prop('files')[0] !== "undefined") {
-        createEventInfo['image'] = $('.send-event-img').prop('files')[0].name;
-    }
-    createEventInfo['deadline_date'] = $('.deadline_date').val();
-    createEventInfo['held_date'] = $('.held-date').val();
-    createEventInfo['member_limit'] = $('.member_limit').val();
-
-    $.ajax({
-        url: '/api/event/eventinfo.php', //送信先
-        type: 'POST', //送信方法
-        datatype: 'json', //受け取りデータの種類
-        data: createEventInfo
-    }).done(function(e) {
-        console.log('success');
-        location.href = '/public/html/event-list/'
-    }).fail(function(response) {
-        console.log('通信失敗');
-        console.log(response);
-    });
 });
