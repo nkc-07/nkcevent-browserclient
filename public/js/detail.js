@@ -1,5 +1,12 @@
 let getRequestParams = (new URL(document.location)).searchParams;
 
+let myMembername;
+let myMemberId;
+
+var eventTags = [];
+var host = [];
+var flag = 0;
+
 //イベント情報
 let geteventInfo = {
     eventid: getRequestParams.get('event-id'),
@@ -27,29 +34,8 @@ let sendeventInfo = {
     organizer: 1,
     member_limit: 30
 }
-//参加用
-let sendjoinInfo = {
-    member_id : 4,
-    event_id : getRequestParams.get('event-id')
-}
-//中止用
-let tyuusi={
-    event_id : getRequestParams.get('event-id')
-}
-//キャンセル用
-let eventcancel = {
-    member_id : 4,
-    event_id : getRequestParams.get('event-id')
-}
-var eventTags = [];
-var host = [];
-var flag = 0;
-
-//テスト用データ
-let myMemberId;
 
 $(function() {
-
 
     $.ajax({
         url: '/api/member/memberinfo.php', //送信先
@@ -63,8 +49,10 @@ $(function() {
         let memberInfo = response['data']['info'];
         /* ユーザのステータスを変更するために使用 */
         sendMemberInfo = memberInfo;
-        myMemberId = memberInfo['nickname']
-        console.log("ユーザ～名は" + myMemberId)
+        myMembername = memberInfo['nickname']
+        myMemberId = memberInfo['member_id']
+        console.log("ユーザ～名は" + myMembername)
+        console.log("member_id" + myMemberId)
     })
     .fail(function(response) {
         console.log('通信失敗');
@@ -84,7 +72,7 @@ $(function() {
     joindata= response.data
     console.log(joindata)
     joindata.forEach(function(e){
-        if(e.nickname == myMemberId){
+        if(e.nickname == myMembername){
             flag = 1
         }
     })      
@@ -123,7 +111,7 @@ $.ajax({
 
     console.log(geteventInfo['organizer'])
 
-    if(geteventInfo['organizer'] == myMemberId){
+    if(geteventInfo['organizer'] == myMembername){
         flag = 2
     }
 
@@ -157,8 +145,8 @@ $.ajax({
     $(".held-day").text(helddateday);
 
 
+    
     console.log("flag = " + flag)
-
     if(flag == 2){
         //イベント中止
         $(".participation").hide();
@@ -181,7 +169,7 @@ $.ajax({
         $(".cancel").click(function(){
         console.log("キャンセルボタン")
         location.href = "";
-        eventcan()
+        eventcancel()
     })
     }
 
@@ -227,13 +215,18 @@ function Puteventdetail() {
         })
 }
 
+
+/*↓ここからイベントボタン処理↓*/ 
 //イベント参加処理
 function eventparticipation(){
  $.ajax({
     url: '/api/event/eventparticipant.php', //送信先
     type: 'POST', //送信方法
     datatype: 'json', //受け取りデータの種類
-    data: sendjoinInfo
+    data: {
+        member_id : myMemberId,
+        event_id : getRequestParams.get('event-id')
+    }
  })
  //通信成功
  .done(function(response) {
@@ -244,13 +237,17 @@ function eventparticipation(){
      console.log(response);
  })
 }
-//イベントキャンセル（イベントに参加している状態で）
-function eventcan(){
+
+//イベントキャンセル
+function eventcancel(){
     $.ajax({
        url: '/api/event/eventparticipant.php', //送信先
        type: 'PUT', //送信方法
        datatype: 'json', //受け取りデータの種類
-       data: eventcancel
+       data: {
+           member_id : myMemberId,
+           event_id : getRequestParams.get('event-id')
+        }
     })
     //通信成功
     .done(function(response) {
@@ -262,14 +259,17 @@ function eventcan(){
         console.log(response);
         console.log("失敗")
     })
-}  
-//イベント中止(イベントがなくなる)
+} 
+
+//イベント中止(修正必要)
 function eventcancellation(){
     $.ajax({
        url: '/api/event/eventcancellation.php', //送信先
        type: 'PUT', //送信方法
        datatype: 'json', //受け取りデータの種類
-       data: tyuusi
+       data: {
+        event_id : getRequestParams.get('event-id')
+       }
     })
     //通信成功
     .done(function(response) {
