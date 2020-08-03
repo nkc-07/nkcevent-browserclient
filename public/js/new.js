@@ -50,8 +50,8 @@ $('.participation-event').click(function(e) {
     var img = new Image();
     var reader = new FileReader();
     var file = $('.send-event-img').prop('files')[0];
-    //console.log(file);
-    if (!file.type.match(/^image\/(bmp|png|jpeg|gif)$/)){event-img
+    console.log(file);
+    if (!file.type.match(/^image\/(bmp|png|jpeg|gif)$/)){
         alert("対応画像ファイル[bmp|png|jpeg|gif]");
         return;
     }
@@ -64,6 +64,7 @@ $('.participation-event').click(function(e) {
                 type: 'POST', //送信方法
                 //: 'xml', //受け取りデータの種類
                 data: {
+                    "name": file["name"],
                     "image": data,
                 }
             }).done(function(response) {
