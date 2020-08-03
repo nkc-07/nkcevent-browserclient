@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 require_once(__DIR__.'/../../php/Define.php');
 require_once(__DIR__.'/../../php/db.php');
@@ -143,14 +143,14 @@ function putEventCancellation($param){
     //$db = new DB();
     try{
         if(empty($param['event_id']))					throw new ErrorException($errmsg."event_id");
-        if(empty($param['event_cancellation']))			throw new ErrorException($errmsg."event_cancellation");
+        //if(empty($param['event_cancellation']))			throw new ErrorException($errmsg."event_cancellation");
 
-        $sql = "UPDATE 'event'
-                SET event_cancellation = :event_cancellation
+        $sql = "UPDATE event
+                SET event_cancellation = 0
                 WHERE event_id = :event_id";
         $stmt = PDO() -> prepare($sql);
         $stmt -> bindValue(':event_id', 		  $param['event_id'], 			PDO::PARAM_INT);
-        $stmt -> bindValue(':event_cancellation', $param['event_cancellation'], PDO::PARAM_INT);
+        //$stmt -> bindValue(':event_cancellation', $param['event_cancellation'], PDO::PARAM_INT);
         $stmt -> execute();
         //$data = $stmt -> fetchAll(PDO::FETCH_ASSOC);
 
