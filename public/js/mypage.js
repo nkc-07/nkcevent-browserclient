@@ -39,8 +39,8 @@ $(function() {
             console.log(response);
         })
 
-    $('.change-button').click(function(e) {
-        sendMemberInfo['icon'] = $('.user-icon').attr('src');
+    $('.change-button').click(async function(e) {
+        sendMemberInfo['icon'] = await getUserIconName();
         sendMemberInfo['nickname'] = $('.nickname').val();
         sendMemberInfo['mailaddress'] = $('.mailaddress').val();
         sendMemberInfo['birthday'] = $('.target-year').val() + '-' +
@@ -112,4 +112,47 @@ function getParticipationEvent() {
         .fail(function(response) {
             console.log(response);
         });
+}
+
+function getUserIconName() {
+    return new Promise(resolve => {
+        var img = new Image();
+        var reader = new FileReader();
+        var file = $('.send-user-icon').prop('files')[0];
+
+        if ($('.send-user-icon').prop('files')[0] === undefined) {
+            resolve(sendMemberInfo['icon']);
+        }
+        if (!file.type.match(/^image\/(bmp|png|jpeg|gif)$/)) {
+            alert("対応画像ファイル[bmp|png|jpeg|gif]");
+            resolve(sendMemberInfo['icon']);
+        }
+
+        reader.onload = function(event) {
+            img.onload = function() {
+                var data = { data: img.src.split(',')[1] };
+                $.ajax({
+                    url: '/api/event/eventimage.php', //送信先
+                    type: 'POST', //送信方法
+                    data: {
+                        "name": file["name"],
+                        "image": data,
+                    }
+                }).done(function(response) {
+                    console.log('success');
+                    console.log(response);
+
+                    let imageName = JSON.parse(response);
+                    resolve("/image/" + imageName['data']);
+                }).fail(function(response) {
+                    console.log('通信失敗');
+                    console.log(response);
+
+                    resolve(sendMemberInfo['icon']);
+                });
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
 }
