@@ -93,7 +93,7 @@ $(function() {
                             '-' +
                             $('[id=month]').val() +
                             '-' +
-                            $('[id=day]').val()
+                            $('[id=date]').val()
                     }
                 })
 

@@ -43,10 +43,12 @@ $(function() {
         sendMemberInfo['icon'] = await getUserIconName();
         sendMemberInfo['nickname'] = $('.nickname').val();
         sendMemberInfo['mailaddress'] = $('.mailaddress').val();
-        sendMemberInfo['birthday'] = $('.target-year').val() + '-' +
-            $('.target-month').val() + '-' +
-            $('.target-date').val();
+        sendMemberInfo['birthday'] = $('[id=year]').val() + '-' +
+            $('[id=month]').val() + '-' +
+            $('[id=date]').val()
         sendMemberInfo['gender'] = $('[name=gender]:checked')[0].value;
+
+        console.log(sendMemberInfo)
 
         $.ajax({
             url: '/api/member/memberinfo.php', //送信先
@@ -54,7 +56,7 @@ $(function() {
             datatype: 'json', //受け取りデータの種類
             data: sendMemberInfo
         }).done(function(response) {
-            location.href = "";
+            // location.href = "";
         }).fail(function(response) {
             console.log(response);
         })
