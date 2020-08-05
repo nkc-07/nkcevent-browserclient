@@ -32,6 +32,11 @@
     margin: 0 0 10px 0;
 }
 
+.icon-img,
+input[type="file"] {
+    display: none;
+}
+
 .card {
     float: left;
     width: 55%;
