@@ -65,6 +65,15 @@ $(function() {
     })
 });
 
+$('.icon-img, input[type="file"]').on('change', function(e) {
+    let reader = new FileReader();
+    reader.onload = function(e) {
+        $('.list-margin, .user-icon').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(e.target.files[0]);
+});
+
+
 function getParticipationEvent() {
     /* 参加イベントを表示するための処理 */
     let eventparticipationDom = $('.participation-event');
