@@ -1,118 +1,137 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="/public/vender/bootstrap-4.4.1-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/public/vender/sidemenu/drawer.min/index.css">
-    <link rel="stylesheet" href="/public/css/general/sidemenu.css">
-    <link rel="stylesheet" href="/public/css/mypage.css">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="/public/vender/bootstrap-4.4.1-dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/public/vender/sidemenu/drawer.min/index.css"
+    />
+    <link rel="stylesheet" href="/public/css/general/sidemenu.css" />
+    <link rel="stylesheet" href="/public/css/mypage.css" />
+    <link
+      rel="stylesheet"
+      href="../../vender/sweetalert2/sweetalert2.min.css"
+    />
 
     <script src="/public/vender/jquery-3.5.1.min/index.js"></script>
     <script src="/public/vender/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
     <script src="/public/vender/sidemenu/iscroll.min/index.js"></script>
     <script src="/public/vender/sidemenu/drawer.3.2.2.min/index.js"></script>
     <script src="/public/js/generatedate.js"></script>
+    <script src="../../vender/sweetalert2/sweetalert2.all.min.js"></script>
 
     <title>マイページ</title>
-</head>
+  </head>
 
-<body class="drawer drawer--right">
+  <body class="drawer drawer--right">
     <header role="banner">
-        <nav class="navbar navbar-light bg-light navbar-dark bg-dark">
-            <a href="/public/html/index.html" class="h1 navbar-brand text-white">マイページ</a>
-            <button type="button" class="text-white drawer-toggle drawer-hamburger">
-              <span class="sr-only">toggle navigation</span>
-            <span class="drawer-hamburger-icon"></span>
-            </button>
-            <nav class="drawer-nav navbar-dark bg-dark" role="navigation">
-                <ul class="drawer-menu">
-                    <li><a class="drawer-brand text-white" href="#">Test User</a></li>
-                    <li><a class="drawer-menu-item text-white" href="#">test</a></li>
-                    <li><a class="drawer-menu-item text-white" href="#">test</a></li>
-                    <li><a class="drawer-menu-item text-white" href="#">test</a></li>
-                    <li><a class="drawer-menu-item text-white" href="#">test</a></li>
-                </ul>
-            </nav>
+      <nav class="navbar navbar-light bg-light navbar-dark bg-dark">
+        <a href="/public/html/index.html" class="h1 navbar-brand text-white"
+          >マイページ</a
+        >
+        <button type="button" class="text-white drawer-toggle drawer-hamburger">
+          <span class="sr-only">toggle navigation</span>
+          <span class="drawer-hamburger-icon"></span>
+        </button>
+        <nav class="drawer-nav navbar-dark bg-dark" role="navigation">
+          <ul class="drawer-menu">
+            <li><a class="drawer-brand text-white" href="#">Test User</a></li>
+            <li><a class="drawer-menu-item text-white" href="#">test</a></li>
+            <li><a class="drawer-menu-item text-white" href="#">test</a></li>
+            <li><a class="drawer-menu-item text-white" href="#">test</a></li>
+            <li><a class="drawer-menu-item text-white" href="#">test</a></li>
+          </ul>
         </nav>
+      </nav>
     </header>
 
     <main>
-        <div class="card">
-
-            <div class="profile-img">
-                <img src="" class="list-margin user-icon">
-                <label class="btn btn-primary">
-                    画像変更
-                    <form id="icon-img">
-                        <input type="file" class="send-user-icon" accept="image/*">
-                    </form>
-                </label>
-            </div>
-
-            <div class="profile">
-                <span>ニックネーム</span>
-                <div class="list-margin">
-                    <input class="form-control nickname" type="text">
-                </div>
-
-                <span>メールアドレス</span>
-                <div class="list-margin">
-                    <input class="form-control mailaddress" type="text">
-                </div>
-
-                <button class="btn btn-primary list-margin">パスワード変更</button>
-
-                <div>
-                    <span>生年月日</span>
-                    <div class="list-margin">
-                        <select id="year">
-                                <option class="target-year" value="0"></option>
-                            </select> 年
-
-                        <select id="month">
-                                <option class="target-month" value="0"></option>
-                            </select> 月
-
-                        <select id="date">
-                                <option class="target-date" value="0"></option>
-                            </select> 日
-                    </div>
-                </div>
-
-                <span>性別</span>
-                <div class="list-margin">
-                    <p>
-                        <input type="radio" name="gender" value="0">男
-                        <input type="radio" name="gender" value="1">女
-                        <input type="radio" name="gender" value="2">その他
-                    </p>
-                    <div class="change-confirm-buttons">
-                        <button class="btn btn-primary cancel-button">キャンセル</button>
-                        <button class="btn btn-primary change-button">変更</button>
-                    </div>
-                </div>
-            </div>
+      <div class="card">
+        <div class="profile-img">
+          <img src="" class="list-margin user-icon" />
+          <label class="btn btn-primary">
+            画像変更
+            <form id="icon-img">
+              <input type="file" class="send-user-icon" accept="image/*" />
+            </form>
+          </label>
         </div>
 
-        <div class="card event-card">
-            <table class="table">
-                <caption>参加イベント</caption>
-                <tr class="participation-event" style="display: none;">
-                    <td>
-                        <a href="/public/html/event-list/detail/index.html">test</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="/public/html/mypage/event-participation/" class="btn btn-primary">参加イベント一覧</a>
-                    </td>
-                </tr>
-            </table>
+        <div class="profile">
+          <span>ニックネーム</span>
+          <div class="list-margin">
+            <input class="form-control nickname" type="text" />
+          </div>
+
+          <span>メールアドレス</span>
+          <div class="list-margin">
+            <input class="form-control mailaddress" type="text" />
+          </div>
+
+          <button class="btn btn-primary list-margin">パスワード変更</button>
+
+          <div>
+            <span>生年月日</span>
+            <div class="list-margin">
+              <select id="year">
+                <option class="target-year" value="0"></option>
+              </select>
+              年
+
+              <select id="month">
+                <option class="target-month" value="0"></option>
+              </select>
+              月
+
+              <select id="date">
+                <option class="target-date" value="0"></option>
+              </select>
+              日
+            </div>
+          </div>
+
+          <span>性別</span>
+          <div class="list-margin">
+            <p>
+              <input type="radio" name="gender" value="0" />男
+              <input type="radio" name="gender" value="1" />女
+              <input type="radio" name="gender" value="2" />その他
+            </p>
+            <div class="change-confirm-buttons">
+              <button class="btn btn-primary cancel-button">キャンセル</button>
+              <button class="btn btn-primary change-button">変更</button>
+            </div>
+          </div>
         </div>
-        <script src="/public/js/general/sidemenu.js"></script>
-        <script src="/public/js/mypage.js"></script>
+      </div>
+
+      <div class="card event-card">
+        <table class="table">
+          <caption>
+            参加イベント
+          </caption>
+          <tr class="participation-event" style="display: none;">
+            <td>
+              <a href="/public/html/event-list/detail/index.html">test</a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a
+                href="/public/html/mypage/event-participation/"
+                class="btn btn-primary"
+                >参加イベント一覧</a
+              >
+            </td>
+          </tr>
+        </table>
+      </div>
+      <script src="/public/js/general/sidemenu.js"></script>
+      <script src="/public/js/mypage.js"></script>
     </main>
-</body>
-
+  </body>
 </html>
