@@ -65,7 +65,9 @@ function postLogincheck($param){
 		if (count($login) == 1) {
 			$ret['success'] = true;
 		} else {
-			$ret['success'] = false;
+			if(!DEBUG_MODE){
+				$ret['success'] = false;
+			}
 		}
 
 	}catch(Exception $err){
