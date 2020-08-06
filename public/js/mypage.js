@@ -41,6 +41,7 @@ $(function () {
     })
 
   $('.change-button').click(async function (e) {
+    flg = true
     //入力判定
     if (
       $('.nickname').val() != '' &&
@@ -66,22 +67,25 @@ $(function () {
         title: '注意',
         text: '正しく入力してください。'
       })
+      flg = false
     }
 
     console.log(sendMemberInfo)
-
-    $.ajax({
-      url: '/api/member/memberinfo.php', //送信先
-      type: 'PUT', //送信方法
-      datatype: 'json', //受け取りデータの種類
-      data: sendMemberInfo
-    })
-      .done(function (response) {
-        // location.href = "";
+    if (flg == true) {
+      $.ajax({
+        url: '/api/member/memberinfo.php', //送信先
+        type: 'PUT', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: sendMemberInfo
       })
-      .fail(function (response) {
-        console.log(response)
-      })
+        .done(function (response) {
+          // location.href = "";
+        })
+        .fail(function (response) {
+          console.log(response)
+        })
+      console.log(1)
+    }
   })
 
   $('.cancel-button').click(function (e) {
