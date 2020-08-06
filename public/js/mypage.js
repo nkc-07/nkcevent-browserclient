@@ -134,7 +134,7 @@ function getUserIconName() {
             img.onload = function() {
                 var data = { data: img.src.split(',')[1] };
                 $.ajax({
-                    url: '/api/event/eventimage.php', //送信先
+                    url: '/api/event/image.php', //送信先
                     type: 'POST', //送信方法
                     data: {
                         "name": file["name"],
