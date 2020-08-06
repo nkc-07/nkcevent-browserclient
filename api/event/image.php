@@ -4,7 +4,6 @@ require_once(__DIR__.'/../../php/Define.php');
 require_once(__DIR__.'/../../php/db.php');
 //require_once(__DIR__.'/../../php/ErrorHandling.php');
 
-//test
 $response = [];
 $resary = [
 	'success'=> true,
@@ -15,7 +14,6 @@ $resary = [
 switch($_SERVER['REQUEST_METHOD']){
 	case "POST":
 		$ret['success'] = 1;
-		//$_POST
 		$file_name = uniqid(); // アップロード時のファイル名を設定
 		$file_save = "../../image/" . $file_name .".jpg"; // アップロード対象のディレクトリを指定
 		$img = $_POST['image']['data'];
@@ -39,8 +37,6 @@ switch($_SERVER['REQUEST_METHOD']){
 		break;
 }
 
-//header("Content-Type: image/*");
-
 if($resary['success']){
 	echo json_encode($response, JSON_UNESCAPED_UNICODE);
 }else{
@@ -48,8 +44,5 @@ if($resary['success']){
 	$response['msg'] = $resary['msg'];
 	echo json_encode($response, JSON_UNESCAPED_UNICODE);
 }
-
-
-
 
 ?>
