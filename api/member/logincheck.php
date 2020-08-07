@@ -46,6 +46,7 @@ function postLogincheck($param){
 
 	$ret = [
 		'success' => true,
+		'login' => false,
 		'msg' => "",
 	];
 
@@ -63,10 +64,10 @@ function postLogincheck($param){
 		$login = $stmt->fetchAll();
 
 		if (count($login) == 1) {
-			$ret['success'] = true;
+			$ret['login'] = true;
 		} else {
-			if(!DEBUG_MODE){
-				$ret['success'] = false;
+			if(DEBUG_MODE == 1){
+				$ret['login'] = true;
 			}
 		}
 
