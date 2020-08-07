@@ -268,7 +268,8 @@ function eventcancellation(){
        type: 'PUT', //送信方法
        datatype: 'json', //受け取りデータの種類
        data: {
-        event_id : getRequestParams.get('event-id')
+        "event_id": getRequestParams.get('event-id'),
+        "event_cancellation": 0
        }
     })
     //通信成功
