@@ -31,6 +31,23 @@ let sendeventInfo = {
 }
 
 $(function() {
+    $.ajax({//ログインチェック
+        url: '/api/member/logincheck.php', //送信先
+        type: 'POST', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: {
+            token: localStorage.getItem('token')
+        }
+    })
+    .done(function(response) {
+        console.log(response.data.login);
+        if(!response.data.login){$('.participat').prop("disabled", true);}//参加ボタン無効化
+    })
+    .fail(function(response) {
+        console.log('通信失敗');
+        console.log(response);
+        $('.participat').prop("disabled", true);
+    })
     // 取得処理
     $.ajax({
             url: '/api/event/eventinfo.php', //送信先

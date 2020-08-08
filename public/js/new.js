@@ -1,3 +1,21 @@
+$(function() {
+    $.ajax({//ログインチェック
+        url: '/api/member/logincheck.php', //送信先
+        type: 'POST', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: {
+            token: localStorage.getItem('token')
+        }
+    })
+    .done(function(response) {
+        if(!response.data.login){location.href = '/public/html/';}
+    })
+    .fail(function(response) {
+        console.log('通信失敗');
+        console.log(response);
+        location.href = '/public/html/event-list/';
+    })
+});
 /* イベントを作成するために使用する各情報を入れておくための変数 */
 let createEventInfo = {
     'event_name': undefined,
@@ -66,7 +84,7 @@ $('.participation-event').click(function(e) {
         img.onload = function() {
             var data = { data: img.src.split(',')[1] };
             $.ajax({
-                url: '/api/event/eventimage.php', //送信先
+                url: '/api/event/image.php', //送信先
                 type: 'POST', //送信方法
                 data: {
                     "name": file["name"],
