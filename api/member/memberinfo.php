@@ -201,7 +201,7 @@ function PutMemberInformation($param){
 
 		$stmt -> execute();
 
-		print_r($stmt->debugDumpParams());
+		// print_r($stmt->debugDumpParams());
 		//$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		// $ret['data'] = $data;
