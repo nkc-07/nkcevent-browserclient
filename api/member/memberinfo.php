@@ -195,11 +195,13 @@ function PutMemberInformation($param){
         $stmt -> bindValue(':mailaddress', $param['mailaddress'], PDO::PARAM_STR);
         $stmt -> bindValue(':nickname', $param['nickname'], PDO::PARAM_STR);
         $stmt -> bindValue(':gender', $param['gender'], PDO::PARAM_INT);
-        $stmt -> bindValue(':birthday', $param['birthday'], PDO::PARAM_INT);
+        $stmt -> bindValue(':birthday', $param['birthday'], PDO::PARAM_STR);
 		$stmt -> bindValue(':icon', $param['icon'], PDO::PARAM_STR);
         $stmt -> bindValue(':member_id', $param['member_id'], PDO::PARAM_INT);
 
 		$stmt -> execute();
+
+		// print_r($stmt->debugDumpParams());
 		//$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		// $ret['data'] = $data;

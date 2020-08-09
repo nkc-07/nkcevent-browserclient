@@ -1,3 +1,21 @@
+$(function() {
+    $.ajax({//ログインチェック
+        url: '/api/member/logincheck.php', //送信先
+        type: 'POST', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: {
+            token: localStorage.getItem('token')
+        }
+    })
+    .done(function(response) {
+        if(!response.data.login){location.href = '/public/html/';}
+    })
+    .fail(function(response) {
+        console.log('通信失敗');
+        console.log(response);
+        location.href = '/public/html/event-list/';
+    })
+});
 /* イベントを作成するために使用する各情報を入れておくための変数 */
 let createEventInfo = {
     'event_name': undefined,
@@ -52,27 +70,62 @@ $('.send-event-img').on('change', function(e) {
 });
 
 $('.participation-event').click(function(e) {
-    createEventInfo['event_name'] = $('.event-name').val();
-    createEventInfo['event_kana'] = 'test_kana';
-    createEventInfo['event_comment'] = $('.event-comment').val();
-    createEventInfo['map'] = $('.map').val();
-    if (typeof $('.send-event-img').prop('files')[0] !== "undefined") {
-        createEventInfo['image'] = $('.send-event-img').prop('files')[0].name;
+    //画像
+    var img = new Image();
+    var reader = new FileReader();
+    var file = $('.send-event-img').prop('files')[0];
+    console.log(file);
+    if (!file.type.match(/^image\/(bmp|png|jpeg|gif)$/)) {
+        alert("対応画像ファイル[bmp|png|jpeg|gif]");
+        return;
     }
-    createEventInfo['deadline_date'] = $('.deadline_date').val();
-    createEventInfo['held_date'] = $('.held-date').val();
-    createEventInfo['member_limit'] = $('.member_limit').val();
 
-    $.ajax({
-        url: '/api/event/eventinfo.php', //送信先
-        type: 'POST', //送信方法
-        datatype: 'json', //受け取りデータの種類
-        data: createEventInfo
-    }).done(function(e) {
-        console.log('success');
-        location.href = '/public/html/event-list/'
-    }).fail(function(response) {
-        console.log('通信失敗');
-        console.log(response);
-    });
+    reader.onload = function(event) {
+        img.onload = function() {
+            var data = { data: img.src.split(',')[1] };
+            $.ajax({
+                url: '/api/event/image.php', //送信先
+                type: 'POST', //送信方法
+                data: {
+                    "name": file["name"],
+                    "image": data,
+                }
+            }).done(function(response) {
+                console.log('success');
+                console.log(response);
+
+                let imageName = JSON.parse(response);
+
+                //イベント詳細
+                createEventInfo['event_name'] = $('.event-name').val();
+                createEventInfo['event_kana'] = 'test_kana';
+                createEventInfo['event_comment'] = $('.event-comment').val();
+                createEventInfo['map'] = $('.map').val();
+                if (typeof $('.send-event-img').prop('files')[0] !== "undefined") {
+                    createEventInfo['image'] = "/image/" + imageName['data'];
+                }
+                createEventInfo['deadline_date'] = $('.deadline_date').val();
+                createEventInfo['held_date'] = $('.held-date').val();
+                createEventInfo['member_limit'] = $('.member_limit').val();
+
+                $.ajax({
+                    url: '/api/event/eventinfo.php', //送信先
+                    type: 'POST', //送信方法
+                    datatype: 'json', //受け取りデータの種類
+                    data: createEventInfo
+                }).done(function(e) {
+                    console.log('success');
+                    location.href = '/public/html/event-list/'
+                }).fail(function(e) {
+                    console.log('通信失敗');
+                    console.log(e);
+                });
+            }).fail(function(response) {
+                console.log('通信失敗');
+                console.log(response);
+            });
+        };
+        img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
 });

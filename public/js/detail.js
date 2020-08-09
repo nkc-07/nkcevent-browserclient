@@ -36,148 +36,166 @@ let sendeventInfo = {
 }
 
 $(function() {
+    //ログインチェック
+    $.ajax({
+            url: '/api/member/logincheck.php', //送信先
+            type: 'POST', //送信方法
+            datatype: 'json', //受け取りデータの種類
+            data: {
+                token: localStorage.getItem('token')
+            }
+        })
+        .done(function(response) {
+            console.log(response.data.login);
+            if (!response.data.login) { $('.participat').prop("disabled", true); } //参加ボタン無効化
+        })
+        .fail(function(response) {
+            console.log('通信失敗');
+            console.log(response);
+            $('.participat').prop("disabled", true);
+        })
+
+    // 取得処理
+    $.ajax({
+            url: '/api/member/memberinfo.php', //送信先
+            type: 'GET', //送信方法
+            datatype: 'json', //受け取りデータの種類
+            data: {
+                token: localStorage.getItem('token')
+            }
+        })
+        .done(function(response) {
+            let memberInfo = response['data']['info'];
+            /* ユーザのステータスを変更するために使用 */
+            sendMemberInfo = memberInfo;
+            myMembername = memberInfo['nickname']
+            myMemberId = memberInfo['member_id']
+            console.log("ユーザ～名は" + myMembername)
+            console.log("member_id" + myMemberId)
+        })
+        .fail(function(response) {
+            console.log('通信失敗');
+            console.log(response);
+        })
+
 
     $.ajax({
-        url: '/api/member/memberinfo.php', //送信先
-        type: 'GET', //送信方法
-        datatype: 'json', //受け取りデータの種類
-        data: {
-            token: localStorage.getItem('token')
-        }
-    })
-    .done(function(response) {
-        let memberInfo = response['data']['info'];
-        /* ユーザのステータスを変更するために使用 */
-        sendMemberInfo = memberInfo;
-        myMembername = memberInfo['nickname']
-        myMemberId = memberInfo['member_id']
-        console.log("ユーザ～名は" + myMembername)
-        console.log("member_id" + myMemberId)
-    })
-    .fail(function(response) {
-        console.log('通信失敗');
-        console.log(response);
-    })
+            url: '/api/event/eventparticipant.php', //送信先
+            type: 'GET', //送信方法
+            datatype: 'json', //受け取りデータの種類
+            data: {
+                'event_id': getRequestParams.get('event-id')
+            }
+        })
+        .done(function(response) {
+            joindata = response.data
+            console.log(joindata)
+            joindata.forEach(function(e) {
+                if (e.nickname == myMembername) {
+                    flag = 1
+                }
+            })
+        })
+        .fail(function(response) {
+            console.log('通信失敗');
+            console.log(response);
+        })
 
-    
+
+
     $.ajax({
-        url: '/api/event/eventparticipant.php', //送信先
-        type: 'GET', //送信方法
-        datatype: 'json', //受け取りデータの種類
-        data: {
-            'event_id': getRequestParams.get('event-id')
-        }
-    })
-.done(function(response) {
-    joindata= response.data
-    console.log(joindata)
-    joindata.forEach(function(e){
-        if(e.nickname == myMembername){
-            flag = 1
-        }
-    })      
-})
-.fail(function(response) {
-    console.log('通信失敗');
-    console.log(response);
-})
+            url: '/api/event/eventinfo.php', //送信先
+            type: 'GET', //送信方法
+            datatype: 'json', //受け取りデータの種類
+            data: {
+                'event_id': getRequestParams.get('event-id')
+            }
+        })
+        .done(function(response) {
+            eventdata = response.data.info[0]
+            geteventInfo['eventid'] = eventdata.event_id;
+            geteventInfo['eventname'] = eventdata.event_name;
+            geteventInfo['eventcomment'] = eventdata.event_comment;
+            geteventInfo['map'] = eventdata.map;
+            geteventInfo['image'] = eventdata.image;
+            geteventInfo['postdate'] = eventdata.post_date;
+            geteventInfo['deadlinedate'] = eventdata.deadline_date;
+            geteventInfo['helddate'] = eventdata.held_date;
+            geteventInfo['organizer'] = eventdata.organizer;
+            geteventInfo['eventcancellation'] = eventdata.event_cancellation;
+            geteventInfo['memberlimit'] = eventdata.member_limit;
+            console.log(geteventInfo);
+            eventTags = response.data.event_tag;
+            console.log(eventTags)
 
-    
+            console.log(geteventInfo['organizer'])
 
-$.ajax({
-    url: '/api/event/eventinfo.php', //送信先
-    type: 'GET', //送信方法
-    datatype: 'json', //受け取りデータの種類
-    data: {
-        'event_id': getRequestParams.get('event-id')
-  }
-})
-.done(function(response) {
-    eventdata = response.data.info[0]
-    geteventInfo['eventid'] = eventdata.event_id;
-    geteventInfo['eventname'] = eventdata.event_name;
-    geteventInfo['eventcomment'] = eventdata.event_comment;
-    geteventInfo['map'] = eventdata.map;
-    geteventInfo['image'] = eventdata.image;
-    geteventInfo['postdate'] = eventdata.post_date;
-    geteventInfo['deadlinedate'] = eventdata.deadline_date;
-    geteventInfo['helddate'] = eventdata.held_date;
-    geteventInfo['organizer'] = eventdata.organizer;
-    geteventInfo['eventcancellation'] = eventdata.event_cancellation;
-    geteventInfo['memberlimit'] = eventdata.member_limit;
-    console.log(geteventInfo);
-    eventTags = response.data.event_tag;
-    console.log(eventTags)
-
-    console.log(geteventInfo['organizer'])
-
-    if(geteventInfo['organizer'] == myMembername){
-        flag = 2
-    }
+            if (geteventInfo['organizer'] == myMembername) {
+                flag = 2
+            }
 
 
-    $(".event-top .event-title").text(geteventInfo['eventname']);
-    $(".event-box p").text(geteventInfo['eventcomment']);
-    $(".event-top .event-img img").attr("src", geteventInfo["image"]);
-    $(".event-top .create-day").text(geteventInfo["postdate"])
-    $(".detail-box .day-box").attr("src", geteventInfo["deadlinedate"]);
-    $(".drawer-menu .drawer-brand").text(geteventInfo["postdate"]);
-
+            $(".event-top .event-title").text(geteventInfo['eventname']);
+            $(".event-box p").text(geteventInfo['eventcomment']);
+            $(".event-top .event-img img").attr("src", geteventInfo["image"]);
+            $(".event-top .create-day").text(geteventInfo["postdate"])
+            $(".detail-box .day-box").attr("src", geteventInfo["deadlinedate"]);
+            $(".drawer-menu .drawer-brand").text(geteventInfo["postdate"]);
 
             //tag関係
-    let userTag = $('.tag-card');
-    eventTags.forEach(eventTag => {
-        let targetTag = userTag.clone()
-        targetTag.find('span').text(eventTag.tag_name);
-        $(".clear-float").append(
-            targetTag.show()
-        );
-    });
+            let userTag = $('.tag-card');
+            eventTags.forEach(eventTag => {
+                let targetTag = userTag.clone()
+                targetTag.find('span').text(eventTag.tag_name);
+                $(".clear-float").append(
+                    targetTag.show()
+                );
+            });
 
-    //ユーザ名の追加
-    $(".user-icon span").text(geteventInfo["organizer"])
+            //ユーザ名の追加
+            $(".user-icon span").text(geteventInfo["organizer"])
 
-    helddate = geteventInfo["helddate"].split('-');
-    let helddateday = helddate[2];
-    let helddatemonth = helddate[1];
-    console.log(helddate);
-    $(".held-month").text(helddatemonth);
-    $(".held-day").text(helddateday);
+            helddate = geteventInfo["helddate"].split('-');
+            let helddateday = helddate[2];
+            let helddatemonth = helddate[1];
+            console.log(helddate);
+            $(".held-month").text(helddatemonth);
+            $(".held-day").text(helddateday);
 
 
-    
-    console.log("flag = " + flag)
-    if(flag == 2){
-        //イベント中止
-        $(".participation").hide();
-        $(".cancellation").show();
-        $(".cancellation").click(function(){
-            console.log("中止ボタン");
-            eventcancellation();
+
+            console.log("flag = " + flag)
+            if (flag == 2) {
+                //イベント中止
+                $(".participat").hide();
+                $(".cancellation").show();
+                $(".cancellation").click(function() {
+                    console.log("中止ボタン");
+                    eventcancellation();
+                })
+            } else if (flag == 0) {
+                //イベント参加
+                $(".participat").click(function() {
+                    console.log("イベントボタン");
+                    location.href = "";
+                    eventparticipation();
+                })
+            } else {
+                //イベントキャンセルボタン処理
+                $(".participat").hide();
+                $(".cancel").show();
+                $(".cancel").click(function() {
+                    console.log("キャンセルボタン")
+                    location.href = "";
+                    eventcancel()
+                })
+            }
+
         })
-    }else if(flag == 0){
-        //イベント参加
-        $(".participation").click(function(){
-            console.log("イベントボタン");
-            location.href = "";
-            eventparticipation();
+        .fail(function(response) {
+            console.log('通信失敗');
+            console.log(response);
         })
-    }else{
-        //イベントキャンセルボタン処理
-        $(".participation").hide();
-        $(".cancel").show();
-        $(".cancel").click(function(){
-        console.log("キャンセルボタン")
-        location.href = "";
-        eventcancel()
-    })
-    }
-
-    })
-    .fail(function(response) {
-        console.log('通信失敗');
-        console.log(response);
-    })
 
 });
 
@@ -216,68 +234,68 @@ function Puteventdetail() {
 }
 
 
-/*↓ここからイベントボタン処理↓*/ 
+/*↓ここからイベントボタン処理↓*/
 //イベント参加処理
-function eventparticipation(){
- $.ajax({
-    url: '/api/event/eventparticipant.php', //送信先
-    type: 'POST', //送信方法
-    datatype: 'json', //受け取りデータの種類
-    data: {
-        member_id : myMemberId,
-        event_id : getRequestParams.get('event-id')
-    }
- })
- //通信成功
- .done(function(response) {
-     console.log(response);
- })
- //通信失敗
- .fail(function(response) {
-     console.log(response);
- })
+function eventparticipation() {
+    $.ajax({
+            url: '/api/event/eventparticipant.php', //送信先
+            type: 'POST', //送信方法
+            datatype: 'json', //受け取りデータの種類
+            data: {
+                member_id: myMemberId,
+                event_id: getRequestParams.get('event-id')
+            }
+        })
+        //通信成功
+        .done(function(response) {
+            console.log(response);
+        })
+        //通信失敗
+        .fail(function(response) {
+            console.log(response);
+        })
 }
 
 //イベントキャンセル
-function eventcancel(){
+function eventcancel() {
     $.ajax({
-       url: '/api/event/eventparticipant.php', //送信先
-       type: 'PUT', //送信方法
-       datatype: 'json', //受け取りデータの種類
-       data: {
-           member_id : myMemberId,
-           event_id : getRequestParams.get('event-id')
-        }
-    })
-    //通信成功
-    .done(function(response) {
-        console.log(response);
-        console.log("成功")
-    })
-    //通信失敗
-    .fail(function(response) {
-        console.log(response);
-        console.log("失敗")
-    })
-} 
+            url: '/api/event/eventparticipant.php', //送信先
+            type: 'PUT', //送信方法
+            datatype: 'json', //受け取りデータの種類
+            data: {
+                member_id: myMemberId,
+                event_id: getRequestParams.get('event-id')
+            }
+        })
+        //通信成功
+        .done(function(response) {
+            console.log(response);
+            console.log("成功")
+        })
+        //通信失敗
+        .fail(function(response) {
+            console.log(response);
+            console.log("失敗")
+        })
+}
 
 //イベント中止(修正必要)
-function eventcancellation(){
+function eventcancellation() {
     $.ajax({
-       url: '/api/event/eventcancellation.php', //送信先
-       type: 'PUT', //送信方法
-       datatype: 'json', //受け取りデータの種類
-       data: {
-        "event_id": getRequestParams.get('event-id'),
-        "event_cancellation": 0
-       }
-    })
-    //通信成功
-    .done(function(response) {
-        console.log(response);
-    })
-    //通信失敗
-    .fail(function(response) {
-        console.log(response);
-    })
+            url: '/api/event/eventcancellation.php', //送信先
+            type: 'PUT', //送信方法
+            datatype: 'json', //受け取りデータの種類
+            data: {
+                "event_id": getRequestParams.get('event-id'),
+                "event_cancellation": 0
+            }
+        })
+        //通信成功
+        .done(function(response) {
+            console.log(response);
+        })
+        //通信失敗
+        .fail(function(response) {
+            console.log(response);
+        })
 }

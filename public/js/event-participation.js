@@ -1,13 +1,26 @@
-let geteventInfo = {
-    memberid: 29,
-}
-
+let geteventInfo;
 let eventparticipationDom;
 
-// formのイベント
 $(function() {
-    eventparticipationDom = $(".mx-auto:first");
-    geteventparticipation();
+    $.ajax({
+            url: '/api/member/memberinfo.php', //送信先
+            type: 'GET', //送信方法
+            datatype: 'json', //受け取りデータの種類
+            data: {
+                token: localStorage.getItem('token')
+            }
+        })
+        .done(function(response) {
+            console.log(response)
+            geteventInfo = response['data']['info'];
+
+            // formのイベント
+            eventparticipationDom = $(".mx-auto:first");
+            geteventparticipation();
+        }).fail(function(response) {
+            console.log('通信失敗');
+            console.log(response);
+        });
 });
 
 // 取得処理
@@ -17,13 +30,13 @@ function geteventparticipation() {
             type: 'GET', //送信方法
             datatype: 'json', //受け取りデータの種類
             data: {
-                "member_id": geteventInfo['memberid'],
+                "member_id": geteventInfo['member_id'],
             }
         })
         .done(function(response) {
             eventdataInfo = response.data
-                console.log(eventdataInfo);
-                // $(".card-box").empty();
+            console.log(eventdataInfo);
+            // $(".card-box").empty();
             eventdataInfo.forEach(function(card) {
                 eventparticipationDom = eventparticipationDom.clone();
                 eventparticipationDom.find(".card-link").attr("href", "/public/html/event-list/detail/index.html?event-id=" + card.event_id);
