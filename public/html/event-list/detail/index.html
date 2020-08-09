@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="/public/vender/sidemenu/drawer.min/index.css">
     <link rel="stylesheet" href="/public/css/general/sidemenu.css">
     <link rel="stylesheet" href="/public/css/detail.css">
+    <link rel="stylesheet" href="/public/vender/sweetalert2/sweetalert2.min.css">
 
     <script src="/public/vender/jquery-3.5.1.min/index.js"></script>
     <script src="/public/vender/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
     <script src="/public/vender/sidemenu/iscroll.min/index.js"></script>
     <script src="/public/vender/sidemenu/drawer.3.2.2.min/index.js"></script>
+    <script src="/public/vender/sweetalert2/sweetalert2.all.min.js"></script>
 
     <title>イベント詳細</title>
 </head>
@@ -64,6 +66,14 @@
                         <img src="/public/image/tag_icon.jpg">
                         <span></span>
                     </div>
+                    <input type="button" id="tag-button" class="btn btn-primary login-button" value="タグを追加する">
+                </div>
+
+                <div id="modal" style="display: none;">
+                    <input type="text"><input type="button" class="add-tag-button" value="追加">
+
+                    <div class="tag-box">
+                    </div>
                 </div>
             </div>
 
@@ -79,6 +89,7 @@
         </div>
 
         <script src="/public/js/general/sidemenu.js"></script>
+        <script src="/public/js/general/add-tag.js"></script>
         <script src="/public/js/detail.js"></script>
     </main>
 </body>
