@@ -18,7 +18,7 @@ switch($_SERVER['REQUEST_METHOD']){
 		$param = $_GET;		
 		$ret = getTag($param);
 		if($ret['success']){
-			$response['data'] = $ret['data'];
+			$response = $ret['data'];
 		}else{
 			$resary['success'] = false;
 			$resary['code'] = 400;
@@ -124,11 +124,15 @@ function gettag($param){
     
 	//$db = new DB();
 	try{
-        $sql= "SELECT tag_id, tag_name 
-               FROM tag";
+		if(empty($param['str']))			throw new ErrorException($errmsg."str");
+
+        $sql= "SELECT tag_name
+			   FROM tag
+			   WHERE tag_name LIKE :search";
 		$stmt = PDO()->prepare($sql);
+		$stmt -> bindValue(':search', $param['str'].'%', PDO::PARAM_STR);
 		$stmt -> execute();
-		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$data = $stmt->fetchAll(PDO::FETCH_COLUMN);
 		
 		$ret['data'] = $data;
 
