@@ -9,7 +9,9 @@ $(function() {
         });
 
         $('#modal input').on('keydown', function(e) {
-            addTag();
+            if (e.which == 13) {
+                addTag();
+            }
         });
         $('#modal .add-tag-button').click(function() {
             addTag();
