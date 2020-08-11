@@ -140,7 +140,7 @@
                     param[setting.msAjaxParam] = MY_PARENT.val();
                     $.ajax({
                         url: setting.msAjaxUrl,
-                        type: "GET",
+                        type: "POST",
                         cache: false,
                         dataType: "json",
                         data: param,
@@ -247,12 +247,16 @@
     // kanaXs
     // https://github.com/shogo4405/KanaXS.git
     String.prototype.toKatakanaCase = function() { for (var a, b = this.length, c = []; b--;) a = this.charCodeAt(b), c[b] = 12353 <= a && 12438 >= a ? a + 96 : a; return String.fromCharCode.apply(null, c) };
-    String.prototype.toHankakuCase = function() { for (var a, b = this.length, c = []; b--;) switch (a = c[b] = this.charCodeAt(b), !0) {
+    String.prototype.toHankakuCase = function() {
+        for (var a, b = this.length, c = []; b--;) switch (a = c[b] = this.charCodeAt(b), !0) {
             case 65281 <= a && 65374 >= a:
-                c[b] -= 65248; break;
+                c[b] -= 65248;
+                break;
             case 12288 == a:
-                c[b] = 32 }
-        return String.fromCharCode.apply(null, c) };
+                c[b] = 32
+        }
+        return String.fromCharCode.apply(null, c)
+    };
 
 
 })(jQuery);
