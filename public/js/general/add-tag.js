@@ -64,3 +64,19 @@ function addTag() {
         targetTagInfo = undefined;
     }
 }
+
+function sendTag(eventId) {
+    sendTagList.forEach(e => {
+        $.ajax({
+            type: "POST",
+            url: "/api/event/eventtag.php",
+            dataType: "json",
+            data: {
+                event_id: eventId,
+                event_tag: e['tag_id']
+            }
+        }).done(function() {
+            console.log('success');
+        });
+    });
+}
