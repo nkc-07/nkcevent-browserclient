@@ -124,13 +124,13 @@ function gettag($param){
     
 	//$db = new DB();
 	try{
-		if(empty($param['str']))			throw new ErrorException($errmsg."str");
+		// if(empty($param['str']))			throw new ErrorException($errmsg."str");
 
         $sql= "SELECT tag_name, tag_id
-			   FROM tag
-			   WHERE tag_name LIKE :search";
+			   FROM tag";
+
 		$stmt = PDO()->prepare($sql);
-		$stmt -> bindValue(':search', $param['str'].'%', PDO::PARAM_STR);
+		// $stmt -> bindValue(':search', $param['str'].'%', PDO::PARAM_STR);
 		$stmt -> execute();
 		$data = $stmt->fetchAll(PDO::FETCH_COLUMN);
 		$ret['data']['autocompleteInfo'] = $data;
