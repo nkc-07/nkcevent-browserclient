@@ -54,14 +54,19 @@ $(function() {
 
 function addTag() {
     if (targetTagInfo !== undefined) {
-        let tagCardDOmClone = tagCardDom.clone().show();
-        tagCardDOmClone.find('span').text(targetTagInfo['tag_name']);
-        $('#modal .tag-box .clear-float').append(tagCardDOmClone);
+        let duplication = false
+        duplication = sendTagList.find(({ tag_name }) => tag_name == targetTagInfo['tag_name']);
 
-        sendTagList.push(targetTagInfo);
-        console.log(sendTagList);
+        if (duplication === undefined) {
+            let tagCardDOmClone = tagCardDom.clone().show();
+            tagCardDOmClone.find('span').text(targetTagInfo['tag_name']);
+            $('#modal .tag-box .clear-float').append(tagCardDOmClone);
 
-        targetTagInfo = undefined;
+            sendTagList.push(targetTagInfo);
+            console.log(sendTagList);
+
+            targetTagInfo = undefined;
+        }
     }
 }
 
