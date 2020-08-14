@@ -46,6 +46,16 @@ $(function() {
         $('#modal .add-tag-button').click(function() {
             addTag();
         });
+
+        $('#modal').off('click', '.tag-card');
+        $('#modal').on('click', '.tag-card', function(e) {
+            deleteTag = $(this).find('span').text();
+            sendTagList.forEach((element, index) => {
+                if (element['tag_name'] === deleteTag) sendTagList.splice(index, 1);
+            });
+
+            $(this).remove();
+        });
     });
 });
 
