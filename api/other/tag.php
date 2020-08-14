@@ -91,19 +91,23 @@ function postTag($param){
 		'success' => true,
 		'msg' => "",
     ];
-    
+
 	//$db = new DB();
 	try{
 		if(empty($param['tag_name']))			throw new ErrorException($errmsg."tag_name");
+
 		$sql= "INSERT INTO tag(
 			  tag_name)
 			  VALUES(:tag_name)";
-		$stmt = PDO()->prepare($sql);
+
+		$pdo = PDO();
+		$stmt = $pdo->prepare($sql);
 		$stmt -> bindValue(':tag_name',  $param['tag_name'],  PDO::PARAM_STR);
 		$stmt -> execute();
 		//$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		
-		$ret['data'] = "success";
+
+		$ret['data'] = $pdo->lastInsertId();
+		// $ret['data'] = "success";
 
 	}catch(Exception $err){
 		//exceptionErrorPut($err, "EXCEPTION");

@@ -67,11 +67,28 @@ function addTag() {
 
             targetTagInfo = undefined;
         }
+    } else {
+        let targetTagInfo = {
+            tag_id: undefined,
+            tag_name: $('.add-tag .tag-text').val()
+        };
+        duplication = sendTagList.find(({ tag_name }) => tag_name == targetTagInfo['tag_name']);
+
+        if (duplication === undefined) {
+            let tagCardDOmClone = tagCardDom.clone().show();
+            tagCardDOmClone.find('span').text(targetTagInfo['tag_name']);
+            $('#modal .tag-box .clear-float').append(tagCardDOmClone);
+
+            sendTagList.push(targetTagInfo);
+        }
     }
 }
 
 function sendTag(eventId) {
-    sendTagList.forEach(e => {
+    sendTagList.forEach(async e => {
+        if (e['tag_id'] === undefined) {
+            e['tag_id'] = await newTag(e);
+        }
         $.ajax({
             type: "POST",
             url: "/api/event/eventtag.php",
@@ -82,6 +99,23 @@ function sendTag(eventId) {
             }
         }).done(function() {
             console.log('success');
+        });
+    });
+}
+
+function newTag(newTagInfo) {
+    return new Promise((resolve) => {
+        $.ajax({
+            type: "POST",
+            url: "/api/other/tag.php",
+            dataType: "json",
+            data: {
+                tag_name: newTagInfo['tag_name']
+            }
+        }).done(function(response) {
+            // e['tag_id'] = response['data'];
+            console.log(response['data']);
+            resolve(response['data']);
         });
     });
 }
