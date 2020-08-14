@@ -1,20 +1,20 @@
 $(function() {
-    $.ajax({//ログインチェック
-        url: '/api/member/logincheck.php', //送信先
-        type: 'POST', //送信方法
-        datatype: 'json', //受け取りデータの種類
-        data: {
-            token: localStorage.getItem('token')
-        }
-    })
-    .done(function(response) {
-        if(!response.data.login){location.href = '/public/html/';}
-    })
-    .fail(function(response) {
-        console.log('通信失敗');
-        console.log(response);
-        location.href = '/public/html/event-list/';
-    })
+    $.ajax({ //ログインチェック
+            url: '/api/member/logincheck.php', //送信先
+            type: 'POST', //送信方法
+            datatype: 'json', //受け取りデータの種類
+            data: {
+                token: localStorage.getItem('token')
+            }
+        })
+        .done(function(response) {
+            if (!response.data.login) { location.href = '/public/html/'; }
+        })
+        .fail(function(response) {
+            console.log('通信失敗');
+            console.log(response);
+            location.href = '/public/html/event-list/';
+        })
 });
 /* イベントを作成するために使用する各情報を入れておくための変数 */
 let createEventInfo = {
@@ -114,7 +114,7 @@ $('.participation-event').click(function(e) {
                     datatype: 'json', //受け取りデータの種類
                     data: createEventInfo
                 }).done(function(e) {
-                    console.log('success');
+                    sendTag(e['data']);
                     location.href = '/public/html/event-list/'
                 }).fail(function(e) {
                     console.log('通信失敗');

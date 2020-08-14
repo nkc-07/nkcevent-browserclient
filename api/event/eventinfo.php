@@ -172,7 +172,8 @@ function postEventinfo($param){
 		$stmt -> execute();
 		//$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		
-		$ret['data'] = "success";
+		$ret['data'] = $pdo->lastInsertId();
+		// $ret['data'] = "success";
 
 	}catch(Exception $err){
 		//exceptionErrorPut($err, "EXCEPTION");

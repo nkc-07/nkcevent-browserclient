@@ -18,7 +18,7 @@ switch($_SERVER['REQUEST_METHOD']){
 		$param = $_GET;		
 		$ret = getTag($param);
 		if($ret['success']){
-			$response['data'] = $ret['data'];
+			$response = $ret['data'];
 		}else{
 			$resary['success'] = false;
 			$resary['code'] = 400;
@@ -91,19 +91,23 @@ function postTag($param){
 		'success' => true,
 		'msg' => "",
     ];
-    
+
 	//$db = new DB();
 	try{
 		if(empty($param['tag_name']))			throw new ErrorException($errmsg."tag_name");
+
 		$sql= "INSERT INTO tag(
 			  tag_name)
 			  VALUES(:tag_name)";
-		$stmt = PDO()->prepare($sql);
+
+		$pdo = PDO();
+		$stmt = $pdo->prepare($sql);
 		$stmt -> bindValue(':tag_name',  $param['tag_name'],  PDO::PARAM_STR);
 		$stmt -> execute();
 		//$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		
-		$ret['data'] = "success";
+
+		$ret['data'] = $pdo->lastInsertId();
+		// $ret['data'] = "success";
 
 	}catch(Exception $err){
 		//exceptionErrorPut($err, "EXCEPTION");
@@ -124,13 +128,20 @@ function gettag($param){
     
 	//$db = new DB();
 	try{
-        $sql= "SELECT tag_id, tag_name 
-               FROM tag";
+		// if(empty($param['str']))			throw new ErrorException($errmsg."str");
+
+        $sql= "SELECT tag_name, tag_id
+			   FROM tag";
+
 		$stmt = PDO()->prepare($sql);
+		// $stmt -> bindValue(':search', $param['str'].'%', PDO::PARAM_STR);
+		$stmt -> execute();
+		$data = $stmt->fetchAll(PDO::FETCH_COLUMN);
+		$ret['data']['autocompleteInfo'] = $data;
+
 		$stmt -> execute();
 		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		
-		$ret['data'] = $data;
+		$ret['data']['tagInfo'] = $data;
 
 	}catch(Exception $err){
 		//exceptionErrorPut($err, "EXCEPTION");
