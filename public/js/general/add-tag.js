@@ -17,15 +17,12 @@ $(function() {
     $('#modal')[0].remove();
 
     $('#tag-button').click(function() {
+        modalDom.find('.tag-box .clear-float')[0].innerHTML = $('.detail-box .tag-box .clear-float')[0].innerHTML;
         Swal.fire({
             title: 'タグの追加',
             html: modalDom.show()
         }).then(function(result) {
-            sendTagList.forEach(element => {
-                let tagCardDOmClone = tagCardDom.clone().show();
-                tagCardDOmClone.find('span').text(element['tag_name']);
-                $('.tag-box .clear-float').append(tagCardDOmClone);
-            });
+            $('.detail-box .tag-box .clear-float')[0].innerHTML = $('#modal').find('.tag-box .clear-float')[0].innerHTML;
         });
 
         // ajax用の設定もあるが、matchedイベントを発火できないので別で取得
