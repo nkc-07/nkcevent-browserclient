@@ -5,22 +5,23 @@ let userIconChangeFlag = false
 var reg = /^[a-z]{2}[0-9]*@mailg.denpa.ac.jp/
 
 $(function() {
-    $.ajax({//ログインチェック
-        url: '/api/member/logincheck.php', //送信先
-        type: 'POST', //送信方法
-        datatype: 'json', //受け取りデータの種類
-        data: {
-            token: localStorage.getItem('token')
-        }
-    })
-    .done(function(response) {
-        if(!response.data.login){location.href = '/public/html/';}
-    })
-    .fail(function(response) {
-        console.log('通信失敗');
-        console.log(response);
-        location.href = '/public/html/event-list/';
-    })
+    $.ajax({ //ログインチェック
+            url: '/api/member/logincheck.php', //送信先
+            type: 'POST', //送信方法
+            datatype: 'json', //受け取りデータの種類
+            data: {
+                token: localStorage.getItem('token')
+            }
+        })
+        .done(function(response) {
+            if (!response.data.login) { location.href = '/public/html/'; }
+        })
+        .fail(function(response) {
+            console.log('通信失敗');
+            console.log(response);
+            location.href = '/public/html/event-list/';
+        })
+
     $.ajax({
             url: '/api/member/memberinfo.php', //送信先
             type: 'GET', //送信方法
@@ -56,6 +57,14 @@ $(function() {
             console.log('通信失敗')
             console.log(response)
         })
+
+    $('#change-pas').click(function() {
+        Swal.fire({
+            title: 'パスワードの変更',
+            html: $('#modal').clone().show(),
+            confirmButtonText: 'パスワードを変更'
+        })
+    })
 
     $('.change-button').click(async function(e) {
         flg = true

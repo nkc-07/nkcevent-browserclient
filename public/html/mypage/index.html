@@ -8,12 +8,15 @@
     <link rel="stylesheet" href="/public/css/general/sidemenu.css" />
     <link rel="stylesheet" href="/public/css/mypage.css" />
     <link rel="stylesheet" href="/public/vender/sweetalert2/sweetalert2.min.css" />
+    <link rel="stylesheet" href="/public/css/general/password_checker.css">
+
 
     <script src="/public/vender/jquery-3.5.1.min/index.js"></script>
     <script src="/public/vender/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
     <script src="/public/vender/sidemenu/iscroll.min/index.js"></script>
     <script src="/public/vender/sidemenu/drawer.3.2.2.min/index.js"></script>
     <script src="/public/js/general/generatedate.js"></script>
+    <script src="/public/vender/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="/public/vender/sweetalert2/sweetalert2.all.min.js"></script>
 
     <title>マイページ</title>
@@ -44,11 +47,11 @@
             <div class="profile-img">
                 <img src="" class="list-margin user-icon" />
                 <label class="btn btn-primary">
-            画像変更
-            <form id="icon-img">
-              <input type="file" class="send-user-icon" accept="image/*" />
-            </form>
-          </label>
+                    画像変更
+                    <form id="icon-img">
+                        <input type="file" class="send-user-icon" accept="image/*" />
+                    </form>
+                </label>
             </div>
 
             <div class="profile">
@@ -62,7 +65,26 @@
                     <input class="form-control mailaddress" type="text" />
                 </div>
 
-                <button class="btn btn-primary list-margin">パスワード変更</button>
+                <button id="change-pas" class="btn btn-primary list-margin">パスワード変更</button>
+
+                <div id="modal" style="display: none;">
+                    <div>
+                        <p>現在のパスワード</p>
+                        <input type="password" class="form-control" placeholder="Password">
+                    </div>
+
+                    <div>
+                        <p>新しいパスワード</p>
+                        <input type="password" name="pass" id="pass" class="form-control" placeholder="8文字以上英数字を含めて入力してください。" onkeyup="chkPass(this.value)">
+                        <div class="scorebar">&nbsp;</div>
+                    </div>
+
+                    <div>
+                        <p>新しいパスワード（確認）</p>
+                        <input type="password" name="repass" id="repass" class="form-control" placeholder="8文字以上英数字を含めてで入力してください。">
+                    </div>
+                    <p class="repass-err-text" id="repass-err" style="display: none;">パスワードが一致しません。</p>
+                </div>
 
                 <div>
                     <span>生年月日</span>
@@ -113,6 +135,7 @@
                 </tr>
             </table>
         </div>
+        <script src="/public/js/general/password_checker.js"></script>
         <script src="/public/js/general/sidemenu.js"></script>
         <script src="/public/js/mypage.js"></script>
     </main>
