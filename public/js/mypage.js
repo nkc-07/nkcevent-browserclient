@@ -82,6 +82,7 @@ $(function() {
                 }).done(function(response) {
                     sendMemberInfo['new_password'] = $('#modal').find('input[name="pass"]').val();
                     sendMemberInfo['old_password'] = $('#modal').find('input[name="old-pass"]').val();
+                    $('.check-pass').show();
                     Swal.fire({
                         title: 'パスワードの変更確認が出来ました',
                         icon: 'success'
