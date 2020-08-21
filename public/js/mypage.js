@@ -5,6 +5,10 @@ let userIconChangeFlag = false
 var reg = /^[a-z]{2}[0-9]*@mailg.denpa.ac.jp/
 
 $(function() {
+    // sweetalertの画面要素
+    let modalDom = $('#modal').clone();
+    $('#modal')[0].remove();
+
     $.ajax({ //ログインチェック
             url: '/api/member/logincheck.php', //送信先
             type: 'POST', //送信方法
@@ -61,8 +65,34 @@ $(function() {
     $('#change-pas').click(function() {
         Swal.fire({
             title: 'パスワードの変更',
-            html: $('#modal').clone().show(),
-            confirmButtonText: 'パスワードを変更'
+            html: modalDom.show(),
+            showCancelButton: true,
+            cancelButtonText: 'キャンセル',
+            confirmButtonText: 'パスワードを変更',
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: '/api/member/password.php', //送信先
+                    type: 'POST', //送信方法
+                    data: {
+                        password: $('#modal').find('input[name="old-pass"]').val(),
+                        token: localStorage.getItem('token')
+                    },
+                    datatype: 'json'
+                }).done(function(response) {
+                    sendMemberInfo['new_password'] = $('#modal').find('input[name="pass"]').val();
+                    sendMemberInfo['old_password'] = $('#modal').find('input[name="old-pass"]').val();
+                    Swal.fire({
+                        title: 'パスワードの変更確認が出来ました',
+                        icon: 'success'
+                    })
+                }).fail(function(response) {
+                    Swal.fire({
+                        title: 'パスワードの変更確認が出来ませんでした',
+                        icon: 'error'
+                    })
+                })
+            },
         })
     })
 
@@ -87,6 +117,7 @@ $(function() {
                 '-' +
                 $('[id=date]').val()
             sendMemberInfo['gender'] = $('[name=gender]:checked')[0].value
+            changePassword()
         } else {
             Swal.fire({
                 icon: 'error',
@@ -225,4 +256,28 @@ function getUserIconName() {
         }
         reader.readAsDataURL(file)
     })
+}
+
+function changePassword() {
+    if (
+        sendMemberInfo.hasOwnProperty('old_password') &&
+        sendMemberInfo.hasOwnProperty('new_password')
+    ) {
+        $.ajax({
+            url: '/api/member/password.php', //送信先
+            type: 'PUT', //送信方法
+            data: {
+                old_password: sendMemberInfo['old_password'],
+                new_password: sendMemberInfo['new_password'],
+                token: localStorage.getItem('token')
+            },
+            datatype: 'json'
+        }).done(function(response) {
+            console.log(Response);
+        }).fail(function(response) {
+            console.log('通信失敗')
+            console.log(response)
+        })
+    }
+
 }
