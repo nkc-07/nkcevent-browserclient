@@ -32,6 +32,12 @@
     margin: 0 0 10px 0;
 }
 
+.check-pass {
+    margin-left: 10px;
+    height: 30px;
+    width: auto;
+}
+
 .icon-img,
 input[type="file"] {
     display: none;
