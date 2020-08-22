@@ -71,28 +71,39 @@ $(function() {
             confirmButtonText: 'パスワードを変更',
             showLoaderOnConfirm: true,
             preConfirm: () => {
-                $.ajax({
-                    url: '/api/member/password.php', //送信先
-                    type: 'POST', //送信方法
-                    data: {
-                        password: $('#modal').find('input[name="old-pass"]').val(),
-                        token: localStorage.getItem('token')
-                    },
-                    datatype: 'json'
-                }).done(function(response) {
-                    sendMemberInfo['new_password'] = $('#modal').find('input[name="pass"]').val();
-                    sendMemberInfo['old_password'] = $('#modal').find('input[name="old-pass"]').val();
-                    $('.check-pass').show();
-                    Swal.fire({
-                        title: 'パスワードの変更確認が出来ました',
-                        icon: 'success'
+                if (
+                    $('#pass').val() === $('#repass').val() &&
+                    $('#pass').val() &&
+                    $('#repass').val()
+                ) {
+                    $.ajax({
+                        url: '/api/member/password.php', //送信先
+                        type: 'POST', //送信方法
+                        data: {
+                            password: $('#modal').find('input[name="old-pass"]').val(),
+                            token: localStorage.getItem('token')
+                        },
+                        datatype: 'json'
+                    }).done(function(response) {
+                        sendMemberInfo['new_password'] = $('#modal').find('input[name="pass"]').val();
+                        sendMemberInfo['old_password'] = $('#modal').find('input[name="old-pass"]').val();
+                        $('.check-pass').show();
+                        Swal.fire({
+                            title: 'パスワードの変更確認が出来ました',
+                            icon: 'success'
+                        })
+                    }).fail(function(response) {
+                        Swal.fire({
+                            title: 'パスワードの変更確認が出来ませんでした',
+                            icon: 'error'
+                        })
                     })
-                }).fail(function(response) {
+                } else {
                     Swal.fire({
-                        title: 'パスワードの変更確認が出来ませんでした',
+                        title: 'パスワードが一致しません。',
                         icon: 'error'
                     })
-                })
+                }
             },
         })
     })
