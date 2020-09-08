@@ -145,7 +145,7 @@ $(function() {
             let userTag = $('.tag-card');
             eventTags.forEach(eventTag => {
                 let targetTag = userTag.clone()
-                targetTag.find('a').attr('href', '/public/html/event-list/index.html?tag=' + eventTag.tag_name)
+                targetTag.find('a').attr('href', '/public/html/event-list/index.html?tag_id=' + eventTag.event_tag)
                 targetTag.find('span').text(eventTag.tag_name);
                 $(".clear-float").append(
                     targetTag.show()
