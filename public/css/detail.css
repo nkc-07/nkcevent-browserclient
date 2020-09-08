@@ -89,6 +89,12 @@
     float: left;
 }
 
+.tag-box a {
+    color: #212529;
+}
+
+.tag-box a:hover {}
+
 .tag-box .tag-card img {
     width: 25px;
     margin: 0 0 0 10px;
