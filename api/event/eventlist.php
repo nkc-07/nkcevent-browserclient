@@ -131,7 +131,11 @@ function getEventList($param){
 			$flag_Ename = true;
 		}
 		if(array_key_exists('tag_id', $param)){
-			$sql .= "AND tag_id = :tag_id";
+			$sql .= "AND e.event_id = (
+						SELECT event_id
+						FROM event_tag
+						WHERE event_tag = :tag_id
+            )";
 			$flag_Tid = true;
 		}
 

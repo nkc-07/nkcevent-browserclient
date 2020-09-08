@@ -70,8 +70,7 @@ $(function() {
             sendMemberInfo = memberInfo;
             myMembername = memberInfo['nickname']
             myMemberId = memberInfo['member_id']
-            console.log("ユーザ～名は" + myMembername)
-            console.log("member_id" + myMemberId)
+            $(".user-icon img").attr("src", memberInfo["icon"])
         })
         .fail(function(response) {
             console.log('通信失敗');
@@ -146,6 +145,7 @@ $(function() {
             let userTag = $('.tag-card');
             eventTags.forEach(eventTag => {
                 let targetTag = userTag.clone()
+                targetTag.find('a').attr('href', '/public/html/event-list/index.html?tag_id=' + eventTag.event_tag)
                 targetTag.find('span').text(eventTag.tag_name);
                 $(".clear-float").append(
                     targetTag.show()
