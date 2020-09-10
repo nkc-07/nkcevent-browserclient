@@ -3,6 +3,7 @@
 }
 
 .event-box {
+    min-height: 700px;
     margin: 20px;
     padding: 20px;
     border: 1px solid rgba(0, 0, 0, .125);
@@ -28,6 +29,18 @@ a.card-rink {
 
 .card-body .day {
     float: right;
+}
+
+.card-body .event-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card-body .map {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .user-info {
