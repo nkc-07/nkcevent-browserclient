@@ -30,6 +30,18 @@ a.card-rink {
     float: right;
 }
 
+.card-body .event-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card-body .map {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .user-info {
     float: right;
 }
