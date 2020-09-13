@@ -18,4 +18,24 @@ if (localStorage.getItem('token') !== null) {
     $('.drawer-menu .login').show();
     $('.drawer-menu .no-login').hide();
 
+    $('.logout').on('click', function() {
+        $.ajax({
+                url: '/api/member/login.php', //送信先
+                type: 'DELETE', //送信方法
+                datatype: 'json', //受け取りデータの種類
+                data: {
+                    token: localStorage.getItem('token')
+                }
+            })
+            .done(function(response) {
+                console.log(response);
+                localStorage.removeItem('token');
+
+                location.href = '/public/html/';
+            })
+            .fail(function(response) {
+                console.log('通信失敗');
+                console.log(response);
+            })
+    });
 }
