@@ -23,8 +23,18 @@ switch($_SERVER['REQUEST_METHOD']){
 			$resary['code'] = 400;
 			$resary['msg'] = $ret['msg'];
 		}
-
-        break;
+		break;
+	case "DELETE":
+		parse_str(file_get_contents('php://input'), $param);
+		$ret = deleteLogin($param);
+		if($ret['success']){
+			$response['data'] = $ret;
+		}else{
+			$resary['success'] = false;
+			$resary['code'] = 400;
+			$resary['msg'] = $ret['msg'];
+		}
+		break;
     default:
 		$resary['success'] = false;
 		$resary['code'] = 405;
@@ -91,6 +101,28 @@ function getLogin($param){
 		$ret['msg'] = "[".date("Y-m-d H:i:s")."]".$err->getMessage();
     }
     return $ret;
+}
+
+function deleteLogin($param) {
+
+	try {
+		if(empty($param['token']))			throw new ErrorException($errmsg."token");
+
+		$sql = "UPDATE access_token 
+		SET token_deadline = '0000-00-00 00:00:00' 
+		WHERE access_token.token_id = :token";
+
+		$stmt = PDO()->prepare($sql);
+		$stmt -> bindValue(':token', $param['token'], PDO::PARAM_STR);
+		$stmt -> execute();
+
+		$ret['success'] = true;
+	} catch(Exception $err) {
+		$ret['success'] = false;
+		$ret['msg'] = "[".date("Y-m-d H:i:s")."]".$err->getMessage();
+	}
+
+	return $ret;
 }
 
 ?>
