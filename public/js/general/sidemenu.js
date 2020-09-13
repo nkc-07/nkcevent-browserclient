@@ -13,3 +13,9 @@ $('.drawer').drawer({
     },
     showOverlay: true
 });
+
+if (localStorage.getItem('token') !== null) {
+    $('.drawer-menu .login').show();
+    $('.drawer-menu .no-login').hide();
+
+}
