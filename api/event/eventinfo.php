@@ -142,13 +142,18 @@ function postEventinfo($param){
 		if(empty($param['post_date']))			throw new ErrorException($errmsg."post_date");
 		if(empty($param['deadline_date']))		throw new ErrorException($errmsg."deadline_date");
 		if(empty($param['held_date']))			throw new ErrorException($errmsg."held_date");
-		if(empty($param['organizer']))			throw new ErrorException($errmsg."organizer");
+		if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
 		if(empty($param['member_limit']))		throw new ErrorException($errmsg."member_limit");
 
 		//event_cancellationは1で挿入(開催)
 		$sql = "INSERT INTO `event`(event_name, event_kana, event_comment, map, `image`, post_date, deadline_date, held_date, organizer, member_limit, event_cancellation) 
 				VALUES (:event_name, :event_kana, :event_comment, :map, :image,:post_date,
-				:deadline_date, :held_date, :organizer, :member_limit, 1)";
+				:deadline_date, :held_date, 
+				(
+					SELECT member_id
+					FROM access_token
+					WHERE access_token.token_id = :token_id
+				), :member_limit, 1)";
 
 		$pdo = PDO();
 		$stmt = $pdo->prepare($sql);
@@ -160,14 +165,18 @@ function postEventinfo($param){
 		$stmt -> bindValue(':post_date', 	 $param['post_date'], PDO::PARAM_STR);
 		$stmt -> bindValue(':deadline_date', $param['deadline_date'], PDO::PARAM_STR);
 		$stmt -> bindValue(':held_date', 	 $param['held_date'], PDO::PARAM_STR);
-		$stmt -> bindValue(':organizer', 	 $param['organizer'], PDO::PARAM_INT);
+		$stmt -> bindValue(':token_id', 	 $param['token_id'], PDO::PARAM_STR);
 		$stmt -> bindValue(':member_limit',  $param['member_limit'], PDO::PARAM_INT);
 		$stmt -> execute();
 
-		$sql2 = "INSERT INTO event_participant (event_id, member_id) VALUES (:event_id, :member_id);";
+		$sql2 = "INSERT INTO event_participant (event_id, member_id) VALUES (:event_id, (
+			SELECT member_id
+			FROM access_token
+			WHERE access_token.token_id = :token_id));";
+
 		$stmt =  PDO()->prepare($sql2);
 		$stmt -> bindValue(':event_id',  	 $pdo->lastInsertId('event_id'),  PDO::PARAM_INT);
-		$stmt -> bindValue(':member_id', 	 $param['organizer'], PDO::PARAM_INT);
+		$stmt -> bindValue(':token_id', 	 $param['token_id'], PDO::PARAM_STR);
 
 		$stmt -> execute();
 		//$data = $stmt->fetchAll(PDO::FETCH_ASSOC);

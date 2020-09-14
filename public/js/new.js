@@ -26,7 +26,7 @@ let createEventInfo = {
     'post_date': undefined,
     'deadline_date': undefined,
     'held_date': undefined,
-    'organizer': undefined,
+    'token_id': undefined,
     'member_limit': undefined
 }
 
@@ -43,7 +43,7 @@ $.ajax({
     $('.user-img').attr('src', memberInfo['icon']);
     $('.nickname').text(memberInfo['nickname']);
 
-    createEventInfo['organizer'] = memberInfo['member_id'];
+    createEventInfo['token_id'] = localStorage.getItem('token');
 });
 
 $('.held-date').change(function(e) {
