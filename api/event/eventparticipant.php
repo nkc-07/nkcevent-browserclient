@@ -142,14 +142,19 @@ function postParticipant($param){
 	//$db = new DB();
 	try{
 		if(empty($param['event_id']))			throw new ErrorException($errmsg."event_id");
-        if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id");
+		if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
+		
         $sql= "INSERT INTO event_participant(
-			   event_id,
-			   member_id)
-			   VALUES(:event_id,:member_id)";
+				event_id,
+				member_id)
+				VALUES(:event_id, (
+					SELECT member_id
+					FROM access_token
+					WHERE access_token.token_id = :token_id))";
+
 		$stmt = PDO()->prepare($sql);
 		$stmt -> bindValue(':event_id',  $param['event_id'],  PDO::PARAM_INT);
-		$stmt -> bindValue(':member_id', $param['member_id'], PDO::PARAM_INT);
+		$stmt -> bindValue(':token_id', $param['token_id'], PDO::PARAM_STR);
 		$stmt -> execute();
 		//$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		
@@ -173,13 +178,18 @@ function deleteParticipant($param){
 	//$db = new DB();
 	try{
 		if(empty($param['event_id']))			throw new ErrorException($errmsg."event_id");
-        if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id");
+		if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
+		
 		$sql= "DELETE FROM event_participant
                WHERE event_id = :event_id
-               AND   member_id = :member_id";
+			   AND   member_id = (
+					SELECT member_id
+					FROM access_token
+					WHERE access_token.token_id = :token_id)";
+
 		$stmt = PDO()->prepare($sql);
 		$stmt -> bindValue(':event_id',   $param['event_id'],   PDO::PARAM_INT);
-        $stmt -> bindValue(':member_id',  $param['member_id'],  PDO::PARAM_INT);
+        $stmt -> bindValue(':token_id',  $param['token_id'],  PDO::PARAM_STR);
         $stmt -> execute();
 		//$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		
