@@ -263,7 +263,7 @@ function eventcancel() {
             type: 'PUT', //送信方法
             datatype: 'json', //受け取りデータの種類
             data: {
-                member_id: myMemberId,
+                token_id: localStorage.getItem('token'),
                 event_id: getRequestParams.get('event-id')
             }
         })
