@@ -1,6 +1,6 @@
 <?php
-header("Access-Control-Allow-Origin: *");           // TODO: サーバにアップ次第変更...
-header("Access-Control-Allow-Methods: PUT");
+// header("Access-Control-Allow-Origin: *");           // TODO: サーバにアップ次第変更...
+// header("Access-Control-Allow-Methods: PUT");
 
 require_once(__DIR__.'/../../php/Define.php');
 require_once(__DIR__.'/../../php/db.php');
