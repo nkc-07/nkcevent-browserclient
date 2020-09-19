@@ -1,4 +1,6 @@
 <?php
+header("Access-Control-Allow-Origin: *");           // TODO: サーバにアップ次第変更...
+header("Access-Control-Allow-Methods: PUT");
 
 require_once(__DIR__.'/../../php/Define.php');
 require_once(__DIR__.'/../../php/db.php');
@@ -15,7 +17,8 @@ switch($_SERVER['REQUEST_METHOD']){
 		parse_str(file_get_contents('php://input'), $param);
 		$ret = putEventattendance($param);
 		if($ret['success']){
-			$response['data'] = $ret['data'];
+			$resary['success'] = true;
+            $response['data'] = $ret['data'];
 		}else{
 			$resary['success'] = false;
 			$resary['code'] = 400;
@@ -40,5 +43,43 @@ if($resary['success']){
 }
 
 function putEventattendance($param) {
-    return;
+
+    $ret = [
+		'success' => true,
+		'msg' => "",
+    ];
+    
+	try {
+		if(empty($param['event_id']))			throw new ErrorException($errmsg."event_id");
+		if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
+
+		$sql = "SELECT event_participant.member_id
+                FROM event_participant 
+                INNER JOIN event
+                ON event_participant.event_id = event.event_id
+                INNER JOIN access_token
+                ON access_token.member_id = event_participant.member_id
+                WHERE event.event_id = :event_id
+                AND access_token.token_id = :token_id";
+
+        $stmt = PDO()->prepare($sql);
+        $stmt -> bindValue(':event_id', $param['event_id'], PDO::PARAM_INT);
+        $stmt -> bindValue(':token_id', $param['token_id'], PDO::PARAM_STR);
+        $stmt -> execute();
+        $isparticipant = $stmt->fetchAll();
+        
+        if(count($isparticipant) == 1) {
+            $ret['data']['participant_member'] = $isparticipant[0]['member_id'];
+
+            //TODO: イベント参加テーブルにデータをアップデート
+        } else {
+            $ret['success'] = false;
+			$ret['data'] = false;
+        }
+    } catch (Exception $err) {
+        $ret['success'] = false;
+        $ret['msg'] = "[".date("Y-m-d H:i:s")."]".$err->getMessage();
+    }
+
+	return $ret;
 }
