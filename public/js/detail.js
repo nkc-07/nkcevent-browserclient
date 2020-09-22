@@ -17,6 +17,7 @@ let geteventInfo = {
     postdate: undefined,
     deadlinedate: undefined,
     helddate: undefined,
+    organizer_id: undefined,
     organizer_nickname: undefined,
     eventcancellation: undefined,
     memberlimit: undefined
@@ -120,6 +121,7 @@ $(function() {
             geteventInfo['postdate'] = eventdata.post_date;
             geteventInfo['deadlinedate'] = eventdata.deadline_date;
             geteventInfo['helddate'] = eventdata.held_date;
+            geteventInfo['organizer_id'] = eventdata.organizer_id;
             geteventInfo['organizer_nickname'] = eventdata.organizer_nickname;
             geteventInfo['eventcancellation'] = eventdata.event_cancellation;
             geteventInfo['memberlimit'] = eventdata.member_limit;
@@ -129,7 +131,7 @@ $(function() {
 
             console.log(geteventInfo['organizer_nickname'])
 
-            if (geteventInfo['organizer_nickname'] == myMembername) {
+            if (geteventInfo['organizer_id'] == myMemberId) {
                 flag = 2
             }
 
