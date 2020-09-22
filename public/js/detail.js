@@ -5,7 +5,7 @@ let myMemberId;
 
 var eventTags = [];
 var host = [];
-var flag = 0;
+var eventDisplayStatus = 0;
 
 //イベント情報
 let geteventInfo = {
@@ -92,7 +92,7 @@ $(function() {
             console.log(joindata)
             joindata.forEach(function(e) {
                 if (e.member_id == myMemberId) {
-                    flag = 1
+                    eventDisplayStatus = 1
                 }
             })
         })
@@ -132,7 +132,7 @@ $(function() {
             console.log(geteventInfo['organizer_nickname'])
 
             if (geteventInfo['organizer_id'] == myMemberId) {
-                flag = 2
+                eventDisplayStatus = 2
             }
 
 
@@ -166,8 +166,8 @@ $(function() {
 
 
 
-            console.log("flag = " + flag)
-            if (flag == 2) {
+            console.log("eventDisplayStatus = " + eventDisplayStatus)
+            if (eventDisplayStatus == 2) {
                 //イベント中止
                 $(".participat").hide();
                 $(".cancellation").show();
@@ -175,7 +175,7 @@ $(function() {
                     console.log("中止ボタン");
                     eventcancellation();
                 })
-            } else if (flag == 0) {
+            } else if (eventDisplayStatus == 0) {
                 //イベント参加
                 $(".participat").click(function() {
                     console.log("イベントボタン");
