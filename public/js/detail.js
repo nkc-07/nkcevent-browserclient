@@ -5,7 +5,7 @@ let myMemberId;
 
 var eventTags = [];
 var host = [];
-var flag = 0;
+var eventDisplayStatus = 0;
 
 //イベント情報
 let geteventInfo = {
@@ -17,7 +17,8 @@ let geteventInfo = {
     postdate: undefined,
     deadlinedate: undefined,
     helddate: undefined,
-    organizer: undefined,
+    organizer_id: undefined,
+    organizer_nickname: undefined,
     eventcancellation: undefined,
     memberlimit: undefined
 };
@@ -31,7 +32,7 @@ let sendeventInfo = {
     post_date: "2020-07-13",
     deadline_date: "2020-09-09",
     held_date: "2020-09-15",
-    organizer: 1,
+    organizer_nickname: 1,
     member_limit: 30
 }
 
@@ -90,8 +91,8 @@ $(function() {
             joindata = response.data
             console.log(joindata)
             joindata.forEach(function(e) {
-                if (e.nickname == myMembername) {
-                    flag = 1
+                if (e.member_id == myMemberId) {
+                    eventDisplayStatus = 1
                 }
             })
         })
@@ -120,17 +121,18 @@ $(function() {
             geteventInfo['postdate'] = eventdata.post_date;
             geteventInfo['deadlinedate'] = eventdata.deadline_date;
             geteventInfo['helddate'] = eventdata.held_date;
-            geteventInfo['organizer'] = eventdata.organizer;
+            geteventInfo['organizer_id'] = eventdata.organizer_id;
+            geteventInfo['organizer_nickname'] = eventdata.organizer_nickname;
             geteventInfo['eventcancellation'] = eventdata.event_cancellation;
             geteventInfo['memberlimit'] = eventdata.member_limit;
             console.log(geteventInfo);
             eventTags = response.data.event_tag;
             console.log(eventTags)
 
-            console.log(geteventInfo['organizer'])
+            console.log(geteventInfo['organizer_nickname'])
 
-            if (geteventInfo['organizer'] == myMembername) {
-                flag = 2
+            if (geteventInfo['organizer_id'] == myMemberId) {
+                eventDisplayStatus = 2
             }
 
 
@@ -153,7 +155,7 @@ $(function() {
             });
 
             //ユーザ名の追加
-            $(".user-icon span").text(geteventInfo["organizer"])
+            $(".user-icon span").text(geteventInfo["organizer_nickname"])
 
             helddate = geteventInfo["helddate"].split('-');
             let helddateday = helddate[2];
@@ -164,8 +166,8 @@ $(function() {
 
 
 
-            console.log("flag = " + flag)
-            if (flag == 2) {
+            console.log("eventDisplayStatus = " + eventDisplayStatus)
+            if (eventDisplayStatus == 2) {
                 //イベント中止
                 $(".participat").hide();
                 $(".cancellation").show();
@@ -173,7 +175,7 @@ $(function() {
                     console.log("中止ボタン");
                     eventcancellation();
                 })
-            } else if (flag == 0) {
+            } else if (eventDisplayStatus == 0) {
                 //イベント参加
                 $(".participat").click(function() {
                     console.log("イベントボタン");
