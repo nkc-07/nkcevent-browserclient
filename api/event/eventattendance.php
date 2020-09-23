@@ -69,9 +69,21 @@ function putEventattendance($param) {
         $isparticipant = $stmt->fetchAll();
         
         if(count($isparticipant) == 1) {
-            $ret['data']['participant_member'] = $isparticipant[0]['member_id'];
+            $splUpdate = "UPDATE event_participant 
+                    SET is_attendance = true
+                    WHERE event_participant.event_id = :event_id 
+                    AND event_participant.member_id = (
+                        SELECT member_id 
+                        FROM access_token 
+                        WHERE token_id = :token_id
+                    )";
 
-            //TODO: イベント参加テーブルにデータをアップデート
+            $stmt = PDO()->prepare($splUpdate);
+            $stmt -> bindValue(':event_id', $param['event_id'], PDO::PARAM_INT);
+            $stmt -> bindValue(':token_id', $param['token_id'], PDO::PARAM_STR);
+            $stmt -> execute();
+
+            $ret['data']['participant_member'] = $isparticipant[0]['member_id'];
         } else {
             $ret['success'] = false;
 			$ret['data'] = false;
