@@ -192,6 +192,13 @@ $(function() {
                     location.href = "";
                 })
             }
+            console.log(geteventInfo['eventcancellation'])
+            if(geteventInfo['eventcancellation'] == 0){
+                $(".cancellation-text").show();
+                $(".cancellation").hide();
+
+            }
+
 
         })
         .fail(function(response) {
