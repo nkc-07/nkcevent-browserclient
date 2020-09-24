@@ -78,10 +78,80 @@
                             <li><button class="dropdown-item" value="0">未確認</button></li>
                         </ul>
                     </div>
+                    <div class="attendance-list">
 
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ユーザー名</th>
+                                    <th scope="col">出席状況</th>
+                                    <th scope="col">手動で切り替える</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="user-icon blockquote text-left">
+                                            <img src="/image/5f4effa6d8f69.jpg" alt="user image">
+                                            <p>user name</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                                            <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                                            <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+                                        </svg>
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">出席確認済み</button>
+                                            <ul class="dropdown-menu">
+                                                <li><button class="dropdown-item" value="2">出席確認済み</button></li>
+                                                <li><button class="dropdown-item" value="1">欠席</button></li>
+                                                <li><button class="dropdown-item" value="0">未確認</button></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="user-icon blockquote text-left">
+                                            <img src="/image/5f4effa6d8f69.jpg" alt="user image">
+                                            <p>user name</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                                            <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                                            <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+                                        </svg>
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">出席確認済み</button>
+                                            <ul class="dropdown-menu">
+                                                <li><button class="dropdown-item" value="2">出席確認済み</button></li>
+                                                <li><button class="dropdown-item" value="1">欠席</button></li>
+                                                <li><button class="dropdown-item" value="0">未確認</button></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <style>
+            svg {
+                width: 50px;
+                display: block;
+                /* margin: 20px auto 0 0; */
+            }
+        </style>
         <script src="/public/js/attendance-confirmation.js"></script>
         <script src="/public/js/general/sidemenu.js "></script>
     </main>
