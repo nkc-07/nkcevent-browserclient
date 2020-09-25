@@ -133,6 +133,10 @@ $(function() {
 
             if (geteventInfo['organizer_id'] == myMemberId) {
                 eventDisplayStatus = 2
+                if(geteventInfo['eventcancellation'] == 0){
+                    //押せなくする
+                    eventDisplayStatus = 5
+                }
             }
 
 
@@ -167,7 +171,14 @@ $(function() {
 
 
             console.log("eventDisplayStatus = " + eventDisplayStatus)
-            if (eventDisplayStatus == 2) {
+            if(eventDisplayStatus == 5){
+                //イベント中止ボタンを押せなくする
+                $(".participat").hide();
+                $(".cancellation").show();
+                $(".text-right .cancellation").css({"background":"red"});
+                $(".cancellation").disabledb == "disabled";
+
+            }else if (eventDisplayStatus == 2) {
                 //イベント中止
                 $(".participat").hide();
                 $(".cancellation").show();
@@ -194,11 +205,6 @@ $(function() {
                 })
             }
             console.log(geteventInfo['eventcancellation'])
-            if(geteventInfo['eventcancellation'] == 0){
-                $(".cancellation-text").show();
-                $(".cancellation").hide();
-
-            }
 
 
         })
