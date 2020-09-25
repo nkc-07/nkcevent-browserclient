@@ -1,7 +1,7 @@
 let getRequestParams = (new URL(document.location)).searchParams;
 let eventAttendanceId;
 
-$('.dropdown-menu .dropdown-item').click(function() {
+$(document).on('click', '.dropdown-menu .dropdown-item', function() {
     var visibleItem = $('.dropdown-toggle', $(this).closest('.dropdown'));
     visibleItem.text($(this).text());
     console.log($(this).val());
@@ -51,7 +51,21 @@ $.ajax({
         console.log(response);
     })
 
-let attendanceUserDom = $('.attendance-user');
+let attendanceIcons = {
+    0: {
+        img: '/public/image/svg/question.svg',
+        text: '未確認'
+    },
+    1: {
+        img: '/public/image/svg/cross.svg',
+        text: '欠席'
+    },
+    2: {
+        img: '/public/image/svg/check.svg',
+        text: '出席確認済み'
+    }
+};
+
 $.ajax({
         url: '/api/event/eventparticipant.php', //送信先
         type: 'GET', //送信方法
@@ -61,11 +75,14 @@ $.ajax({
         }
     })
     .done(function(response) {
+        let attendanceUserDom = $('.attendance-user');
         response.data.forEach(function(items) {
+            console.log(items)
             attendanceUserDom = attendanceUserDom.clone();
-            console.log(attendanceUserDom);
-            attendanceUserDom.find('img').attr('src', items.icon);
-            attendanceUserDom.find(' p').text(items.nickname);
+            attendanceUserDom.find('.user-icon img').attr('src', items.icon);
+            attendanceUserDom.find('.svg').attr('src', attendanceIcons[items.is_attendance].img);
+            attendanceUserDom.find('.dropdown-toggle').text(attendanceIcons[items.is_attendance].text);
+            attendanceUserDom.find('.user-icon p').text(items.nickname);
             attendanceUserDom.show();
             $('.attendance-list').append(attendanceUserDom);
         })

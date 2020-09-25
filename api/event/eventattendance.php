@@ -70,7 +70,7 @@ function putEventattendance($param) {
         
         if(count($isparticipant) == 1) {
             $splUpdate = "UPDATE event_participant 
-                    SET is_attendance = true
+                    SET is_attendance = 2
                     WHERE event_participant.event_id = :event_id 
                     AND event_participant.member_id = (
                         SELECT member_id 

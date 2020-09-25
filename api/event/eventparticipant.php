@@ -111,7 +111,7 @@ function getParticipant($param){
 	try{
 		if(empty($param['event_id']))			throw new ErrorException($errmsg."event_id");
 
-		$sql = "SELECT event_id, m.member_id, nickname, icon
+		$sql = "SELECT event_id, m.member_id, nickname, icon, is_attendance
                 FROM event_participant p
                 INNER JOIN member m
                 ON p.member_id = m.member_id

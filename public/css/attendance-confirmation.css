@@ -81,3 +81,9 @@
     margin: 0;
     text-align: left;
 }
+
+.svg {
+    width: 50px;
+    display: block;
+    /* margin: 20px auto 0 0; */
+}
