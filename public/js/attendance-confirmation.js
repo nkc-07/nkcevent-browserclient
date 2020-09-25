@@ -50,3 +50,27 @@ $.ajax({
         console.log('通信失敗');
         console.log(response);
     })
+
+let attendanceUserDom = $('.attendance-user');
+$.ajax({
+        url: '/api/event/eventparticipant.php', //送信先
+        type: 'GET', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: {
+            'event_id': getRequestParams.get('event-id')
+        }
+    })
+    .done(function(response) {
+        response.data.forEach(function(items) {
+            attendanceUserDom = attendanceUserDom.clone();
+            console.log(attendanceUserDom);
+            attendanceUserDom.find('img').attr('src', items.icon);
+            attendanceUserDom.find(' p').text(items.nickname);
+            attendanceUserDom.show();
+            $('.attendance-list').append(attendanceUserDom);
+        })
+    })
+    .fail(function(response) {
+        console.log('通信失敗');
+        console.log(response);
+    })
