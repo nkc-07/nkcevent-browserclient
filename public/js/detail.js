@@ -174,6 +174,7 @@ $(function() {
                 $(".cancellation").click(function() {
                     console.log("中止ボタン");
                     eventcancellation();
+                    document.location.reload()
                 })
             } else if (eventDisplayStatus == 0) {
                 //イベント参加
