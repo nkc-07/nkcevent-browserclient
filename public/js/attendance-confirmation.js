@@ -25,7 +25,9 @@ conn.onopen = function(e) {
 };
 
 conn.onmessage = function(e) {
-    console.log(e.data);
+    userList.find(function(element) {
+        return e.data == element.member_id
+    }).is_attendance = 2;
     $('.member-id-' + e.data + ' .svg').attr('src', attendanceIcons[2].img);
     $('.member-id-' + e.data + ' .dropdown-toggle').text(attendanceIcons[2].text);
 };
