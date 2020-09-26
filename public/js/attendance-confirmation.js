@@ -1,6 +1,8 @@
 let getRequestParams = (new URL(document.location)).searchParams;
-let eventAttendanceId;
-let attendanceIcons = {
+
+let userList; // 出席するメンバーのリスト
+let eventAttendanceId; // 主催者のID
+let attendanceIcons = { // 出席状況のアイコンとテキスト
     0: {
         img: '/public/image/svg/question.svg',
         text: '未確認'
@@ -15,6 +17,8 @@ let attendanceIcons = {
     }
 };
 
+let attendanceUserDom = $('.attendance-user');
+
 var conn = new WebSocket('ws://localhost:81?mode=attendance&participation_event=' + getRequestParams.get('event-id'));
 conn.onopen = function(e) {
     console.log("Connection established!");
@@ -26,10 +30,13 @@ conn.onmessage = function(e) {
     $('.member-id-' + e.data + ' .dropdown-toggle').text(attendanceIcons[2].text);
 };
 
+$(document).on('click', '.filtering .dropdown-item', function(e) {
+    showAttendanceList($(this).val());
+});
+
 $(document).on('click', '.dropdown-menu .dropdown-item', function() {
     var visibleItem = $('.dropdown-toggle', $(this).closest('.dropdown'));
     visibleItem.text($(this).text());
-    console.log($(this).val());
 });
 
 $.ajax({
@@ -89,9 +96,20 @@ $.ajax({
         }
     })
     .done(function(response) {
-        let attendanceUserDom = $('.attendance-user');
-        response.data.forEach(function(items) {
-            console.log(items)
+        userList = response.data;
+        showAttendanceList("all");
+
+    })
+    .fail(function(response) {
+        console.log('通信失敗');
+        console.log(response);
+    })
+
+function showAttendanceList(changeDisplay) {
+    $('.attendance-list').empty();
+    let loopFlag = true;
+    userList.forEach(function(items) {
+        if (items.is_attendance == changeDisplay || changeDisplay === "all") {
             attendanceUserDom = attendanceUserDom.clone();
             attendanceUserDom.addClass('member-id-' + items.member_id);
             attendanceUserDom.find('.user-icon img').attr('src', items.icon);
@@ -100,9 +118,12 @@ $.ajax({
             attendanceUserDom.find('.user-icon p').text(items.nickname);
             attendanceUserDom.show();
             $('.attendance-list').append(attendanceUserDom);
-        })
-    })
-    .fail(function(response) {
-        console.log('通信失敗');
-        console.log(response);
-    })
+
+            loopFlag = false;
+        }
+    });
+
+    if (loopFlag) {
+        $('.attendance-list').text('該当するユーザーが存在しません');
+    }
+}
