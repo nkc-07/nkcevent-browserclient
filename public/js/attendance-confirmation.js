@@ -64,7 +64,7 @@ $.ajax({
     }
 }).done(function(response) {
     eventAttendanceId = response['data']['info'][0]['organizer_id'];
-    console.log(eventAttendanceId);
+    $('.event-title').text(response['data']['info'][0]['event_name']);
 })
 
 $.ajax({
