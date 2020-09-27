@@ -90,7 +90,7 @@ $.ajax({
     })
 
 $.ajax({
-        url: '/api/event/eventparticipant.php', //送信先
+        url: '/api/event/eventattendance.php', //送信先
         type: 'GET', //送信方法
         datatype: 'json', //受け取りデータの種類
         data: {
@@ -98,9 +98,14 @@ $.ajax({
         }
     })
     .done(function(response) {
-        userList = response.data;
+        userList = response.data.info;
         showAttendanceList("all");
-
+        $('#qrcode-table').qrcode({
+            width: 180,
+            height: 180,
+            text: response.data.qrcode
+        });
+        console.log(response.data.qrcode)
     })
     .fail(function(response) {
         console.log('通信失敗');

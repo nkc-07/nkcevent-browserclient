@@ -42,7 +42,7 @@
     display: block;
 }
 
-.qrcode-box img {
+#qrcode-table {
     height: calc(200px - 20px);
     width: auto;
     float: left;
