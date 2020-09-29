@@ -176,7 +176,8 @@ $(function() {
                 $(".participat").hide();
                 $(".cancellation").show();
                 $(".text-right .cancellation").css({"background":"red"});
-                $(".cancellation").disabledb == "disabled";
+                //$(".cancellation").disabledb == "disabled";
+                $("button.cancellation").prop('disabled', true)
 
             }else if (eventDisplayStatus == 2) {
                 //イベント中止
@@ -184,8 +185,25 @@ $(function() {
                 $(".cancellation").show();
                 $(".cancellation").click(function() {
                     console.log("中止ボタン");
-                    eventcancellation();
-                    document.location.reload()
+                    //↓通知処理
+                    Swal.fire({
+                        title:'イベントは中止しますか？',
+                        showCancelButton: true,
+                        confirmButtonText:"はい",
+                        cancelButtonText:'いいえ',
+                        cancelButtonColor: '#4169E1',
+                        confirmButtonColor: '#ff0000'
+
+                    }).then((result) => {
+                        console.log(result)
+                        if (result.value == true) {
+                          Swal.fire('中止されました', '', '').then(function(){
+                            document.location.reload(true);
+                            eventcancellation();
+                          })
+                        }
+                      })
+
                 })
             } else if (eventDisplayStatus == 0) {
                 //イベント参加
