@@ -95,8 +95,9 @@ function putEventattendance($param) {
 	try {
 		if(empty($param['event_id']))			throw new ErrorException($errmsg."event_id");
 		if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
+		if(empty($param['qrcode_value']))			throw new ErrorException($errmsg."qrcode_value");
 
-		$sql = "SELECT event_participant.member_id
+		$sql = "SELECT event_participant.member_id, event.event_id
                 FROM event_participant 
                 INNER JOIN event
                 ON event_participant.event_id = event.event_id
@@ -111,7 +112,10 @@ function putEventattendance($param) {
         $stmt -> execute();
         $isparticipant = $stmt->fetchAll();
         
-        if(count($isparticipant) == 1) {
+        if(
+			count($isparticipant) == 1 &&
+			hash_hmac("sha256", $isparticipant[0]['event_id'], "sionunofficialoffer") == $param['qrcode_value']
+		) {
             $splUpdate = "UPDATE event_participant 
                     SET is_attendance = 2
                     WHERE event_participant.event_id = :event_id 
