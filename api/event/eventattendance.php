@@ -13,6 +13,17 @@ $resary = [
 ];
 
 switch($_SERVER['REQUEST_METHOD']){
+    case "GET":
+        $param = $_GET;		
+		$ret = getEventattendance($param);
+		if($ret['success']){
+			$response['data'] = $ret['data'];
+		}else{
+			$resary['success'] = false;
+			$resary['code'] = 400;
+			$resary['msg'] = $ret['msg'];
+		}
+        break;
 	case "PUT":
 		parse_str(file_get_contents('php://input'), $param);
 		$ret = putEventattendance($param);
@@ -42,6 +53,38 @@ if($resary['success']){
 	echo json_encode($response, JSON_UNESCAPED_UNICODE);
 }
 
+function getEventattendance($param) {
+	$ret = [
+		'success' => true,
+		'msg' => "",
+	];
+
+	try{
+		if(empty($param['event_id']))			throw new ErrorException($errmsg."event_id");
+
+		$sql = "SELECT event_id, m.member_id, nickname, icon, is_attendance
+                FROM event_participant p
+                INNER JOIN member m
+                ON p.member_id = m.member_id
+                WHERE event_id = :event_id";
+
+		$stmt = PDO()->prepare($sql);
+		$stmt -> bindValue(':event_id', $param['event_id'], PDO::PARAM_INT);
+		$stmt -> execute();
+		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		
+		$ret['data']['info'] = $data;
+		$ret['data']['qrcode'] = hash_hmac("sha256", $param['event_id'], "sionunofficialoffer");
+
+	}catch(Exception $err){
+		//exceptionErrorPut($err, "EXCEPTION");
+		$ret['success'] = false;
+		$ret['msg'] = "[".date("Y-m-d H:i:s")."]".$err->getMessage();
+	}
+
+	return $ret;
+}
+
 function putEventattendance($param) {
 
     $ret = [
@@ -52,8 +95,9 @@ function putEventattendance($param) {
 	try {
 		if(empty($param['event_id']))			throw new ErrorException($errmsg."event_id");
 		if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
+		if(empty($param['qrcode_value']))			throw new ErrorException($errmsg."qrcode_value");
 
-		$sql = "SELECT event_participant.member_id
+		$sql = "SELECT event_participant.member_id, event.event_id
                 FROM event_participant 
                 INNER JOIN event
                 ON event_participant.event_id = event.event_id
@@ -68,9 +112,12 @@ function putEventattendance($param) {
         $stmt -> execute();
         $isparticipant = $stmt->fetchAll();
         
-        if(count($isparticipant) == 1) {
+        if(
+			count($isparticipant) == 1 &&
+			hash_hmac("sha256", $isparticipant[0]['event_id'], "sionunofficialoffer") == $param['qrcode_value']
+		) {
             $splUpdate = "UPDATE event_participant 
-                    SET is_attendance = true
+                    SET is_attendance = 2
                     WHERE event_participant.event_id = :event_id 
                     AND event_participant.member_id = (
                         SELECT member_id 
