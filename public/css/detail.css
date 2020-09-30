@@ -70,7 +70,7 @@
 }
 
 .cancellation {
-    display: none;
+    display: none;  
 }
 
 .event-box {
@@ -103,3 +103,15 @@
 .clear-float {
     display: inline-block;
 }
+
+.cancellation-text{
+    display: none;
+    font-size: xx-large;
+    border-style: double;
+    color: #ff0000;
+    width: 65px;
+    height: 45px;
+    margin-left: auto;
+    margin-right: 10px;
+}
+

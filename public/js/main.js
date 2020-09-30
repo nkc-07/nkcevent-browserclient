@@ -5,6 +5,29 @@ let loginInfo = {
 
 // formのイベント
 $(function() {
+    $.ajax({ //ログインチェック(マイページ遷移用)
+        url: '/api/member/logincheck.php', //送信先
+        type: 'POST', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: {
+            token: localStorage.getItem('token')
+        }
+    })
+    .done(function(response) {
+        if (response.data.login) //ログイン済みの場合にログインフォームを表示させずマイページに飛べるように
+            { 
+                $('.login-form').css('display','none');
+                //$('.login-title').css('display','none');
+                $('.btn-mypage').show();
+                console.log("hoge");
+            }
+        else{console.log("not login");}
+    })
+    .fail(function(response) {
+        //console.log('通信失敗');
+        //console.log(response);
+        //location.href = '/public/html/event-list/';
+    })
     $('input').on('keydown', function(e) {
         if (e.which == 13) {
             getLogin();
@@ -12,6 +35,9 @@ $(function() {
     })
     $('.login-button').on('click', function() {
         getLogin();
+    });
+    $('.btn-mypage').on('click', function() {
+        window.location.href = "/public/html/mypage/";
     });
 });
 
