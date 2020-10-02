@@ -10,18 +10,17 @@
 }
 
 .card {
-    width: 90%;
-    padding: 20px;
+    width: 100%;
+    padding: 10px;
     display: inline-block;
     position: relative;
     /* margin-left: 5%;
   margin-right: 5%; */
 }
 
-.car-outcard .card img {
-    width: 40%;
-    max-height: 180px;
-    position: relative;
+.card-box img {
+    width: 200px;
+    height: 200px;
 }
 
 .thumbnail {
