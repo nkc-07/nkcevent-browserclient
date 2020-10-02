@@ -25,6 +25,12 @@
 
 a.card-rink {
     color: #212529;
+    text-decoration: none;
+}
+
+.card:hover {
+    background-color: rgb(245, 245, 245);
+    transition: background-color 200ms;
 }
 
 .card-body .day {
