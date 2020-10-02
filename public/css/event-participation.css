@@ -18,6 +18,15 @@
   margin-right: 5%; */
 }
 
+.card:hover {
+    background-color: rgb(245, 245, 245);
+    transition: background-color 200ms;
+}
+
+.card-link:hover {
+    color: black;
+}
+
 .card-box img {
     width: 200px;
     height: 200px;
