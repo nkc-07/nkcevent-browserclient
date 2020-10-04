@@ -13,7 +13,6 @@
     <script src="/public/vender/sidemenu/iscroll.min/index.js"></script>
     <script src="/public/vender/sidemenu/drawer.3.2.2.min/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-    
 
     <title>イベント詳細</title>
 </head>
@@ -84,16 +83,39 @@
             <div class="card event-box">
                 <h2>イベント詳細</h2>
                 <p></p>
+                <div class="card event-info">
+                    <div>
+                        <table>
+                            <tr>
+                                <td>イベント開催日時：</td>
+                                <td>xxxx年xx月xx日</td>
+                            </tr>
+                            <tr>
+                                <td>参加締め切り日時：</td>
+                                <td>xxxx年xx月xx日</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <div id="sample" style="width: 500px; height: 300px; background-color: black; float: left; margin: 0;"></div>
+                        <div style="float: left;">
+                            <a class="googlemap-address" href="#"></a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="text-right">
-                <div class="cancellation-text"><h3>中止</h3></div>
+                <div class="cancellation-text">
+                    <h3>中止</h3>
+                </div>
                 <button type="submit" class="btn participation-event under-button cancellation">中止</button>
                 <button type="submit" class="btn participation-event under-button cancel">キャンセル</button>
                 <button type="submit" class="btn participation-event under-button participat">イベントに参加</button>
             </div>
         </div>
-
+        <script src="/public/js/general/map.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsCu6vKmH7Bp4jGmHFTfe5QrRFYPqs5Wg&amp;callback=initMap"></script>
         <script src="/public/js/general/sidemenu.js"></script>
         <script src="/public/js/detail.js"></script>
     </main>
