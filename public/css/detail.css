@@ -88,6 +88,11 @@
     float: left;
 }
 
+.event-info .googlemap-addres {
+    float: left;
+    display: contents;
+}
+
 .tag-box {
     border: 1px solid rgba(0, 0, 0, .125);
     margin: 30px 10px 0 10px;
