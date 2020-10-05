@@ -181,6 +181,7 @@ $(function() {
             $(".deadline-day").text(deadlineDateday);
             $(".deadline-year").text(deadlineDateYear);
 
+
             console.log("eventDisplayStatus = " + eventDisplayStatus)
             if (eventDisplayStatus == 5) {
                 //イベント中止ボタンを押せなくする
@@ -192,6 +193,8 @@ $(function() {
 
             } else if (eventDisplayStatus == 2) {
                 //イベント中止
+                $('.attendance').show();
+                $('.attendance').attr('href', `/public/html/event-list/detail/attendance-confirmation/index.html?event-id=${getRequestParams.get('event-id')}`);
                 $(".participat").hide();
                 $(".cancellation").show();
                 $(".cancellation").click(function() {
