@@ -119,13 +119,15 @@ $(function() {
             geteventInfo['map'] = eventdata.map;
             geteventInfo['image'] = eventdata.image;
             geteventInfo['postdate'] = eventdata.post_date;
-            geteventInfo['deadlinedate'] = eventdata.deadline_date;
+            geteventInfo['deadline_date'] = eventdata.deadline_date;
             geteventInfo['helddate'] = eventdata.held_date;
             geteventInfo['organizer_id'] = eventdata.organizer_id;
             geteventInfo['organizer_nickname'] = eventdata.organizer_nickname;
             geteventInfo['eventcancellation'] = eventdata.event_cancellation;
             geteventInfo['memberlimit'] = eventdata.member_limit;
             eventTags = response.data.event_tag;
+
+            console.log(eventdata)
 
             if (geteventInfo['organizer_id'] == myMemberId) {
                 eventDisplayStatus = 2
@@ -160,15 +162,24 @@ $(function() {
             $(".user-icon span").text(geteventInfo["organizer_nickname"])
 
             helddate = new Date(geteventInfo['helddate']);
-            let helddateday = helddate.getDate();
-            let helddatemonth = helddate.getMonth() + 1; // 仕様的に0~11なので1をプラス
-            let helddateYear = helddate.getFullYear();
-            let helddateTime = `${helddate.getHours()}:${("0"+(helddate.getMonth() + 1)).slice(-2)}`;
+            let helddateday = ("0" + (helddate.getDate())).slice(-2);
+            let helddatemonth = ("0" + (helddate.getMonth() + 1)).slice(-2); // 仕様的に0~11なので1をプラス
+            let helddateYear = ("0" + (helddate.getFullYear())).slice(-4);
+            let helddateTime = `${helddate.getHours()}:${("0" + helddate.getMinutes()).slice(-2)}`;
 
             $(".held-month").text(helddatemonth);
             $(".held-day").text(helddateday);
             $(".held-year").text(helddateYear);
             $(".held-time").text(helddateTime);
+
+            let deadlinedate = new Date(geteventInfo['deadline_date']);
+            let deadlineDateday = ("0" + (deadlinedate.getDate())).slice(-2);
+            let deadlineDatemonth = ("0" + (deadlinedate.getMonth() + 1)).slice(-2); // 仕様的に0~11なので1をプラス
+            let deadlineDateYear = deadlinedate.getFullYear();
+
+            $(".deadline-month").text(deadlineDatemonth);
+            $(".deadline-day").text(deadlineDateday);
+            $(".deadline-year").text(deadlineDateYear);
 
             console.log("eventDisplayStatus = " + eventDisplayStatus)
             if (eventDisplayStatus == 5) {
