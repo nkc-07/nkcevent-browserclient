@@ -159,14 +159,16 @@ $(function() {
             //ユーザ名の追加
             $(".user-icon span").text(geteventInfo["organizer_nickname"])
 
-            helddate = geteventInfo["helddate"].split('-');
-            let helddateday = helddate[2];
-            let helddatemonth = helddate[1];
-            console.log(helddate);
+            helddate = new Date(geteventInfo['helddate']);
+            let helddateday = helddate.getDate();
+            let helddatemonth = helddate.getMonth() + 1; // 仕様的に0~11なので1をプラス
+            let helddateYear = helddate.getFullYear();
+            let helddateTime = `${helddate.getHours()}:${("0"+(helddate.getMonth() + 1)).slice(-2)}`;
+
             $(".held-month").text(helddatemonth);
             $(".held-day").text(helddateday);
-
-
+            $(".held-year").text(helddateYear);
+            $(".held-time").text(helddateTime);
 
             console.log("eventDisplayStatus = " + eventDisplayStatus)
             if (eventDisplayStatus == 5) {
