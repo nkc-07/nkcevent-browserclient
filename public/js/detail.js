@@ -119,26 +119,23 @@ $(function() {
             geteventInfo['map'] = eventdata.map;
             geteventInfo['image'] = eventdata.image;
             geteventInfo['postdate'] = eventdata.post_date;
-            geteventInfo['deadlinedate'] = eventdata.deadline_date;
+            geteventInfo['deadline_date'] = eventdata.deadline_date;
             geteventInfo['helddate'] = eventdata.held_date;
             geteventInfo['organizer_id'] = eventdata.organizer_id;
             geteventInfo['organizer_nickname'] = eventdata.organizer_nickname;
             geteventInfo['eventcancellation'] = eventdata.event_cancellation;
             geteventInfo['memberlimit'] = eventdata.member_limit;
-            console.log(geteventInfo);
             eventTags = response.data.event_tag;
-            console.log(eventTags)
 
-            console.log(geteventInfo['organizer_nickname'])
+            console.log(eventdata)
 
             if (geteventInfo['organizer_id'] == myMemberId) {
                 eventDisplayStatus = 2
-                if(geteventInfo['eventcancellation'] == 0){
+                if (geteventInfo['eventcancellation'] == 0) {
                     //押せなくする
                     eventDisplayStatus = 5
                 }
             }
-
 
             $(".event-top .event-title").text(geteventInfo['eventname']);
             $(".event-box p").text(geteventInfo['eventcomment']);
@@ -146,6 +143,9 @@ $(function() {
             $(".event-top .create-day").text(geteventInfo["postdate"])
             $(".detail-box .day-box").attr("src", geteventInfo["deadlinedate"]);
             $(".drawer-menu .drawer-brand").text(geteventInfo["postdate"]);
+            $(".googlemap-address").text(geteventInfo["map"]);
+            $('.googlemap-frame').attr('src', `https://maps.google.co.jp/maps?output=embed&q=${geteventInfo["map"]}`);
+            $('.googlemap-address').attr('href', `https://www.google.com/maps/search/?api=1&query=${geteventInfo["map"]}`);
 
             //tag関係
             let userTag = $('.tag-card');
@@ -161,48 +161,62 @@ $(function() {
             //ユーザ名の追加
             $(".user-icon span").text(geteventInfo["organizer_nickname"])
 
-            helddate = geteventInfo["helddate"].split('-');
-            let helddateday = helddate[2];
-            let helddatemonth = helddate[1];
-            console.log(helddate);
+            helddate = new Date(geteventInfo['helddate']);
+            let helddateday = ("0" + (helddate.getDate())).slice(-2);
+            let helddatemonth = ("0" + (helddate.getMonth() + 1)).slice(-2); // 仕様的に0~11なので1をプラス
+            let helddateYear = ("0" + (helddate.getFullYear())).slice(-4);
+            let helddateTime = `${helddate.getHours()}:${("0" + helddate.getMinutes()).slice(-2)}`;
+
             $(".held-month").text(helddatemonth);
             $(".held-day").text(helddateday);
+            $(".held-year").text(helddateYear);
+            $(".held-time").text(helddateTime);
 
+            let deadlinedate = new Date(geteventInfo['deadline_date']);
+            let deadlineDateday = ("0" + (deadlinedate.getDate())).slice(-2);
+            let deadlineDatemonth = ("0" + (deadlinedate.getMonth() + 1)).slice(-2); // 仕様的に0~11なので1をプラス
+            let deadlineDateYear = deadlinedate.getFullYear();
+
+            $(".deadline-month").text(deadlineDatemonth);
+            $(".deadline-day").text(deadlineDateday);
+            $(".deadline-year").text(deadlineDateYear);
 
 
             console.log("eventDisplayStatus = " + eventDisplayStatus)
-            if(eventDisplayStatus == 5){
+            if (eventDisplayStatus == 5) {
                 //イベント中止ボタンを押せなくする
                 $(".participat").hide();
                 $(".cancellation").show();
-                $(".text-right .cancellation").css({"background":"red"});
+                $(".text-right .cancellation").css({ "background": "red" });
                 //$(".cancellation").disabledb == "disabled";
                 $("button.cancellation").prop('disabled', true)
 
-            }else if (eventDisplayStatus == 2) {
+            } else if (eventDisplayStatus == 2) {
                 //イベント中止
+                $('.attendance').show();
+                $('.attendance').attr('href', `/public/html/event-list/detail/attendance-confirmation/index.html?event-id=${getRequestParams.get('event-id')}`);
                 $(".participat").hide();
                 $(".cancellation").show();
                 $(".cancellation").click(function() {
                     console.log("中止ボタン");
                     //↓通知処理
                     Swal.fire({
-                        title:'イベントは中止しますか？',
+                        title: 'イベントは中止しますか？',
                         showCancelButton: true,
-                        confirmButtonText:"はい",
-                        cancelButtonText:'いいえ',
+                        confirmButtonText: "はい",
+                        cancelButtonText: 'いいえ',
                         cancelButtonColor: '#4169E1',
                         confirmButtonColor: '#ff0000'
 
                     }).then((result) => {
                         console.log(result)
                         if (result.value == true) {
-                          Swal.fire('中止されました', '', '').then(function(){
-                            document.location.reload(true);
-                            eventcancellation();
-                          })
+                            Swal.fire('中止されました', '', '').then(function() {
+                                document.location.reload(true);
+                                eventcancellation();
+                            })
                         }
-                      })
+                    })
 
                 })
             } else if (eventDisplayStatus == 0) {

@@ -70,13 +70,27 @@
 }
 
 .cancellation {
-    display: none;  
+    display: none;
 }
 
 .event-box {
     margin: 10px;
     margin-top: 30px;
     padding: 10px;
+}
+
+.event-info {
+    display: inline;
+}
+
+.event-info div {
+    width: 50%;
+    float: left;
+}
+
+.event-info .googlemap-addres {
+    float: left;
+    display: contents;
 }
 
 .tag-box {
@@ -93,8 +107,6 @@
     color: #212529;
 }
 
-.tag-box a:hover {}
-
 .tag-box .tag-card img {
     width: 25px;
     margin: 0 0 0 10px;
@@ -104,7 +116,7 @@
     display: inline-block;
 }
 
-.cancellation-text{
+.cancellation-text {
     display: none;
     font-size: xx-large;
     border-style: double;
@@ -114,4 +126,3 @@
     margin-left: auto;
     margin-right: 10px;
 }
-
