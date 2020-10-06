@@ -109,7 +109,7 @@ $('.participation-event').click(function(e) {
                 if (typeof $('.send-event-img').prop('files')[0] !== "undefined") {
                     createEventInfo['image'] = "/image/" + imageName['data'];
                 }
-                createEventInfo['deadline_date'] = $('.deadline_date').val();
+                createEventInfo['deadline_date'] = $('.deadline-date').val();
                 createEventInfo['held_date'] = $('.held-date').val();
                 createEventInfo['member_limit'] = $('.member_limit').val();
 

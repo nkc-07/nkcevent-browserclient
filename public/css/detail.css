@@ -88,9 +88,17 @@
     float: left;
 }
 
+.event-info table td {
+    vertical-align: middle;
+}
+
 .event-info .googlemap-addres {
     float: left;
     display: contents;
+}
+
+.member-limit {
+    text-align: center;
 }
 
 .tag-box {
