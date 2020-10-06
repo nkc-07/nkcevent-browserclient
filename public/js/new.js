@@ -50,6 +50,8 @@ let nowTime = (new Date()).toISOString().split('T')[0];
 $('.held-date').attr('min', nowTime + 'T00:00');
 $('.deadline-date').attr('min', nowTime);
 $('.held-date').change(function(e) {
+    $('.deadline-date').attr('max', $(this).val().split('T')[0]);
+
     let date = $(this).val().split('-');
 
     $('.held-month').text(date[1]);
