@@ -89,7 +89,9 @@ $(function() {
         })
         .done(function(response) {
             joindata = response.data
-            console.log(joindata)
+
+            $('#now-member').text(joindata.length)
+
             joindata.forEach(function(e) {
                 if (e.member_id == myMemberId) {
                     eventDisplayStatus = 1
@@ -146,6 +148,7 @@ $(function() {
             $(".googlemap-address").text(geteventInfo["map"]);
             $('.googlemap-frame').attr('src', `https://maps.google.co.jp/maps?output=embed&q=${geteventInfo["map"]}`);
             $('.googlemap-address').attr('href', `https://www.google.com/maps/search/?api=1&query=${geteventInfo["map"]}`);
+            $('#max-member').text(geteventInfo['memberlimit']);
 
             //tag関係
             let userTag = $('.tag-card');
