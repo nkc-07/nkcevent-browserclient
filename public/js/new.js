@@ -46,6 +46,9 @@ $.ajax({
     createEventInfo['token_id'] = localStorage.getItem('token');
 });
 
+let nowTime = (new Date()).toISOString().split('T')[0];
+$('.held-date').attr('min', nowTime + 'T00:00');
+$('.deadline-date').attr('min', nowTime);
 $('.held-date').change(function(e) {
     let date = $(this).val().split('-');
 
