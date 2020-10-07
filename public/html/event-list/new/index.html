@@ -109,7 +109,11 @@
             <div class="card event-box">
                 <h2>イベント詳細</h2>
                 <p>開催住所</p>
-                <input type="text" class="form-control map" placeholder="開催住所">
+                <input type="text" class="postal-code form-control w-25" placeholder="郵便番号" autocomplete="postal-code">
+                <div>
+                    <input type="text" class="map cities form-control w-50 mr-2" placeholder="市町村名" disabled>
+                    <input type="text" class="map street-number form-control w-25" placeholder="番地">
+                </div>
 
                 <p>イベントの詳細情報</p>
                 <textarea class="form-control event-comment" cols="30" rows="10" placeholder="イベントの詳細情報"></textarea>

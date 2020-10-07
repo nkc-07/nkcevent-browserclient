@@ -119,6 +119,10 @@ input {
     padding: 10px;
 }
 
+.event-box .map {
+    float: left;
+}
+
 .tag-box {
     text-align: left;
     border: 1px solid rgba(0, 0, 0, .125);
