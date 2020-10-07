@@ -46,6 +46,37 @@ $.ajax({
     createEventInfo['token_id'] = localStorage.getItem('token');
 });
 
+$('.postal-code').keyup(function(e) {
+    let pattern = /^[0-9]{3}-?[0-9]{4}$/;
+    if ($(this).val().match(pattern)) {
+        $.ajax({
+                url: 'http://zipcloud.ibsnet.co.jp/api/search',
+                dataType: 'jsonp',
+                data: {
+                    'zipcode': $(this).val()
+                }
+            }) //通信成功
+            .done(function(response) {
+                console.log(response);
+                if (
+                    response.results != null &&
+                    response.results.length == 1
+                ) {
+                    let citieName = response.results[0].address1 +
+                        response.results[0].address2 +
+                        response.results[0].address3;
+                    $('.cities').val(citieName);
+                    createEventInfo['map'] = citieName;
+                }
+            })
+            //通信失敗
+            .fail(function(response) {
+                console.log(response);
+            })
+    }
+});
+
+
 let nowTime = (new Date()).toISOString().split('T')[0];
 $('.held-date').attr('min', nowTime + 'T00:00');
 $('.deadline-date').attr('min', nowTime);
@@ -105,7 +136,11 @@ $('.participation-event').click(function(e) {
                 createEventInfo['event_name'] = $('.event-name').val();
                 createEventInfo['event_kana'] = 'test_kana';
                 createEventInfo['event_comment'] = $('.event-comment').val();
-                createEventInfo['map'] = $('.map').val();
+                if ($('.street-number').val() !== "") {
+                    createEventInfo['map'] += $('.street-number').val();
+                } else {
+                    createEventInfo['map'] = undefined;
+                }
                 if (typeof $('.send-event-img').prop('files')[0] !== "undefined") {
                     createEventInfo['image'] = "/image/" + imageName['data'];
                 }
