@@ -85,7 +85,7 @@
                 <p></p>
                 <div class="card event-info">
                     <div>
-                        <table>
+                        <table class="table">
                             <tr>
                                 <td>イベント開催日時</td>
                                 <td>：</td>
@@ -105,10 +105,23 @@
                                     <span class="deadline-day"></span>日
                                 </td>
                             </tr>
+                            <tr>
+                                <td>定員数</td>
+                                <td>：</td>
+                                <td>
+                                    <div class="member-limit">
+                                        <span class="d-block">先着順</span>
+                                        <strong id="max-member"></strong>
+                                        <span>/</span>
+                                        <strong id="now-member"></strong>
+                                        <span>人</span>
+                                    </div>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                     <div>
-                        <iframe class="googlemap-frame" src="#" style="width: 500px; height: 300px; float: left;"></iframe>
+                        <iframe class="googlemap-frame" style="width: 500px; height: 300px; float: left;"></iframe>
                         <a class="googlemap-address" href="#"></a>
                     </div>
                 </div>
