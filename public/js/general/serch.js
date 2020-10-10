@@ -31,6 +31,6 @@ $(document).on('click', '.dropdown-menu .dropdown-item', function() {
     if (sortGetRequest === undefined) {
         location.href += (location.search ? '&' : '?') + 'sort=' + $(this).val();
     } else {
-        location.href = location.href.replace(sortGetRequest, 'sort=' + $(this).val());
+        location.href = location.href.replace(sortGetRequest, '?sort=' + $(this).val());
     }
 });
