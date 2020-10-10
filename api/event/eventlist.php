@@ -138,6 +138,7 @@ function getEventList($param){
             )";
 			$flag_Tid = true;
 		}
+		$sql .= ' ORDER BY ' . generateSortSql($param);
 
 		$stmt = PDO()->prepare($sql);
 		if($flag_Eid)
@@ -146,6 +147,7 @@ function getEventList($param){
 			$stmt -> bindValue(':event_name', '%'.$param['event_name'].'%', PDO::PARAM_STR);
 		if($flag_Tid)
 			$stmt -> bindValue(':tag_id', $param['tag_id'], PDO::PARAM_INT);
+		$stmt -> bindValue(':sort', generateSortSql($param), PDO::PARAM_STR);
 
 		$stmt -> execute();
 		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -226,4 +228,24 @@ function deleteParticipant($param){
 	return $ret;
 }
 */
+
+function generateSortSql($paramValues) {
+
+	if(array_key_exists('sort', $paramValues)) {
+		switch($paramValues['sort']){
+			case 'recent_held_event':
+				$sortSql = 'e.held_date DESC';
+				break;
+			case 'recent_post_event':
+				$sortSql = 'e.post_date DESC';
+				break;
+			default:
+				throw new ErrorException('Invalid parameter value');
+			}
+	} else {
+		$sortSql = 'e.held_date DESC';
+	}
+
+	return $sortSql;
+}
 ?>

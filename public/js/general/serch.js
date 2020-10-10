@@ -1,8 +1,8 @@
 let getRequestParams = (new URL(document.location)).searchParams;
 /* ソートの値変更に使う変数 */
 let sortObject = {
-    'recent-held-event': '直近開催イベント順',
-    'recent-post-event': '登録イベント順'
+    'recent_held_event': '直近開催イベント順',
+    'recent_post_event': '登録イベント順'
 };
 
 function searchUrlGenerater() {
