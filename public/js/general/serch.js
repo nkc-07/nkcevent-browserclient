@@ -1,16 +1,36 @@
-function searchUrlGenerater(url) {
-    let getRequestParams = (new URL(document.location)).searchParams;
+let getRequestParams = (new URL(document.location)).searchParams;
+/* ソートの値変更に使う変数 */
+let sortObject = {
+    'recent-held-event': '直近開催イベント順',
+    'recent-post-event': '登録イベント順'
+};
 
+function searchUrlGenerater() {
     $('[type=serch]').val(getRequestParams.get('event_name'));
-    let sendURL = url +
-        (
-            getRequestParams.get('event_name') !== null ?
-            'event_name=' + getRequestParams.get('event_name') :
-            getRequestParams.get('tag_id') !== null ?
-            'tag_id=' + getRequestParams.get('tag_id') : ''
-        );
+    $('.dropdown-toggle').text(sortObject[getRequestParams.get('sort')]);
 
-    console.log(sendURL);
+    let sendData = new Object;
+    if (getRequestParams.get('event_name') !== null) {
+        sendData.event_name = getRequestParams.get('event_name');
+    }
+    if (getRequestParams.get('tag_id') !== null) {
+        sendData.tag_id = getRequestParams.get('tag_id')
+    }
+    if (getRequestParams.get('sort') !== null) {
+        sendData.sort = getRequestParams.get('sort')
+    }
 
-    return sendURL;
+    return sendData;
 }
+
+$(document).on('click', '.dropdown-menu .dropdown-item', function() {
+    let sortGetRequest = location.search.split('&').find(
+        element => element.match('sort=*') !== null
+    );
+
+    if (sortGetRequest === undefined) {
+        location.href += (location.search ? '&' : '?') + 'sort=' + $(this).val();
+    } else {
+        location.href = location.href.replace(sortGetRequest, 'sort=' + $(this).val());
+    }
+});
