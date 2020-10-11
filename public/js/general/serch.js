@@ -14,11 +14,17 @@ function searchUrlGenerater() {
         sendData.event_name = getRequestParams.get('event_name');
     }
     if (getRequestParams.get('tag_id') !== null) {
-        sendData.tag_id = getRequestParams.get('tag_id')
+        sendData.tag_id = getRequestParams.get('tag_id');
     }
     if (getRequestParams.get('sort') !== null) {
-        sendData.sort = getRequestParams.get('sort')
+        sendData.sort = getRequestParams.get('sort');
     }
+    if (getRequestParams.get('page') !== null) {
+        sendData.page = getRequestParams.get('page');
+    } else {
+        sendData.page = 1;
+    }
+    sendData.limit = 30;
 
     return sendData;
 }

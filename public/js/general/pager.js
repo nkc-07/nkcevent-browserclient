@@ -78,6 +78,6 @@ function generateGetUrl(value, dom) {
     if (pageGetRequest === undefined) {
         dom.find('a').attr('href', (location.search ? '&' : '?') + 'page=' + value);
     } else {
-        dom.find('a').attr('href', location.href.replace(pageGetRequest, '?page=' + value));
+        dom.find('a').attr('href', location.href.replace(pageGetRequest, 'page=' + value));
     }
 }

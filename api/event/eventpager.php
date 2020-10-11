@@ -48,7 +48,7 @@ function getEventatPager($param)
     try {
         if (empty($param['limit']))            throw new ErrorException($errmsg . "limit");
 
-        $sql = "SELECT ROUND(COUNT(*) / :limit, 0) + 1 AS page_cunt
+        $sql = "SELECT ROUND(COUNT(*) / :limit, 0) AS page_cunt
                 FROM event e
                 INNER JOIN member m
                 ON e.organizer = m.member_id
