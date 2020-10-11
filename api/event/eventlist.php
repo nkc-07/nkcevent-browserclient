@@ -111,6 +111,9 @@ function getEventList($param){
 
 	//$db = new DB();
 	try{
+        if (empty($param['limit']))            throw new ErrorException($errmsg . "limit");
+        if (empty($param['page']))            throw new ErrorException($errmsg . "page");
+
 		$flag_Eid = false;
 		$flag_Ename = false;
 		$flag_Tid = false;
@@ -138,6 +141,8 @@ function getEventList($param){
             )";
 			$flag_Tid = true;
 		}
+		$sql .= ' ORDER BY ' . generateSortSql($param);
+        $sql .= ' LIMIT :limit OFFSET :page';
 
 		$stmt = PDO()->prepare($sql);
 		if($flag_Eid)
@@ -146,7 +151,9 @@ function getEventList($param){
 			$stmt -> bindValue(':event_name', '%'.$param['event_name'].'%', PDO::PARAM_STR);
 		if($flag_Tid)
 			$stmt -> bindValue(':tag_id', $param['tag_id'], PDO::PARAM_INT);
-
+		$stmt->bindValue(':limit', $param['limit'], PDO::PARAM_INT);
+		$stmt->bindValue(':page', $param['limit'] * ($param['page'] - 1), PDO::PARAM_INT);
+		
 		$stmt -> execute();
 		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -226,4 +233,24 @@ function deleteParticipant($param){
 	return $ret;
 }
 */
+
+function generateSortSql($paramValues) {
+
+	if(array_key_exists('sort', $paramValues)) {
+		switch($paramValues['sort']){
+			case 'recent_held_event':
+				$sortSql = 'e.held_date DESC';
+				break;
+			case 'recent_post_event':
+				$sortSql = 'e.post_date DESC';
+				break;
+			default:
+				throw new ErrorException('Invalid parameter value');
+			}
+	} else {
+		$sortSql = 'e.held_date DESC';
+	}
+
+	return $sortSql;
+}
 ?>

@@ -25,13 +25,13 @@ $(function() {
 
 // 取得処理
 function geteventparticipation() {
+    let sendData = searchUrlGenerater();
+    sendData.member_id = geteventInfo['member_id'];
     $.ajax({
-            url: searchUrlGenerater('/api/member/memberparticipation.php?'), //送信先
+            url: '/api/member/memberparticipation.php', //送信先
             type: 'GET', //送信方法
             datatype: 'json', //受け取りデータの種類
-            data: {
-                "member_id": geteventInfo['member_id'],
-            }
+            data: sendData
         })
         .done(function(response) {
             eventdataInfo = response.data

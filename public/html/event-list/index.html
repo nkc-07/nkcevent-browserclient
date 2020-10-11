@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/public/css/event-list.css">
 
     <script src="/public/vender/jquery-3.5.1.min/index.js"></script>
+    <script src="/public/vender/bootstrap-4.4.1-dist/js/popper.js"></script>
     <script src="/public/vender/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
     <script src="/public/vender/sidemenu/iscroll.min/index.js"></script>
     <script src="/public/vender/sidemenu/drawer.3.2.2.min/index.js"></script>
@@ -56,6 +57,14 @@
         </div>
 
         <div class="event-box">
+            <div class="dropdown">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">直近開催イベント順</button>
+                <ul class="dropdown-menu filtering">
+                    <li><button class="dropdown-item" value="recent_held_event">直近開催イベント順</button></li>
+                    <li><button class="dropdown-item" value="recent_post_event">登録イベント順</button></li>
+                </ul>
+            </div>
+
             <div class="card-columns">
                 <a class="card-rink" href="#" style="display: none;">
                     <div class="card">
@@ -73,8 +82,23 @@
                         </div>
                     </div>
                 </a>
-
             </div>
+
+            <nav aria-label="検索結果ページ">
+                <ul class="pagination justify-content-center mt-3">
+                    <li class="page-item back disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">前へ</a>
+                    </li>
+                    <div class="pahe-item-list" style="display: contents;">
+                        <li class="page-item list-item" style="display: none;">
+                            <a class="page-link" href="#"></a>
+                        </li>
+                    </div>
+                    <li class="page-item next disabled">
+                        <a class="page-link" href="#">次へ</a>
+                    </li>
+                </ul>
+            </nav>
 
             <a id="add-button" href="/public/html/event-list/new/">
                 <img class="add-icon" src="/public/image/svg/add.svg"></img>
@@ -82,6 +106,7 @@
         </div>
 
         <script src="/public/js/general/serch.js"></script>
+        <script src="/public/js/general/pager.js"></script>
         <script src="/public/js/general/sidemenu.js"></script>
         <script src="/public/js/event-list.js"></script>
     </main>
