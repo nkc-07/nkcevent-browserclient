@@ -226,16 +226,51 @@ $(function() {
                             $(".participat").hide();
                             $(".cancel").show();
                             $(".cancel").click(function() {
-                                eventcancel()
-                                location.href = "";
+                                Swal.fire({
+                                    title: 'イベントに参加をキャンセルしますか？',
+                                    showCancelButton: true,
+                                    type: 'warning',
+                                    confirmButtonText: "はい",
+                                    cancelButtonText: 'いいえ',
+                                    cancelButtonColor: '#4169E1',
+                                    confirmButtonColor: '#ff0000'
+                                }).then((result) => {
+                                    eventcancel()
+
+                                    Swal.fire({
+                                        type: 'success',
+                                        title: 'キャンセルしました'
+                                    }).then((result) => {
+                                        location.href = "";
+                                    });
+                                });
                             })
                             break;
                         case 0:
                             /* 通常イベント処理 */
                             $(".participat").click(function() {
-                                console.log("イベントボタン");
-                                eventparticipation();
-                                location.href = "";
+                                Swal.fire({
+                                    title: 'イベントに参加しますか？',
+                                    type: 'question',
+                                    showCancelButton: true,
+                                    confirmButtonText: "はい",
+                                    cancelButtonText: 'いいえ',
+                                    cancelButtonColor: '#ff0000',
+                                    confirmButtonColor: '#4169E1'
+                                }).then((result) => {
+                                    console.log(result)
+                                    if (result.value == true) {
+                                        console.log("イベントボタン");
+                                        eventparticipation();
+
+                                        Swal.fire({
+                                            type: 'success',
+                                            title: '参加登録を行いました'
+                                        }).then((result) => {
+                                            location.href = "";
+                                        });
+                                    }
+                                })
                             })
                             break;
                         default:
