@@ -47,7 +47,7 @@ function geteventparticipation() {
                 eventparticipationDom.find(".user-icon p").text(card.organizer);
                 eventparticipationDom.find(".user-icon img").attr("src", card.icon);
                 eventparticipationDom.show();
-                $(".card-box").append(eventparticipationDom);
+                $(".card-columns").append(eventparticipationDom);
             });
             /*
             $(eventparticipationDom).find(".card-body .card-title").text(eventdataInfo[1].event_name);
