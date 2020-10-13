@@ -1,25 +1,25 @@
 <?php
 
-require_once(__DIR__.'/../../php/Define.php');
-require_once(__DIR__.'/../../php/db.php');
+require_once(__DIR__ . '/../../php/Define.php');
+require_once(__DIR__ . '/../../php/db.php');
 //require_once(__DIR__.'/../../php/ErrorHandling.php');
 
 
 $response = [];
 $resary = [
-	'success'=> true,
+	'success' => true,
 	'code' => 200,
 	'msg' => "",
 ];
 
-switch($_SERVER['REQUEST_METHOD']){
+switch ($_SERVER['REQUEST_METHOD']) {
 	case "GET":
 
-		$param = $_GET;		
+		$param = $_GET;
 		$ret = GetMembrparticipation($param);
-		if($ret['success']){
+		if ($ret['success']) {
 			$response['data'] = $ret['data'];
-		}else{
+		} else {
 			$resary['success'] = false;
 			$resary['code'] = 400;
 			$resary['msg'] = $ret['msg'];
@@ -29,17 +29,17 @@ switch($_SERVER['REQUEST_METHOD']){
 	case "POST":
 
 		$ret = PostMembrparticipation($_POST);
-		if($ret['success']){
+		if ($ret['success']) {
 			$response['data'] = $ret['data'];
-		}else{
+		} else {
 			$resary['success'] = false;
 			$resary['code'] = 400;
 			$resary['msg'] = $ret['msg'];
 		}
 
 		break;
-	
-	/*
+
+		/*
 	case "PUT":
 
 		parse_str(file_get_contents('php://input'), $param);
@@ -54,7 +54,7 @@ switch($_SERVER['REQUEST_METHOD']){
 
 		break;
     */
-    /*
+		/*
 	case "DELETE":
 
 			
@@ -71,7 +71,7 @@ switch($_SERVER['REQUEST_METHOD']){
         break;
         
     */
-	
+
 	default:
 		$resary['success'] = false;
 		$resary['code'] = 405;
@@ -81,9 +81,9 @@ switch($_SERVER['REQUEST_METHOD']){
 
 header("Content-Type: application/json; charset=utf-8");
 
-if($resary['success']){
+if ($resary['success']) {
 	echo json_encode($response, JSON_UNESCAPED_UNICODE);
-}else{
+} else {
 	http_response_code($resary['code']);
 	$response['msg'] = $resary['msg'];
 	echo json_encode($response, JSON_UNESCAPED_UNICODE);
@@ -100,32 +100,32 @@ if($resary['success']){
 
 
 //イベント参加登録
-function PostMembrparticipation($param){
+function PostMembrparticipation($param)
+{
 
 	$ret = [
 		'success' => true,
 		'msg' => "",
-    ];
-    
+	];
+
 	//$db = new DB();
-	try{
-		if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id");
-        if(empty($param['event_id']))			throw new ErrorException($errmsg."event_id");
-        $sql= "INSERT INTO event_participant(
+	try {
+		if (empty($param['member_id']))			throw new ErrorException($errmsg . "member_id");
+		if (empty($param['event_id']))			throw new ErrorException($errmsg . "event_id");
+		$sql = "INSERT INTO event_participant(
 			  event_id,member_id)
               VALUES(:event_id:member_id)";
-              
-		$stmt = PDO()->prepare($sql);
-        $stmt -> bindValue(':event_id',  $param['event_id'],  PDO::PARAM_INT);
-        $stmt -> bindValue(':member_id',  $param['member_id'],  PDO::PARAM_INT);
-		$stmt -> execute();
-		
-		$ret['data'] = "success";
 
-	}catch(Exception $err){
+		$stmt = PDO()->prepare($sql);
+		$stmt->bindValue(':event_id',  $param['event_id'],  PDO::PARAM_INT);
+		$stmt->bindValue(':member_id',  $param['member_id'],  PDO::PARAM_INT);
+		$stmt->execute();
+
+		$ret['data'] = "success";
+	} catch (Exception $err) {
 		//exceptionErrorPut($err, "EXCEPTION");
 		$ret['success'] = false;
-		$ret['msg'] = "[".date("Y-m-d H:i:s")."]".$err->getMessage();
+		$ret['msg'] = "[" . date("Y-m-d H:i:s") . "]" . $err->getMessage();
 	}
 
 	return $ret;
@@ -134,20 +134,23 @@ function PostMembrparticipation($param){
 
 
 /*イベント参加情報の取得*/
-function GetMembrparticipation($param){
+function GetMembrparticipation($param)
+{
 
-    $ret = [
+	$ret = [
 		'success' => true,
 		'msg' => "",
-    ];
+	];
 
 	//$db = new DB();
-	try{
+	try {
 		$flag_Ename = false;
 
-        if(empty($param['member_id']))			throw new ErrorException($errmsg."member_id");
+		if (empty($param['member_id']))			throw new ErrorException($errmsg . "member_id");
+		if (empty($param['limit']))            	throw new ErrorException($errmsg . "limit");
+		if (empty($param['page']))            	throw new ErrorException($errmsg . "page");
 
-		$sql= "SELECT e.event_id,event_name,map,image,held_date,m.nickname as organizer,icon,e.event_cancellation
+		$sql = "SELECT e.event_id,event_name,map,image,held_date,m.nickname as organizer,icon,e.event_cancellation
 			FROM event_participant ep
 			INNER JOIN event e
 			ON  e.event_id = ep.event_id
@@ -155,29 +158,50 @@ function GetMembrparticipation($param){
 			ON m.member_id = e.organizer
 			WHERE ep.member_id = :member_id ";
 
-		if(array_key_exists('event_name', $param)){
+		if (array_key_exists('event_name', $param)) {
 			$sql .= "AND e.event_name LIKE :event_name";
 			$flag_Ename = true;
 		}
+		$sql .= ' ORDER BY ' . generateSortSql($param);
+		$sql .= ' LIMIT :limit OFFSET :page';
 
 		$stmt = PDO()->prepare($sql);
-		$stmt -> bindValue(':member_id',  $param['member_id'],  PDO::PARAM_INT);
+		$stmt->bindValue(':member_id',  $param['member_id'],  PDO::PARAM_INT);
+		$stmt->bindValue(':limit', $param['limit'], PDO::PARAM_INT);
+		$stmt->bindValue(':page', $param['limit'] * ($param['page'] - 1), PDO::PARAM_INT);
 
-		if($flag_Ename)
-			$stmt -> bindValue(':event_name', '%'.$param['event_name'].'%', PDO::PARAM_STR);
+		if ($flag_Ename)
+			$stmt->bindValue(':event_name', '%' . $param['event_name'] . '%', PDO::PARAM_STR);
 
-		$stmt -> execute();
+		$stmt->execute();
 
 		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		$ret['data'] = $data;
-
-	}catch(Exception $err){
+	} catch (Exception $err) {
 		//exceptionErrorPut($err, "EXCEPTION");
 		$ret['success'] = false;
-		$ret['msg'] = "[".date("Y-m-d H:i:s")."]".$err->getMessage();
+		$ret['msg'] = "[" . date("Y-m-d H:i:s") . "]" . $err->getMessage();
 	}
 
 	return $ret;
 }
 
-?>
+
+function generateSortSql($paramValues) {
+	if(array_key_exists('sort', $paramValues)) {
+		switch($paramValues['sort']){
+			case 'recent_held_event':
+				$sortSql = 'e.held_date DESC';
+				break;
+			case 'recent_post_event':
+				$sortSql = 'e.post_date DESC';
+				break;
+			default:
+				throw new ErrorException('Invalid parameter value');
+			}
+	} else {
+		$sortSql = 'e.held_date DESC';
+	}
+
+	return $sortSql;
+}

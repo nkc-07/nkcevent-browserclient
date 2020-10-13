@@ -18,7 +18,11 @@ $(function() {
                     now - 1 : response.data.page_cunt - 2
                 ) : 1
             );
-            if (pageCnt < response.data.page_cunt) {
+            if (
+                pageCnt < response.data.page_cunt &&
+                now <= response.data.page_cunt &&
+                now > 0
+            ) {
                 if (now != 1) {
                     $('.pagination .back').removeClass('disabled');
                 }
@@ -30,7 +34,7 @@ $(function() {
                     }
                 }
 
-                for (let i = 0; i < 3; i++) {
+                for (let i = 0; i < 3 && i < response.data.page_cunt; i++) {
                     let currentDom = addPagerItem(pagerItem.clone(), pageCnt, false);
 
                     if (now == pageCnt) {
@@ -78,6 +82,6 @@ function generateGetUrl(value, dom) {
     if (pageGetRequest === undefined) {
         dom.find('a').attr('href', (location.search ? '&' : '?') + 'page=' + value);
     } else {
-        dom.find('a').attr('href', location.href.replace(pageGetRequest, 'page=' + value));
+        dom.find('a').attr('href', location.href.replace(pageGetRequest, '?page=' + value));
     }
 }

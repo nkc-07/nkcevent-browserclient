@@ -66,31 +66,54 @@
                 </ul>
             </div>
 
-            <div class="mx-auto" style="display: none;">
-                <a class="card-link" href="/public/event-list/detail/index.html">
-                    <div class="card outcard mx-auto">
-                        <div class="col-md-8">
-                            <div class="thumbnail">
-                                <img class="bd-placeholder-img card-img" src="/public/image/pomeraniann.jpg" />
-                                <p>2020/06/23</p>
+            <div class="card-columns">
+                <div class="no-event m-5" style="display: none;">
+                    <p class="card-text">イベントが見つかりませんでした...</p>
+                </div>
+
+                <div class="mx-auto" style="display: none;">
+                    <a class="card-link" href="/public/event-list/detail/index.html">
+                        <div class="card outcard mx-auto">
+                            <div class="col-md-8">
+                                <div class="thumbnail">
+                                    <img class="bd-placeholder-img card-img" src="/public/image/pomeraniann.jpg" />
+                                    <p>2020/06/23</p>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">event_title</h5>
+                                    <p>
+                                        三重県亀山市関が丘521-585
+                                    </p>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title">event_title</h5>
-                                <p>
-                                    三重県亀山市関が丘521-585
-                                </p>
+                            <div class="user-icon">
+                                <p>user</p>
+                                <img src="/public/image/svg/dummy.svg">
                             </div>
                         </div>
-                        <div class="user-icon">
-                            <p>user</p>
-                            <img src="/public/image/svg/dummy.svg">
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
+
+            <nav aria-label="検索結果ページ">
+                <ul class="pagination justify-content-center mt-3">
+                    <li class="page-item back disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">前へ</a>
+                    </li>
+                    <div class="pahe-item-list" style="display: contents;">
+                        <li class="page-item list-item" style="display: none;">
+                            <a class="page-link" href="#"></a>
+                        </li>
+                    </div>
+                    <li class="page-item next disabled">
+                        <a class="page-link" href="#">次へ</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
 
         <script src="/public/js/general/serch.js"></script>
+        <script src="/public/js/general/pager.js"></script>
         <script src="/public/js/general/sidemenu.js"></script>
         <script src="/public/js/event-participation.js"></script>
     </main>

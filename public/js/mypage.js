@@ -185,7 +185,9 @@ function getParticipationEvent() {
             type: 'GET', //送信方法
             datatype: 'json', //受け取りデータの種類
             data: {
-                member_id: myMemberId
+                member_id: myMemberId,
+                limit: 10,
+                page: 1
             }
         })
         .done(function(response) {
