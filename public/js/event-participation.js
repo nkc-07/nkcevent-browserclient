@@ -37,18 +37,22 @@ function geteventparticipation() {
             eventdataInfo = response.data
             console.log(eventdataInfo);
             // $(".card-box").empty();
-            eventdataInfo.forEach(function(card) {
-                eventparticipationDom = eventparticipationDom.clone();
-                eventparticipationDom.find(".card-link").attr("href", "/public/html/event-list/detail/index.html?event-id=" + card.event_id);
-                eventparticipationDom.find(".thumbnail img").attr("src", card.image);
-                eventparticipationDom.find(".thumbnail p").text(card.held_date)
-                eventparticipationDom.find(".card-body .card-title").text(card.event_name);
-                eventparticipationDom.find(".card-body p").text(card.map);
-                eventparticipationDom.find(".user-icon p").text(card.organizer);
-                eventparticipationDom.find(".user-icon img").attr("src", card.icon);
-                eventparticipationDom.show();
-                $(".card-columns").append(eventparticipationDom);
-            });
+            if (eventdataInfo.length > 0) {
+                eventdataInfo.forEach(function(card) {
+                    eventparticipationDom = eventparticipationDom.clone();
+                    eventparticipationDom.find(".card-link").attr("href", "/public/html/event-list/detail/index.html?event-id=" + card.event_id);
+                    eventparticipationDom.find(".thumbnail img").attr("src", card.image);
+                    eventparticipationDom.find(".thumbnail p").text(card.held_date)
+                    eventparticipationDom.find(".card-body .card-title").text(card.event_name);
+                    eventparticipationDom.find(".card-body p").text(card.map);
+                    eventparticipationDom.find(".user-icon p").text(card.organizer);
+                    eventparticipationDom.find(".user-icon img").attr("src", card.icon);
+                    eventparticipationDom.show();
+                    $(".card-columns").append(eventparticipationDom);
+                });
+            } else {
+                $('.card-columns .no-event').show();
+            }
             /*
             $(eventparticipationDom).find(".card-body .card-title").text(eventdataInfo[1].event_name);
             $(eventparticipationDom).find(".card-body p").text(eventdataInfo[1].map);
