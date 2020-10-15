@@ -16,6 +16,11 @@ $(function() {
             location.href = '/public/html/event-list/';
         })
 });
+
+var simplemde = new SimpleMDE({
+    element: $("#markdown-editor")[0]
+});
+
 /* イベントを作成するために使用する各情報を入れておくための変数 */
 let createEventInfo = {
     'event_name': undefined,
@@ -135,7 +140,7 @@ $('.participation-event').click(function(e) {
                 //イベント詳細
                 createEventInfo['event_name'] = $('.event-name').val();
                 createEventInfo['event_kana'] = 'test_kana';
-                createEventInfo['event_comment'] = $('.event-comment').val();
+                createEventInfo['event_comment'] = simplemde.value();
                 if ($('.street-number').val() !== "") {
                     createEventInfo['map'] += $('.street-number').val();
                 } else {
