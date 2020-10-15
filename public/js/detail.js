@@ -213,10 +213,7 @@ $(function() {
                                 }).then((result) => {
                                     console.log(result)
                                     if (result.value == true) {
-                                        Swal.fire('中止されました', '', '').then(function() {
-                                            document.location.reload(true);
-                                            eventcancellation();
-                                        })
+                                        eventcancellation();
                                     }
                                 })
                             })
@@ -383,6 +380,9 @@ function eventcancellation() {
         //通信成功
         .done(function(response) {
             console.log(response);
+            Swal.fire('中止されました').then((result) => {
+                document.location.reload(true);
+            });
         })
         //通信失敗
         .fail(function(response) {
