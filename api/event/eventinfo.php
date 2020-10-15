@@ -159,7 +159,7 @@ function postEventinfo($param){
 		$stmt = $pdo->prepare($sql);
 		$stmt -> bindValue(':event_name',  	 $param['event_name'],  PDO::PARAM_STR);
 		$stmt -> bindValue(':event_kana', 	 $param['event_kana'], PDO::PARAM_STR);
-		$stmt -> bindValue(':event_comment', $param['event_comment'], PDO::PARAM_STR);
+		$stmt -> bindValue(':event_comment', htmlspecialchars($param['event_comment'], ENT_QUOTES), PDO::PARAM_LOB);
 		$stmt -> bindValue(':map', 			 $param['map'], PDO::PARAM_STR);
 		$stmt -> bindValue(':image', 		 $param['image'], PDO::PARAM_STR);
 		$stmt -> bindValue(':post_date', 	 $param['post_date'], PDO::PARAM_STR);

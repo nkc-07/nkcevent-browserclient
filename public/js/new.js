@@ -18,6 +18,11 @@ $(function() {
 });
 
 var simplemde = new SimpleMDE({
+    renderingConfig: {
+        markedOptions: {
+            sanitize: true
+        }
+    },
     element: $("#markdown-editor")[0]
 });
 
