@@ -112,6 +112,10 @@ $.ajax({
         console.log(response);
     })
 
+$(function() {
+    $('.detail-back-link').attr('href', '/public/html/event-list/detail/index.html?event-id=' + getRequestParams.get('event-id'));
+})
+
 function showAttendanceList(changeDisplay) {
     $('.attendance-list').empty();
     let loopFlag = true;
