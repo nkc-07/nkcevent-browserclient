@@ -116,12 +116,15 @@ $.ajax({
             height: 180,
             text: qrcodeValue
         });
-        console.log(response.data.qrcode)
     })
     .fail(function(response) {
         console.log('通信失敗');
         console.log(response);
     })
+
+$(function() {
+    $('.detail-back-link').attr('href', '/public/html/event-list/detail/index.html?event-id=' + getRequestParams.get('event-id'));
+})
 
 function showAttendanceList(changeDisplay) {
     $('.attendance-list').empty();
