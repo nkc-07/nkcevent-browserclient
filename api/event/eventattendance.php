@@ -97,6 +97,7 @@ function putEventattendance($param)
 		if (empty($param['event_id']))			throw new ErrorException($errmsg . "event_id");
 		if (empty($param['token_id']))			throw new ErrorException($errmsg . "token_id");
 		if (empty($param['qrcode_value']))		throw new ErrorException($errmsg . "qrcode_value");
+		if (!isset($param['status']))			throw new ErrorException($errmsg . "status");
 
 		$sql = "SELECT event_participant.member_id, event.event_id, event.organizer
                 FROM event_participant
@@ -120,7 +121,7 @@ function putEventattendance($param)
 			hash_hmac("sha256", $isparticipant[0]['event_id'], "sionunofficialoffer") == $param['qrcode_value']
 		) {
 			$splUpdate = "UPDATE event_participant
-                    SET is_attendance = 2
+                    SET is_attendance = :status
                     WHERE event_participant.event_id = :event_id
                     AND event_participant.member_id = ";
 
@@ -128,12 +129,17 @@ function putEventattendance($param)
 			if (array_key_exists('target_member_id', $param)) {
 				$isTargetSql = "SELECT member_id
 								FROM event_participant
-								WHERE member_id = :target_id";
+								INNER JOIN event
+								ON event.event_id = event_participant.event_id
+								WHERE member_id = :target_id
+								AND event.event_id = :event_id";
 				$stmt = PDO()->prepare($isTargetSql);
 				$stmt->bindValue(':target_id', $param['target_member_id'], PDO::PARAM_INT);
+				$stmt->bindValue(':event_id', $param['event_id'], PDO::PARAM_INT);
 				$stmt->execute();
 				$isMember = $stmt->fetchAll();
-				if(count($isMember) == 1) {
+				if (count($isMember) == 1) {
+
 					$splUpdate .= ':is_member';
 					$tempSqlData[0] = $param['target_member_id'];
 					$tempSqlData[1] = PDO::PARAM_INT;
@@ -152,8 +158,10 @@ function putEventattendance($param)
 			$stmt = PDO()->prepare($splUpdate);
 			$stmt->bindValue(':event_id', $param['event_id'], PDO::PARAM_INT);
 			$stmt->bindValue(':is_member', $tempSqlData[0], $tempSqlData[1]);
+			$stmt->bindValue(':status', $param['status'], PDO::PARAM_INT);
 
 			$stmt->execute();
+			$ret['data']['status'] = $param['status'];
 		} else {
 			$ret['success'] = false;
 			$ret['data'] = false;
