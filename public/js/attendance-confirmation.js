@@ -26,12 +26,12 @@ conn.onopen = function(e) {
 };
 
 conn.onmessage = function(e) {
-    console.log(e.data);
+    let memberData = JSON.parse(e.data)
     userList.find(function(element) {
-        return e.data == element.member_id
-    }).is_attendance = 2;
-    $('.member-id-' + e.data + ' .svg').attr('src', attendanceIcons[2].img);
-    $('.member-id-' + e.data + ' .dropdown-toggle').text(attendanceIcons[2].text);
+        return memberData['participant_member'] == element.member_id
+    }).is_attendance = memberData['status'];
+    $('.member-id-' + memberData['participant_member'] + ' .svg').attr('src', attendanceIcons[memberData['status']].img);
+    $('.member-id-' + memberData['participant_member'] + ' .dropdown-toggle').text(attendanceIcons[memberData['status']].text);
 };
 
 $(document).on('click', '.filtering .dropdown-item', function(e) {
@@ -45,9 +45,9 @@ $(document).on('click', '.user-status .dropdown-item', function(e) {
         event_id: getRequestParams.get('event-id'),
         token_id: localStorage.getItem('token'),
         qrcode_value: qrcodeValue,
-        target_member_id: $(this).parents('.attendance-user').attr('class').replace(/[^0-9]/g, '')
+        target_member_id: $(this).parents('.attendance-user').attr('class').replace(/[^0-9]/g, ''),
+        status: $(this).val()
     };
-    console.log(sendJsonDate);
     conn.send(JSON.stringify(sendJsonDate));
 });
 
