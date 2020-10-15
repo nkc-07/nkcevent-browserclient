@@ -1,5 +1,6 @@
 let getRequestParams = (new URL(document.location)).searchParams;
 
+let qrcodeValue;
 let userList; // 出席するメンバーのリスト
 let eventAttendanceId; // 主催者のID
 let attendanceIcons = { // 出席状況のアイコンとテキスト
@@ -25,20 +26,29 @@ conn.onopen = function(e) {
 };
 
 conn.onmessage = function(e) {
+    let memberData = JSON.parse(e.data)
     userList.find(function(element) {
-        return e.data == element.member_id
-    }).is_attendance = 2;
-    $('.member-id-' + e.data + ' .svg').attr('src', attendanceIcons[2].img);
-    $('.member-id-' + e.data + ' .dropdown-toggle').text(attendanceIcons[2].text);
+        return memberData['participant_member'] == element.member_id
+    }).is_attendance = memberData['status'];
+    $('.member-id-' + memberData['participant_member'] + ' .svg').attr('src', attendanceIcons[memberData['status']].img);
+    $('.member-id-' + memberData['participant_member'] + ' .dropdown-toggle').text(attendanceIcons[memberData['status']].text);
 };
 
 $(document).on('click', '.filtering .dropdown-item', function(e) {
     showAttendanceList($(this).val());
-});
-
-$(document).on('click', '.dropdown-menu .dropdown-item', function() {
     var visibleItem = $('.dropdown-toggle', $(this).closest('.dropdown'));
     visibleItem.text($(this).text());
+});
+
+$(document).on('click', '.user-status .dropdown-item', function(e) {
+    let sendJsonDate = {
+        event_id: getRequestParams.get('event-id'),
+        token_id: localStorage.getItem('token'),
+        qrcode_value: qrcodeValue,
+        target_member_id: $(this).parents('.attendance-user').attr('class').replace(/[^0-9]/g, ''),
+        status: $(this).val()
+    };
+    conn.send(JSON.stringify(sendJsonDate));
 });
 
 $.ajax({
@@ -99,11 +109,12 @@ $.ajax({
     })
     .done(function(response) {
         userList = response.data.info;
+        qrcodeValue = response.data.qrcode;
         showAttendanceList("all");
         $('#qrcode-table').qrcode({
             width: 180,
             height: 180,
-            text: response.data.qrcode
+            text: qrcodeValue
         });
     })
     .fail(function(response) {
@@ -120,14 +131,14 @@ function showAttendanceList(changeDisplay) {
     let loopFlag = true;
     userList.forEach(function(items) {
         if (items.is_attendance == changeDisplay || changeDisplay === "all") {
-            attendanceUserDom = attendanceUserDom.clone();
-            attendanceUserDom.addClass('member-id-' + items.member_id);
-            attendanceUserDom.find('.user-icon img').attr('src', items.icon);
-            attendanceUserDom.find('.svg').attr('src', attendanceIcons[items.is_attendance].img);
-            attendanceUserDom.find('.dropdown-toggle').text(attendanceIcons[items.is_attendance].text);
-            attendanceUserDom.find('.user-icon p').text(items.nickname);
-            attendanceUserDom.show();
-            $('.attendance-list').append(attendanceUserDom);
+            tempAttendanceUserDom = attendanceUserDom.clone();
+            tempAttendanceUserDom.addClass('member-id-' + items.member_id);
+            tempAttendanceUserDom.find('.user-icon img').attr('src', items.icon);
+            tempAttendanceUserDom.find('.svg').attr('src', attendanceIcons[items.is_attendance].img);
+            tempAttendanceUserDom.find('.dropdown-toggle').text(attendanceIcons[items.is_attendance].text);
+            tempAttendanceUserDom.find('.user-icon p').text(items.nickname);
+            tempAttendanceUserDom.show();
+            $('.attendance-list').append(tempAttendanceUserDom);
 
             loopFlag = false;
         }
