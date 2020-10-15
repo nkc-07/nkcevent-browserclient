@@ -105,7 +105,6 @@ $.ajax({
             height: 180,
             text: response.data.qrcode
         });
-        console.log(response.data.qrcode)
     })
     .fail(function(response) {
         console.log('通信失敗');
