@@ -123,7 +123,8 @@ function getEventList($param){
 			FROM event e
 			INNER JOIN member m
 			ON e.organizer = m.member_id
-			WHERE held_date >= CURDATE()";
+			WHERE held_date >= CURDATE()
+			AND e.event_cancellation = 1";
 
 		if(array_key_exists('event_id', $param)){
 			$sql .= "AND event_id = :event_id";
@@ -134,7 +135,7 @@ function getEventList($param){
 			$flag_Ename = true;
 		}
 		if(array_key_exists('tag_id', $param)){
-			$sql .= "AND e.event_id IN (
+			$sql .= " AND e.event_id IN (
 						SELECT event_id
 						FROM event_tag
 						WHERE event_tag = :tag_id
@@ -153,7 +154,7 @@ function getEventList($param){
 			$stmt -> bindValue(':tag_id', $param['tag_id'], PDO::PARAM_INT);
 		$stmt->bindValue(':limit', $param['limit'], PDO::PARAM_INT);
 		$stmt->bindValue(':page', $param['limit'] * ($param['page'] - 1), PDO::PARAM_INT);
-		
+
 		$stmt -> execute();
 		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
