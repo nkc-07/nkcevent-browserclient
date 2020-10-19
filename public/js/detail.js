@@ -137,7 +137,7 @@ $(function() {
                     }
 
                     $(".event-top .event-title").text(geteventInfo['eventname']);
-                    $(".event-box p").text(geteventInfo['eventcomment']);
+                    $(".event-comment").html(marked(geteventInfo['eventcomment']));
                     $(".event-top .event-img").attr("src", geteventInfo["image"]);
                     $(".event-top .create-day").text(geteventInfo["postdate"])
                     $(".detail-box .day-box").attr("src", geteventInfo["deadlinedate"]);
