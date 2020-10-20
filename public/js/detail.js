@@ -19,6 +19,7 @@ let geteventInfo = {
     helddate: undefined,
     organizer_id: undefined,
     organizer_nickname: undefined,
+    organizer_icon: undefined,
     eventcancellation: undefined,
     memberlimit: undefined
 };
@@ -71,7 +72,7 @@ $(function() {
             sendMemberInfo = memberInfo;
             myMembername = memberInfo['nickname']
             myMemberId = memberInfo['member_id']
-            $(".user-icon img").attr("src", memberInfo["icon"])
+            //$(".user-icon img").attr("src", memberInfo["icon"])
         })
         .fail(function(response) {
             console.log('通信失敗');
@@ -98,6 +99,7 @@ $(function() {
             geteventInfo['helddate'] = eventdata.held_date;
             geteventInfo['organizer_id'] = eventdata.organizer_id;
             geteventInfo['organizer_nickname'] = eventdata.organizer_nickname;
+            geteventInfo['organizer_icon'] = eventdata.organizer_icon;
             geteventInfo['eventcancellation'] = eventdata.event_cancellation;
             geteventInfo['memberlimit'] = eventdata.member_limit;
             eventTags = response.data.event_tag;
@@ -160,6 +162,7 @@ $(function() {
 
                     //ユーザ名の追加
                     $(".user-icon span").text(geteventInfo["organizer_nickname"])
+                    $(".user-icon img").attr("src",geteventInfo["organizer_icon"])
 
                     helddate = new Date(geteventInfo['helddate']);
                     let helddateday = ("0" + (helddate.getDate())).slice(-2);
