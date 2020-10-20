@@ -91,7 +91,7 @@ function getEventinfo($param){
 	//$db = new DB();
 	try{
 		if(empty($param['event_id']))			throw new ErrorException($errmsg."event_id");
-        $sql=  "SELECT event_id, event_name, event_comment, map, image, post_date, deadline_date, held_date, m.nickname AS organizer_nickname, m.member_id AS organizer_id, member_limit, event_cancellation 
+        $sql=  "SELECT event_id, event_name, event_comment, map, image, post_date, deadline_date, held_date, m.nickname AS organizer_nickname,m.icon as organizer_icon, m.member_id AS organizer_id, member_limit, event_cancellation 
                 FROM `event` e
                 INNER JOIN member m
                 ON e.organizer = m.member_id
