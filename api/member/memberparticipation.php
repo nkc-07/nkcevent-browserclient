@@ -162,7 +162,9 @@ function GetMembrparticipation($param)
 			$sql .= "AND e.event_name LIKE :event_name";
 			$flag_Ename = true;
 		}
-		$sql .= ' ORDER BY ' . generateSortSql($param);
+		$sql .= ' GROUP BY event_cancellation';
+		$sql .= ' ORDER BY event_cancellation DESC';
+		$sql .= ' , ' . generateSortSql($param);
 		$sql .= ' LIMIT :limit OFFSET :page';
 
 		$stmt = PDO()->prepare($sql);
