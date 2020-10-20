@@ -131,7 +131,7 @@ $('.participation-event').click(function(e) {
     var reader = new FileReader();
     var file = $('.send-event-img').prop('files')[0];
     console.log(file);
-    if (!file.type.match(/^image\/(bmp|png|jpeg|gif)$/)) {
+    if (file.type.match(/^image\/(bmp|png|jpeg|gif)$/) === null) {
         alert("対応画像ファイル[bmp|png|jpeg|gif]");
         return;
     }
@@ -166,7 +166,9 @@ $('.participation-event').click(function(e) {
                 }
                 createEventInfo['deadline_date'] = $('.deadline-date').val();
                 createEventInfo['held_date'] = $('.held-date').val();
-                createEventInfo['member_limit'] = $('.member_limit').val();
+                if($('.member_limit').val() >= 2 ) {
+                    createEventInfo['member_limit'] = $('.member_limit').val();
+                }
 
                 $.ajax({
                     url: '/api/event/eventinfo.php', //送信先
