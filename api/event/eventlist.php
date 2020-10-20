@@ -143,8 +143,8 @@ function getEventList($param){
 			$flag_Tid = true;
 		}
 		$sql .= ' ORDER BY ' . generateSortSql($param);
-        $sql .= ' LIMIT :limit OFFSET :page';
-
+		$sql .= ' LIMIT :limit OFFSET :page';
+		
 		$stmt = PDO()->prepare($sql);
 		if($flag_Eid)
 			$stmt -> bindValue(':event_id', $param['event_id'], PDO::PARAM_INT);
@@ -152,7 +152,7 @@ function getEventList($param){
 			$stmt -> bindValue(':event_name', '%'.$param['event_name'].'%', PDO::PARAM_STR);
 		if($flag_Tid)
 			$stmt -> bindValue(':tag_id', $param['tag_id'], PDO::PARAM_INT);
-		$stmt->bindValue(':limit', $param['limit'], PDO::PARAM_INT);
+		$stmt->bindValue(':limit', (int)$param['limit'], PDO::PARAM_INT);
 		$stmt->bindValue(':page', $param['limit'] * ($param['page'] - 1), PDO::PARAM_INT);
 
 		$stmt -> execute();

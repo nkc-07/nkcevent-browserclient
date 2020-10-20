@@ -167,7 +167,7 @@ function GetMembrparticipation($param)
 
 		$stmt = PDO()->prepare($sql);
 		$stmt->bindValue(':member_id',  $param['member_id'],  PDO::PARAM_INT);
-		$stmt->bindValue(':limit', $param['limit'], PDO::PARAM_INT);
+		$stmt->bindValue(':limit', (int)$param['limit'], PDO::PARAM_INT);
 		$stmt->bindValue(':page', $param['limit'] * ($param['page'] - 1), PDO::PARAM_INT);
 
 		if ($flag_Ename)
