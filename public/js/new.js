@@ -15,6 +15,15 @@ $(function() {
             console.log(response);
             location.href = '/public/html/event-list/';
         })
+
+        $('input[type="number"].member_limit').keyup(function(e) {
+            if(
+                Number($('.member_limit').val()) < 0  ||
+                e.key == "-"
+            ) {
+                $('.member_limit').val("");
+            }
+        });
 });
 
 var simplemde = new SimpleMDE({
@@ -138,7 +147,7 @@ $('.participation-event').click(function(e) {
     var reader = new FileReader();
     var file = $('.send-event-img').prop('files')[0];
     console.log(file);
-    if (!file.type.match(/^image\/(bmp|png|jpeg|gif)$/)) {
+    if (file.type.match(/^image\/(bmp|png|jpeg|gif)$/) === null) {
         alert("対応画像ファイル[bmp|png|jpeg|gif]");
         return;
     }
@@ -177,7 +186,9 @@ $('.participation-event').click(function(e) {
                     alert("締切日");
                     return;
                 }
-                createEventInfo['member_limit'] = $('.member_limit').val();
+                if($('.member_limit').val() >= 2 ) {
+                    createEventInfo['member_limit'] = $('.member_limit').val();
+                }
 
                 $.ajax({
                     url: '/api/event/eventinfo.php', //送信先
