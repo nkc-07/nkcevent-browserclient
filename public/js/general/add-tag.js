@@ -66,6 +66,7 @@ function addTag() {
 
         if (duplication === undefined) {
             let tagCardDOmClone = tagCardDom.clone().show();
+            if(tagCardDOmClone.find('span').text(targetTagInfo['tag_name'] == undefined)){return;}
             tagCardDOmClone.find('span').text(targetTagInfo['tag_name']);
             $('#modal .tag-box .clear-float').append(tagCardDOmClone);
 
@@ -74,7 +75,7 @@ function addTag() {
 
             targetTagInfo = undefined;
         }
-    } else {
+    } else if($('.add-tag .tag-text').val() !== "") {
         let targetTagInfo = {
             tag_id: undefined,
             tag_name: $('.add-tag .tag-text').val()
