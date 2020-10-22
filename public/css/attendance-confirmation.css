@@ -22,7 +22,9 @@
 .user-icon img {
     height: 100px;
     width: auto;
+    max-width: 14%;
     float: left;
+    object-fit: cover;
 }
 
 .user-icon p {
