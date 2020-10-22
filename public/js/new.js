@@ -102,6 +102,9 @@ $('.held-date').attr('min', nowTime + 'T00:00');
 $('.deadline-date').attr('min', nowTime);
 $('.held-date').change(function(e) {
     $('.deadline-date').attr('max', $(this).val().split('T')[0]);
+    if($('.deadline-date').val() != "" && $('.deadline-date').val() > $('.held-date').val()){
+        $('.deadline-date').val("");
+    }
 
     let date = $(this).val().split('-');
 
@@ -109,7 +112,11 @@ $('.held-date').change(function(e) {
     $('.held-day').text(date[2].split('T')[0]);
     $('.held-time').text(date[2].split('T')[1]);
 });
-
+$('.deadline-date').change(function(e) {
+    if($('.held-date').val() != "" && $('.deadline-date').val() > $('.held-date').val()){
+        $('.deadline-date').val("");
+    }
+});
 let toDayObjcr = new Date();
 let toDayStr = toDayObjcr.getFullYear() + '-' +
     toDayObjcr.getMonth() + '-' +
@@ -166,6 +173,10 @@ $('.participation-event').click(function(e) {
                 }
                 createEventInfo['deadline_date'] = $('.deadline-date').val();
                 createEventInfo['held_date'] = $('.held-date').val();
+                if(createEventInfo['deadline_date'] >= createEventInfo['held_date']){
+                    alert("締切日");
+                    return;
+                }
                 createEventInfo['member_limit'] = $('.member_limit').val();
 
                 $.ajax({
