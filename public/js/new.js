@@ -15,6 +15,15 @@ $(function() {
             console.log(response);
             location.href = '/public/html/event-list/';
         })
+
+        $('input[type="number"].member_limit').keyup(function(e) {
+            if(
+                Number($('.member_limit').val()) < 0  ||
+                e.key == "-"
+            ) {
+                $('.member_limit').val("");
+            }
+        });
 });
 
 var simplemde = new SimpleMDE({
