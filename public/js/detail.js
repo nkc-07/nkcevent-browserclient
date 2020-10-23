@@ -119,19 +119,18 @@ $(function() {
 
                     $('#now-member').text(joindata.length)
 
+                    if (joindata.length >= geteventInfo['memberlimit']) {
+                        eventDisplayStatus = 1;
+                    }
+
                     joindata.forEach(function(e) {
                         if (e.member_id == myMemberId) {
-                            eventDisplayStatus = 1
+                            eventDisplayStatus = 2
                         }
                     })
 
-                    if (joindata.length >= geteventInfo['memberlimit']) {
-                        console.log('規定数に達している');
-                        eventDisplayStatus = 3;
-                    }
-
                     if (geteventInfo['organizer_id'] == myMemberId) {
-                        eventDisplayStatus = 2
+                        eventDisplayStatus = 3
                         if (geteventInfo['eventcancellation'] == 0) {
                             //押せなくする
                             eventDisplayStatus = 5
@@ -194,10 +193,6 @@ $(function() {
                         case 4:
                             break;
                         case 3:
-                            /* 定員数に達している処理 */
-                            $('.participat').prop('disabled', true);
-                            break;
-                        case 2:
                             /* 主催者イベント処理 */
                             $('.attendance').show();
                             $('.attendance').attr('href', `/public/html/event-list/detail/attendance-confirmation/index.html?event-id=${getRequestParams.get('event-id')}`);
@@ -221,7 +216,7 @@ $(function() {
                                 })
                             })
                             break;
-                        case 1:
+                        case 2:
                             /* 参加者イベント処理 */
                             $(".participat").hide();
                             $(".cancel").show();
@@ -245,6 +240,10 @@ $(function() {
                                     });
                                 });
                             })
+                            break;
+                        case 1:
+                            /* 定員数に達している処理 */
+                            $('.participat').prop('disabled', true);
                             break;
                         case 0:
                             /* 通常イベント処理 */
