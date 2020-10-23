@@ -75,6 +75,7 @@ $.ajax({
     createEventInfo['token_id'] = localStorage.getItem('token');
 });
 
+let citieNameTmp = undefined;
 $('.postal-code').keyup(function(e) {
     let pattern = /^[0-9]{3}-?[0-9]{4}$/;
     if ($(this).val().match(pattern)) {
@@ -95,7 +96,7 @@ $('.postal-code').keyup(function(e) {
                         response.results[0].address2 +
                         response.results[0].address3;
                     $('.cities').val(citieName);
-                    createEventInfo['map'] = citieName;
+                    citieNameTmp = citieName;
                 }
             })
             //通信失敗
@@ -166,7 +167,7 @@ $('.participation-event').click(function(e) {
                 createEventInfo['event_kana'] = 'test_kana';
                 createEventInfo['event_comment'] = simplemde.value();
                 if ($('.street-number').val() !== "") {
-                    createEventInfo['map'] += $('.street-number').val();
+                    createEventInfo['map'] = citieNameTmp + $('.street-number').val();
                 } else {
                     createEventInfo['map'] = undefined;
                 }
