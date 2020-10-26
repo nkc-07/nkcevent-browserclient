@@ -151,3 +151,11 @@ input {
         text-align: left
 }
 
+
+.no_postal_err_text{
+    font-size: initial;
+        font-size: 15pt;
+        color: red;
+        display: none;
+        
+}

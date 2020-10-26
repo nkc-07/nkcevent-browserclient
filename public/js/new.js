@@ -184,7 +184,7 @@ $('.participation-event').click(function(e) {
                 createEventInfo['deadline_date'] = $('.deadline-date').val();
                 createEventInfo['held_date'] = $('.held-date').val();
                 if(createEventInfo['deadline_date'] >= createEventInfo['held_date']){
-                    alert("締切日");
+                    //alert("締切日");
                     return;
                 }
                 if($('.member_limit').val() >= 2 ) {
@@ -217,15 +217,33 @@ $('.participation-event').click(function(e) {
 //↓入力確認処理
 $('.under-button').on('click', function(){
 console.log("入力確認実行します")
-                    
+       
+//イベント名未入力処理
 if($('.event-name').val() === ""){
-    //イベント未入力の処理追加
     alert("未入力項目が存在します。")
     $('.no_text_err_text').css('display', 'block')
     $('.event-name').css('border-color','red')
 }else{
-    }
+    $('.no_text_err_text').css('display', 'none')
+    $('.event-name').css('border-color','silver')
+}
+
+//郵便番号未入力処理
+if($('.postal-code').val() == ""){
+    //alert("未入力項目が存在します")
+    $(".no_postal_err_text").css('display', 'block')
+    $(".postal-code").css('border-color','red')
+}else{
+    $(".no_postal_err_text").css('display', 'none')
+    $(".postal-code").css('border-color','silver')
+}
 });
+
+
+
+
+
+
 
                 
 //ーーーーーーーー
