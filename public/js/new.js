@@ -212,3 +212,22 @@ $('.participation-event').click(function(e) {
     };
     reader.readAsDataURL(file);
 });
+
+//修正中ーーーーー
+//↓入力確認処理
+$('.under-button').on('click', function(){
+console.log("入力確認実行します")
+                    
+if($('.event-name').val() === ""){
+    //イベント未入力の処理追加
+    alert("未入力項目が存在します。")
+    $('.no_text_err_text').css('display', 'block')
+    $('.event-name').css('border-color','red')
+}else{
+    }
+});
+
+                
+//ーーーーーーーー
+
+
