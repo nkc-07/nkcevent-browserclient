@@ -151,11 +151,12 @@ input {
         text-align: left
 }
 
-
+.err_member_limit_text,
+.err_deadline-date_text,
 .no_postal_err_text{
     font-size: initial;
         font-size: 15pt;
         color: red;
         display: none;
-        
+
 }
