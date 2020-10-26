@@ -229,7 +229,7 @@ if($('.event-name').val() === ""){
 }
 
 //郵便番号未入力処理
-if($('.postal-code').val() == ""){
+if($('.postal-code').val() === ""){
     //alert("未入力項目が存在します")
     $(".no_postal_err_text").css('display', 'block')
     $(".postal-code").css('border-color','red')
@@ -237,7 +237,31 @@ if($('.postal-code').val() == ""){
     $(".no_postal_err_text").css('display', 'none')
     $(".postal-code").css('border-color','silver')
 }
+
+//人数未入力処理
+if($('.member_limit').val() === ""){
+    //alert("未入力項目が存在します")
+    $(".err_member_limit_text").css('display', 'block')
+    $(".member_limit").css('border-color','red')
+}else{
+    $(".err_member_limit_text").css('display', 'none')
+    $(".member_limit").css('border-color','silver')
+}
+
+//締め切り日時未設定処理
+if($('.deadline-date').val() === ""){
+    console.log("しおんちゃん")
+    $(".err_deadline-date_text").css('display', 'block')
+    $(".deadline-date").css('border-color','red')
+}else{
+    $(".err_deadline-date_text").css('display', 'none')
+    $(".deadline-date").css('border-color','silver')
+}
+
+
 });
+
+
 
 
 
