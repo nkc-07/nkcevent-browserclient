@@ -161,6 +161,11 @@ input {
         font-size: 15pt;
         color: red;
         display: none;
-        
+}
 
+.no_err_img_text{
+        font-size: initial;
+        font-size: 25pt;
+        color: red;
+        display: none;
 }
