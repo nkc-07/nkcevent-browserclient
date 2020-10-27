@@ -151,6 +151,9 @@ input {
         text-align: left
 }
 
+.no_held_err_text,
+.err2_member_limit_text,
+.no_err_address_text,
 .err_member_limit_text,
 .err_deadline-date_text,
 .no_postal_err_text{
@@ -158,5 +161,6 @@ input {
         font-size: 15pt;
         color: red;
         display: none;
+        
 
 }

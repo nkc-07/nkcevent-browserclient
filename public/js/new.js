@@ -187,9 +187,13 @@ $('.participation-event').click(function(e) {
                     //alert("締切日");
                     return;
                 }
+
+                //修正必要
                 if($('.member_limit').val() >= 2 ) {
                     createEventInfo['member_limit'] = $('.member_limit').val();
                 }
+                //ーーーーーーー
+
 
                 $.ajax({
                     url: '/api/event/eventinfo.php', //送信先
@@ -243,6 +247,9 @@ if($('.member_limit').val() === ""){
     //alert("未入力項目が存在します")
     $(".err_member_limit_text").css('display', 'block')
     $(".member_limit").css('border-color','red')
+}else if($('.member_limit').val() == "1"){
+    $(".err2_member_limit_text").css('display', 'block')
+    $(".member_limit").css('border-color','red')
 }else{
     $(".err_member_limit_text").css('display', 'none')
     $(".member_limit").css('border-color','silver')
@@ -250,7 +257,6 @@ if($('.member_limit').val() === ""){
 
 //締め切り日時未設定処理
 if($('.deadline-date').val() === ""){
-    console.log("しおんちゃん")
     $(".err_deadline-date_text").css('display', 'block')
     $(".deadline-date").css('border-color','red')
 }else{
@@ -258,15 +264,22 @@ if($('.deadline-date').val() === ""){
     $(".deadline-date").css('border-color','silver')
 }
 
+//番地未入力処理
+if($('.street-number').val() === ""){
+    $(".no_err_address_text").css('display', 'block')
+    $(".street-number").css('border-color','red')
+}else{
+    $(".no_err_address_text").css('display', 'none')
+    $(".street-number").css('border-color','silver')
+}
 
+//開催日未設定処理
+if($('.held-time').text() === "??:??"){
+    $(".no_held_err_text").css('display', 'block')
+}else{
+    $(".no_held_err_text").css('display', 'none')
+}
 });
-
-
-
-
-
-
-
 
 
                 
