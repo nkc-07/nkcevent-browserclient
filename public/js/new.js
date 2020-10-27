@@ -146,11 +146,101 @@ $('.participation-event').click(function(e) {
     var img = new Image();
     var reader = new FileReader();
     var file = $('.send-event-img').prop('files')[0];
+    var errFlag = 0;//errのreturn
     console.log(file);
-    if (file.type.match(/^image\/(bmp|png|jpeg|gif)$/) === null) {
-        alert("対応画像ファイル[bmp|png|jpeg|gif]");
-        return;
+
+    
+    //画像設定処理
+    console.log(file)
+    if(!file){
+        console.log("画像なし");
+        //$(".event-img").image("../image/no_image.png")
+        $('.no_err_img_text').css('display', 'block');
+        errFlag = 1;
+    }else{
+        console.log("画像あり")
+        $('.no_err_img_text').css('display', 'none')
+        if (file.type.match(/^image\/(bmp|png|jpeg|gif)$/) === null) {
+            alert("対応画像ファイル[bmp|png|jpeg|gif]");
+            return;
+        }
     }
+
+          
+    //イベント名未入力処理
+    if($('.event-name').val() === ""){
+        $('.no_text_err_text').css('display', 'block');
+        $('.event-name').css('border-color','red');
+        errFlag = 1;
+    }else{
+        $('.no_text_err_text').css('display', 'none');
+        $('.event-name').css('border-color','silver');
+    }
+
+    //郵便番号未入力処理
+    if($('.postal-code').val() === ""){
+        $(".no_postal_err_text").css('display', 'block');
+        $(".postal-code").css('border-color','red');
+        errFlag = 1;
+    }else{
+        $(".no_postal_err_text").css('display', 'none');
+        $(".postal-code").css('border-color','silver');
+    }
+
+    //人数未入力処理
+    if($('.member_limit').val() === ""){
+        $(".err_member_limit_text").css('display', 'block');
+        $(".member_limit").css('border-color','red');
+        errFlag = 1;
+    }else if($('.member_limit').val() == "1"){
+        $(".err2_member_limit_text").css('display', 'block');
+        $(".member_limit").css('border-color','red');
+        errFlag = 1;
+    }else{
+        $(".err_member_limit_text").css('display', 'none');
+        $(".member_limit").css('border-color','silver');
+    }
+
+    //締め切り日時未設定処理
+    if($('.deadline-date').val() === ""){
+        $(".err_deadline-date_text").css('display', 'block');
+        $(".deadline-date").css('border-color','red');
+        errFlag = 1;
+    }else{
+        $(".err_deadline-date_text").css('display', 'none');
+        $(".deadline-date").css('border-color','silver');
+    }
+
+    //番地未入力処理
+    if($('.street-number').val() === ""){
+        $(".no_err_address_text").css('display', 'block');
+        $(".street-number").css('border-color','red');
+        errFlag = 1;
+    }else{
+        $(".no_err_address_text").css('display', 'none');
+        $(".street-number").css('border-color','silver');
+    }
+
+    //開催日未設定処理
+    if($('.held-time').text() === "??:??"){
+        $(".no_held_err_text").css('display', 'block');
+        errFlag = 1
+    }else{
+        $(".no_held_err_text").css('display', 'none');
+    }
+
+    //開催日未設定処理
+    if($('.held-time').text() === "??:??"){
+        $(".no_held_err_text").css('display', 'block');
+        errFlag = 1;
+    }else{
+        $(".no_held_err_text").css('display', 'none');
+    }
+
+    if(errFlag === 1){
+        alert("未入力項目があります。")
+    }
+
 
     reader.onload = function(event) {
         img.onload = function() {
@@ -216,6 +306,8 @@ $('.participation-event').click(function(e) {
     reader.readAsDataURL(file);
 });
 
+
+/*
 //修正中ーーーーー
 //↓入力確認処理
 $('.under-button').on('click', function(){
@@ -278,10 +370,15 @@ if($('.held-time').text() === "??:??"){
 }else{
     $(".no_held_err_text").css('display', 'none')
 }
-});
 
-
-                
+//開催日未設定処理
+if($('.held-time').text() === "??:??"){
+    $(".no_held_err_text").css('display', 'block')
+}else{
+    $(".no_held_err_text").css('display', 'none')
+}
+});      
+*/       
 //ーーーーーーーー
 
 
