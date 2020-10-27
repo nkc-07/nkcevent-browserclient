@@ -63,6 +63,7 @@
                 <h3 class="held-day" style="margin: 0 0 0 50px;">??</h3>
             </div>
             <p class="h2"><span class="held-time">??:??</span>～</p>
+            <p class="no_held_err_text" id="pass-err">開催日が設定されていません。</p>
 
             <div class="event-top">
                 <input type="datetime-local" class="held-date" min="2020-10-06T12:00">
@@ -117,7 +118,10 @@
                 <input type="text" class="postal-code form-control w-25" placeholder="郵便番号" autocomplete="postal-code">
                 <div>
                     <input type="text" class="map cities form-control w-50 mr-2" placeholder="市町村名" disabled>
+                    
                     <input type="text" class="map street-number form-control w-25" placeholder="番地">
+                    <p class="no_err_address_text" id="pass-err">番地が未入力です。</p>
+                    
                 </div>
 
                 <p>イベントの詳細情報</p>
@@ -128,6 +132,7 @@
                 
                 <input type="number" class="form-control member_limit" min="2">
                 <p class="err_member_limit_text" id="pass-err">定員数が入力されていません。</p>
+                <p class="err_member_limit_text" id="pass-err">人数が1人ではイベント作成できません</p>
 
                 <p>締め切り日時</p>
                 <input type="date"required class="form-control deadline-date">
