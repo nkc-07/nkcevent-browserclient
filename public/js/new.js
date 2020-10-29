@@ -138,7 +138,10 @@ $('.send-event-img').on('change', function(e) {
     let reader = new FileReader();
     reader.onload = function(e) {
         $('.event-img').attr('src', e.target.result);
+        console.log("シナプス死んでる")
     }
+    $(".event-img").attr("src","/public/image/no_image.png")
+    console.log("シナプス死んでる２２")
     reader.readAsDataURL(e.target.files[0]);
 });
 
@@ -155,7 +158,7 @@ $('.participation-event').click(function(e) {
     console.log(file)
     if(!file){
         console.log("画像なし");
-        //$(".event-img").image("../image/no_image.png")
+       // $(".event-img").attr("src","../image/no_image.png")
         $('.no_err_img_text').css('display', 'block');
         errFlag = 1;
     }else{
