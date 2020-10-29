@@ -143,7 +143,7 @@ input {
     display: inline-block;
 }
 
-.no_text_err_text{
+.no-text-err-text{
         font-size: initial;
         font-size: 15pt;
         color: red;
@@ -151,19 +151,19 @@ input {
         text-align: left
 }
 
-.no_held_err_text,
-.err2_member_limit_text,
-.no_err_address_text,
-.err_member_limit_text,
-.err_deadline-date_text,
-.no_postal_err_text{
+.no-held-err-text,
+.err2-member-limit-text,
+.no-err-address-text,
+.err-member-limit-text,
+.err-deadline-date-text,
+.no-postal-err-text{
     font-size: initial;
         font-size: 15pt;
         color: red;
         display: none;
 }
 
-.no_err_img_text{
+.no-err-img-text{
         font-size: initial;
         font-size: 25pt;
         color: red;

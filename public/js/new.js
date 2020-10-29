@@ -137,10 +137,8 @@ $('.send-event-img').on('change', function(e) {
     let reader = new FileReader();
     reader.onload = function(e) {
         $('.event-img').attr('src', e.target.result);
-        console.log("シナプス死んでる")
     }
     $(".event-img").attr("src","/public/image/no_image.png")
-    console.log("シナプス死んでる２２")
     reader.readAsDataURL(e.target.files[0]);
 });
 
@@ -157,12 +155,12 @@ $('.participation-event').click(function(e) {
     console.log(file)
     if(!file){
         console.log("画像なし");
-       // $(".event-img").attr("src","../image/no_image.png")
-        $('.no_err_img_text').css('display', 'block');
+       
+        $('.no-err-img-text').css('display', 'block');
         errFlag = 1;
     }else{
         console.log("画像あり")
-        $('.no_err_img_text').css('display', 'none')
+        $('.no-err-img-text').css('display', 'none')
         if (file.type.match(/^image\/(bmp|png|jpeg|gif)$/) === null) {
             alert("対応画像ファイル[bmp|png|jpeg|gif]");
             return;
@@ -172,72 +170,75 @@ $('.participation-event').click(function(e) {
           
     //イベント名未入力処理
     if($('.event-name').val() === ""){
-        $('.no_text_err_text').css('display', 'block');
+        $('.no-text-err-text').css('display', 'block');
         $('.event-name').css('border-color','red');
         errFlag = 1;
     }else{
-        $('.no_text_err_text').css('display', 'none');
+        $('.no-text-err-text').css('display', 'none');
         $('.event-name').css('border-color','silver');
     }
 
     //郵便番号未入力処理
     if($('.postal-code').val() === ""){
-        $(".no_postal_err_text").css('display', 'block');
+        $(".no-postal-err-text").css('display', 'block');
         $(".postal-code").css('border-color','red');
         errFlag = 1;
     }else{
-        $(".no_postal_err_text").css('display', 'none');
+        $(".no-postal-err-text").css('display', 'none');
         $(".postal-code").css('border-color','silver');
     }
 
     //人数未入力処理
     if($('.member_limit').val() === ""){
-        $(".err_member_limit_text").css('display', 'block');
+        $(".err2-member-limit-text").css('display', 'none');
+        $(".err-member-limit-text").css('display', 'block');
         $(".member_limit").css('border-color','red');
         errFlag = 1;
     }else if($('.member_limit').val() == "1"){
-        $(".err2_member_limit_text").css('display', 'block');
+        $(".err-member-limit-text").css('display', 'none');
+        $(".err2-member-limit-text").css('display', 'block');
         $(".member_limit").css('border-color','red');
         errFlag = 1;
     }else{
-        $(".err_member_limit_text").css('display', 'none');
+        $(".err2-member-limit-text").css('display', 'none');
+        $(".err-member-limit-text").css('display', 'none');
         $(".member_limit").css('border-color','silver');
     }
 
     //締め切り日時未設定処理
     if($('.deadline-date').val() === ""){
-        $(".err_deadline-date_text").css('display', 'block');
+        $(".err-deadline-date-text").css('display', 'block');
         $(".deadline-date").css('border-color','red');
         errFlag = 1;
     }else{
-        $(".err_deadline-date_text").css('display', 'none');
+        $(".err-deadline-date-text").css('display', 'none');
         $(".deadline-date").css('border-color','silver');
     }
 
     //番地未入力処理
     if($('.street-number').val() === ""){
-        $(".no_err_address_text").css('display', 'block');
+        $(".no-err-address-text").css('display', 'block');
         $(".street-number").css('border-color','red');
         errFlag = 1;
     }else{
-        $(".no_err_address_text").css('display', 'none');
+        $(".no-err-address-text").css('display', 'none');
         $(".street-number").css('border-color','silver');
     }
 
     //開催日未設定処理
     if($('.held-time').text() === "??:??"){
-        $(".no_held_err_text").css('display', 'block');
+        $(".no-held-err-text").css('display', 'block');
         errFlag = 1
     }else{
-        $(".no_held_err_text").css('display', 'none');
+        $(".no-held-err-text").css('display', 'none');
     }
 
     //開催日未設定処理
     if($('.held-time').text() === "??:??"){
-        $(".no_held_err_text").css('display', 'block');
+        $(".no-held-err-text").css('display', 'block');
         errFlag = 1;
     }else{
-        $(".no_held_err_text").css('display', 'none');
+        $(".no-held-err-text").css('display', 'none');
     }
 
     if(errFlag === 1){
