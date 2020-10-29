@@ -19,9 +19,9 @@ date_default_timezone_set ('Asia/Tokyo');
 
 define("SERVER_HOST",			"http://localhost:3306");
 
-define("PDO_DSN",				"mysql:host=localhost:3306;dbname=event");
-define("PDO_USER",				"sa");
-define("PDO_PASS",				"P@ssw0rd");
+define("PDO_DSN",				"mysql:host=sokken-aws-db.c7zndijgbit1.ap-northeast-1.rds.amazonaws.com:3306;dbname=event");
+define("PDO_USER",				"admin");
+define("PDO_PASS",				"Senkosan1997");
 
 define("ERROR_EXCEPTION_LOG",	dirname(__DIR__)."/log");	// ログを吐き出すディレクトリ
 
