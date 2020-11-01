@@ -1,0 +1,107 @@
+.content {
+    padding: 0 0 0 300px;
+    overflow: scroll;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.message-window {
+    padding: 10px;
+    position: fixed;
+    bottom: 0px;
+    width: calc(100% - 300px);
+}
+
+.member-message {
+    margin: 10px;
+}
+
+.icon {
+    height: 80px;
+    width: 80px;
+}
+
+.balloon1 {
+    position: relative;
+    display: inline-block;
+    margin: 0 0 1.5em 15px;
+    padding: 7px 10px;
+    min-width: 120px;
+    max-width: 100%;
+    color: #555;
+    font-size: 16px;
+    background: #FFF;
+    border: solid 3px #555;
+    box-sizing: border-box;
+}
+
+.balloon1:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -24px;
+    margin-top: -12px;
+    border: 12px solid transparent;
+    border-right: 12px solid #FFF;
+    z-index: 2;
+}
+
+.balloon1:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    margin-top: -14px;
+    border: 14px solid transparent;
+    border-right: 14px solid #555;
+    z-index: 1;
+}
+
+.balloon1 p {
+    margin: 0;
+    padding: 0;
+}
+
+.balloon1-right {
+    position: relative;
+    display: inline-block;
+    margin: 0 15px 0 0;
+    padding: 7px 10px;
+    min-width: 120px;
+    max-width: 100%;
+    color: #555;
+    font-size: 16px;
+    background: #e0edff;
+}
+
+.balloon1-right:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -12px;
+    border: 12px solid transparent;
+    border-left: 12px solid #e0edff;
+}
+
+.balloon1-right p {
+    margin: 0;
+    padding: 0;
+}
+
+.member-message div {
+    display: inline-block;
+}
+
+p.name {
+    margin: 5px;
+}
+
+.my-message {
+    float: right;
+}
+
+.my-message .name {
+    text-align: right;
+}
