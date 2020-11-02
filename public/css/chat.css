@@ -1,10 +1,3 @@
-.content {
-    padding: 0 0 0 300px;
-    position: fixed;
-    height: 100%;
-    width: 100%;
-}
-
 .message-window {
     padding: 10px;
     position: fixed;
