@@ -9,11 +9,17 @@
 ├─php
 └─public
     ├─css
-    │  └─general
     ├─html
     │  ├─create-user
     │  ├─event-list
-    │  │  └─detail
+    │  │  ├─detail
+    │  │  │  └─attendance-confirmation
+    │  │  └─new
+    │  ├─group
+    │  │  ├─group-detail
+    │  │  │  └─chat
+    │  │  ├─edit
+    │  │  └─group-new
     │  ├─mypage
     │  │  └─event-participation
     │  └─sign_up
