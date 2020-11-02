@@ -16,10 +16,10 @@
     │  │  │  └─attendance-confirmation
     │  │  └─new
     │  ├─group
-    │  │  ├─detail
+    │  │  ├─group-detail
     │  │  │  └─chat
     │  │  ├─edit
-    │  │  └─new
+    │  │  └─group-new
     │  ├─mypage
     │  │  └─event-participation
     │  └─sign_up
