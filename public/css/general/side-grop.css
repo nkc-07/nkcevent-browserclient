@@ -15,3 +15,10 @@ main {
     height: 100%;
     overflow: auto;
 }
+
+.content {
+    padding: 0 0 0 300px;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
