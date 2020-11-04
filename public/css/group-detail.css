@@ -2,6 +2,11 @@
     display: block;
 }
 
+.owner-icon {
+    width: 40px;
+    height: auto;
+}
+
 .create-day {
     text-align: right;
 }
