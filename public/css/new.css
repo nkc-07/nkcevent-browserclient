@@ -134,21 +134,16 @@ input {
     float: left;
 }
 
-.tag-box .tag-card img {
-    width: 25px;
-    margin: 0 0 0 10px;
-}
-
 .clear-float {
     display: inline-block;
 }
 
-.no-text-err-text{
-        font-size: initial;
-        font-size: 15pt;
-        color: red;
-        display: none;
-        text-align: left
+.no-text-err-text {
+    font-size: initial;
+    font-size: 15pt;
+    color: red;
+    display: none;
+    text-align: left
 }
 
 .no-held-err-text,
@@ -156,16 +151,16 @@ input {
 .no-err-address-text,
 .err-member-limit-text,
 .err-deadline-date-text,
-.no-postal-err-text{
+.no-postal-err-text {
     font-size: initial;
-        font-size: 15pt;
-        color: red;
-        display: none;
+    font-size: 15pt;
+    color: red;
+    display: none;
 }
 
-.no-err-img-text{
-        font-size: initial;
-        font-size: 25pt;
-        color: red;
-        display: none;
+.no-err-img-text {
+    font-size: initial;
+    font-size: 25pt;
+    color: red;
+    display: none;
 }

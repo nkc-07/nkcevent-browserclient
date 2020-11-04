@@ -8,3 +8,8 @@
 .detail-box .tag-box .tag-card {
     pointer-events: none;
 }
+
+.tag-box .tag-card img {
+    width: 25px;
+    margin: 0 0 0 10px;
+}
