@@ -88,7 +88,7 @@
             </div>
 
             <div class="tag-box">
-                <div class="clear-float">
+                <div id="tag" class="clear-float">
                     <div class="tag-card" style="display: none;" title="タグを削除します">
                         <img src="/public/image/tag_icon.jpg">
                         <span>test</span>
@@ -118,10 +118,10 @@
                 <input type="text" class="postal-code form-control w-25" placeholder="郵便番号" autocomplete="postal-code">
                 <div>
                     <input type="text" class="map cities form-control w-50 mr-2" placeholder="市町村名" disabled>
-                    
+
                     <input type="text" class="map street-number form-control w-25" placeholder="番地">
                     <p class="no-err-address-text" id="pass-err">番地が未入力です。</p>
-                    
+
                 </div>
 
                 <p>イベントの詳細情報</p>
@@ -129,13 +129,13 @@
 
                 <p>定員数</p>
 
-                
+
                 <input type="number" class="form-control member_limit" min="2">
                 <p class="err-member-limit-text" id="pass-err">定員数が入力されていません。</p>
                 <p class="err2-member-limit-text" id="pass-err">人数が1人ではイベント作成できません</p>
 
                 <p>締め切り日時</p>
-                <input type="date"required class="form-control deadline-date">
+                <input type="date" required class="form-control deadline-date">
                 <p class="err-deadline-date-text" id="pass-err">締め切りが設定されていません。</p>
 
             </div>
