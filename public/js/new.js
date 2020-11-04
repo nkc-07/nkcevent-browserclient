@@ -16,34 +16,34 @@ $(function() {
             location.href = '/public/html/event-list/';
         })
 
-        $('input[type="number"].member_limit').keyup(function(e) {
-            if(
-                Number($('.member_limit').val()) < 0  ||
-                e.key == "-"
-            ) {
-                $('.member_limit').val("");
-            }
-        });
-});
-
-var simplemde = new SimpleMDE({
-    renderingConfig: {
-        markedOptions: {
-            sanitize: true
+    $('input[type="number"].member_limit').keyup(function(e) {
+        if (
+            Number($('.member_limit').val()) < 0 ||
+            e.key == "-"
+        ) {
+            $('.member_limit').val("");
         }
-    },
-    element: $("#markdown-editor")[0]
+    });
 });
 
-simplemde.codemirror.on('beforeChange', (instance, changes) => {
-    if (simplemde.value().length >= 1000 &&
-        changes.origin !== "+delete" &&
-        changes.origin !== "setValue" // value()で再帰禁止用
-    ) {
-        changes.cancel();
-        simplemde.value(simplemde.value().slice(0, 1000)); // コピペの場合、変化が見えないので1000文字文のみ前から置き換える
-    }
-});
+// var simplemde = new SimpleMDE({
+//     renderingConfig: {
+//         markedOptions: {
+//             sanitize: true
+//         }
+//     },
+//     element: $("#markdown-editor")[0]
+// });
+
+// simplemde.codemirror.on('beforeChange', (instance, changes) => {
+//     if (simplemde.value().length >= 1000 &&
+//         changes.origin !== "+delete" &&
+//         changes.origin !== "setValue" // value()で再帰禁止用
+//     ) {
+//         changes.cancel();
+//         simplemde.value(simplemde.value().slice(0, 1000)); // コピペの場合、変化が見えないので1000文字文のみ前から置き換える
+//     }
+// });
 
 /* イベントを作成するために使用する各情報を入れておくための変数 */
 let createEventInfo = {
@@ -112,7 +112,7 @@ $('.held-date').attr('min', nowTime + 'T00:00');
 $('.deadline-date').attr('min', nowTime);
 $('.held-date').change(function(e) {
     $('.deadline-date').attr('max', $(this).val().split('T')[0]);
-    if($('.deadline-date').val() != "" && $('.deadline-date').val() > $('.held-date').val()){
+    if ($('.deadline-date').val() != "" && $('.deadline-date').val() > $('.held-date').val()) {
         $('.deadline-date').val("");
     }
 
@@ -123,7 +123,7 @@ $('.held-date').change(function(e) {
     $('.held-time').text(date[2].split('T')[1]);
 });
 $('.deadline-date').change(function(e) {
-    if($('.held-date').val() != "" && $('.deadline-date').val() > $('.held-date').val()){
+    if ($('.held-date').val() != "" && $('.deadline-date').val() > $('.held-date').val()) {
         $('.deadline-date').val("");
     }
 });
@@ -139,7 +139,7 @@ $('.send-event-img').on('change', function(e) {
     reader.onload = function(e) {
         $('.event-img').attr('src', e.target.result);
     }
-    $(".event-img").attr("src","/public/image/no_image.png")
+    $(".event-img").attr("src", "/public/image/no_image.png")
     reader.readAsDataURL(e.target.files[0]);
 });
 
@@ -148,18 +148,18 @@ $('.participation-event').click(function(e) {
     var img = new Image();
     var reader = new FileReader();
     var file = $('.send-event-img').prop('files')[0];
-    var errFlag = 0;//errのreturn
+    var errFlag = 0; //errのreturn
     console.log(file);
 
-    
+
     //画像設定処理
     console.log(file)
-    if(!file){
+    if (!file) {
         console.log("画像なし");
-       
+
         $('.no-err-img-text').css('display', 'block');
         errFlag = 1;
-    }else{
+    } else {
         console.log("画像あり")
         $('.no-err-img-text').css('display', 'none')
         if (file.type.match(/^image\/(bmp|png|jpeg|gif)$/) === null) {
@@ -168,81 +168,81 @@ $('.participation-event').click(function(e) {
         }
     }
 
-          
+
     //イベント名未入力処理
-    if($('.event-name').val() === ""){
+    if ($('.event-name').val() === "") {
         $('.no-text-err-text').css('display', 'block');
-        $('.event-name').css('border-color','red');
+        $('.event-name').css('border-color', 'red');
         errFlag = 1;
-    }else{
+    } else {
         $('.no-text-err-text').css('display', 'none');
-        $('.event-name').css('border-color','silver');
+        $('.event-name').css('border-color', 'silver');
     }
 
     //郵便番号未入力処理
-    if($('.postal-code').val() === ""){
+    if ($('.postal-code').val() === "") {
         $(".no-postal-err-text").css('display', 'block');
-        $(".postal-code").css('border-color','red');
+        $(".postal-code").css('border-color', 'red');
         errFlag = 1;
-    }else{
+    } else {
         $(".no-postal-err-text").css('display', 'none');
-        $(".postal-code").css('border-color','silver');
+        $(".postal-code").css('border-color', 'silver');
     }
 
     //人数未入力処理
-    if($('.member_limit').val() === ""){
+    if ($('.member_limit').val() === "") {
         $(".err2-member-limit-text").css('display', 'none');
         $(".err-member-limit-text").css('display', 'block');
-        $(".member_limit").css('border-color','red');
+        $(".member_limit").css('border-color', 'red');
         errFlag = 1;
-    }else if($('.member_limit').val() == "1"){
+    } else if ($('.member_limit').val() == "1") {
         $(".err-member-limit-text").css('display', 'none');
         $(".err2-member-limit-text").css('display', 'block');
-        $(".member_limit").css('border-color','red');
+        $(".member_limit").css('border-color', 'red');
         errFlag = 1;
-    }else{
+    } else {
         $(".err2-member-limit-text").css('display', 'none');
         $(".err-member-limit-text").css('display', 'none');
-        $(".member_limit").css('border-color','silver');
+        $(".member_limit").css('border-color', 'silver');
     }
 
     //締め切り日時未設定処理
-    if($('.deadline-date').val() === ""){
+    if ($('.deadline-date').val() === "") {
         $(".err-deadline-date-text").css('display', 'block');
-        $(".deadline-date").css('border-color','red');
+        $(".deadline-date").css('border-color', 'red');
         errFlag = 1;
-    }else{
+    } else {
         $(".err-deadline-date-text").css('display', 'none');
-        $(".deadline-date").css('border-color','silver');
+        $(".deadline-date").css('border-color', 'silver');
     }
 
     //番地未入力処理
-    if($('.street-number').val() === ""){
+    if ($('.street-number').val() === "") {
         $(".no-err-address-text").css('display', 'block');
-        $(".street-number").css('border-color','red');
+        $(".street-number").css('border-color', 'red');
         errFlag = 1;
-    }else{
+    } else {
         $(".no-err-address-text").css('display', 'none');
-        $(".street-number").css('border-color','silver');
+        $(".street-number").css('border-color', 'silver');
     }
 
     //開催日未設定処理
-    if($('.held-time').text() === "??:??"){
+    if ($('.held-time').text() === "??:??") {
         $(".no-held-err-text").css('display', 'block');
         errFlag = 1
-    }else{
+    } else {
         $(".no-held-err-text").css('display', 'none');
     }
 
     //開催日未設定処理
-    if($('.held-time').text() === "??:??"){
+    if ($('.held-time').text() === "??:??") {
         $(".no-held-err-text").css('display', 'block');
         errFlag = 1;
-    }else{
+    } else {
         $(".no-held-err-text").css('display', 'none');
     }
 
-    if(errFlag === 1){
+    if (errFlag === 1) {
         alert("未入力項目があります。")
     }
 
@@ -277,13 +277,13 @@ $('.participation-event').click(function(e) {
                 }
                 createEventInfo['deadline_date'] = $('.deadline-date').val();
                 createEventInfo['held_date'] = $('.held-date').val();
-                if(createEventInfo['deadline_date'] >= createEventInfo['held_date']){
+                if (createEventInfo['deadline_date'] >= createEventInfo['held_date']) {
                     //alert("締切日");
                     return;
                 }
 
                 //修正必要
-                if($('.member_limit').val() >= 2 ) {
+                if ($('.member_limit').val() >= 2) {
                     createEventInfo['member_limit'] = $('.member_limit').val();
                 }
                 //ーーーーーーー
@@ -310,4 +310,3 @@ $('.participation-event').click(function(e) {
     };
     reader.readAsDataURL(file);
 });
-
