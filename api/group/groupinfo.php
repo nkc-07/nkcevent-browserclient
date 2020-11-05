@@ -13,7 +13,20 @@ $resary = [
 ];
 
 switch($_SERVER['REQUEST_METHOD']){
-    
+	case "GET":
+
+		$param = $_GET;		
+		$ret = getGroupinfo($param);
+		if($ret['success']){
+			$response['data'] = $ret['data'];
+		}else{
+			$resary['success'] = false;
+			$resary['code'] = 400;
+			$resary['msg'] = $ret['msg'];
+		}
+
+		break;
+	
 	case "POST":
 
 		$ret = postGroupinfo($_POST);
@@ -51,7 +64,37 @@ if($resary['success']){
  * ----------------------------------------------------------------------------
  */
 
+//グループ内容表示
+function getGroupInfo($param){
 
+	$ret = [
+		'success' => true,
+		'msg' => "",
+    ];
+    
+	//$db = new DB();
+	try{
+        if(empty($param['group_id']))			throw new ErrorException($errmsg."group_id");
+        
+        $sql=  "SELECT group_id,description,group_tag,group_name,last_postdate
+                FROM `group`
+                WHERE group_id = :group_id";
+
+		$stmt = PDO()->prepare($sql);
+        $stmt -> bindValue(':group_id',  $param['group_id'],  PDO::PARAM_INT);
+		$stmt -> execute();
+		$eventinfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		
+        $ret['data'] = $eventinfo;
+
+	}catch(Exception $err){
+		//exceptionErrorPut($err, "EXCEPTION");
+		$ret['success'] = false;
+		$ret['msg'] = "[".date("Y-m-d H:i:s")."]".$err->getMessage();
+	}
+
+	return $ret;
+}
 function postGroupinfo($param){
 
 	$ret = [
