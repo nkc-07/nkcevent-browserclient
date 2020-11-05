@@ -65,22 +65,28 @@ function getGrouplist($param){
 		//group_pramでは検索の種類に応じた値(ユーザーIDやタグIDなど)
 		if(empty($param['group_searchtype']))			throw new ErrorException($errmsg."group_searchtype");
 		if(empty($param['group_pram']))			throw new ErrorException($errmsg."group_pram");
-
 		$sql = "";
-		$select = "SELECT g.group_id, g.group_name, g.last_postdate ";
-		$from = "FROM `group` g ";
-		$where = "";
 		if($param['group_searchtype'] == 1){
-			$from .= "JOIN group_member gm ON g.group_id = gm.group_id ";
-			$where .= "WHERE gm.member_id = :group_pram ";
+			$sql = "SELECT g.group_id, g.group_name, g.last_postdate 
+					FROM `group` g ";
 		}
 		if($param['group_searchtype'] == 2){
-			$where .= "WHERE gm.group_tag = :group_pram ";
+			$sql = "SELECT g.group_id, g.group_name, g.last_postdate 
+					FROM `group` g 
+					JOIN group_member gm ON g.group_id = gm.group_id 
+					WHERE member_id IN (SELECT member_id FROM access_token WHERE token_id = :group_pram)";
 		}
-		$sql = $select + $from + $where;
+		if($param['group_searchtype'] == 3){
+			$sql = "SELECT g.group_id, g.group_name, g.last_postdate 
+					FROM `group` g 
+					WHERE g.group_tag = :group_pram ";
+		}
 		$stmt =  PDO()->prepare($sql);
-		$stmt -> bindValue(':group_searchtype',   $param['group_searchtype']	 ,  PDO::PARAM_INT);
-		if($param['group_searchtype'] != 0){
+		//$stmt -> bindValue(':group_searchtype',   $param['group_searchtype']	 ,  PDO::PARAM_INT);
+		if($param['group_searchtype'] == 2){
+			$stmt -> bindValue(':group_pram',   $param['group_pram']	 ,  PDO::PARAM_STR);
+		}
+		if($param['group_searchtype'] == 3){
 			$stmt -> bindValue(':group_pram',   $param['group_pram']	 ,  PDO::PARAM_INT);
 		}
 		$stmt -> execute();

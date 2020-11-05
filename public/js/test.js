@@ -25,102 +25,166 @@ $('#group-chat-post').on('click', function() {
 });
 //関数リスト
 function groupCreate() {
-    $('.console').text("groupCreate");
-}
-function groupMemberadd() {
-    $('.console').text("groupMemberadd");
-}
-function groupMemberAuthority() {
-    $('.console').text("groupMemberAuthority");
-}
-function groupList() {
-    $('.console').text("groupList");
-}
-function groupInfo() {
-    $('.console').text("groupInfo");
-}
-function groupChatDisplay() {
-    $('.console').text("groupChatDisplay");
-}
-function groupChatPoat() {
-    $('.console').text("groupCreate");
-}
-
-
-
-// formのイベント
-$(function() {
+    var description = $('.test-input1').val();
+    var group_tag = $('.test-input2').val();
+    var group_name = $('.test-input3').val();
     $.ajax({ //ログインチェック(マイページ遷移用)
-        url: '/api/group/logincheck.php', //送信先
+        url: '/api/group/groupinfo.php', //送信先
         type: 'POST', //送信方法
         datatype: 'json', //受け取りデータの種類
         data: {
-            token: localStorage.getItem('token')
+            'description': description,
+            'group_tag': group_tag,
+            'group_name': group_name,
         }
     })
     .done(function(response) {
-        if (response.data.login) //ログイン済みの場合にログインフォームを表示させずマイページに飛べるように
-            { 
-                $('.login-form').css('display','none');
-                //$('.login-title').css('display','none');
-                $('.btn-mypage').show();
-                console.log("hoge");
-            }
-        else{console.log("not login");}
+        console.log(response);
+        $('.console').text("groupCreate");
     })
     .fail(function(response) {
-        //console.log('通信失敗');
-        //console.log(response);
+        console.log('通信失敗');
+        console.log(response);
         //location.href = '/public/html/event-list/';
     })
-    $('input').on('keydown', function(e) {
-        if (e.which == 13) {
-            getLogin();
+}
+function groupMemberadd() {
+    var group_id = $('.test-input1').val();
+    var token_id = $('.test-input2').val();
+    $.ajax({ 
+        url: '/api/group/groupparticipation.php', //送信先
+        type: 'POST', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: {
+            'group_id': group_id,
+            'token_id': token_id,
         }
     })
-    $('.login-button').on('click', function() {
-        getLogin();
-    });
-    $('.btn-mypage').on('click', function() {
-        window.location.href = "/public/html/mypage/";
-    });
-});
+    .done(function(response) {
+        console.log(response);
+        $('.console').text("groupMemberadd");
+    })
+    .fail(function(response) {
+        console.log('通信失敗');
+        console.log(response);
+        //location.href = '/public/html/event-list/';
+    })
+}
+function groupMemberAuthority() {
+    var group_id = $('.test-input1').val();
+    var token_id = $('.test-input2').val();
+    var authority = $('.test-input3').val();
 
-// ログイン処理
-function getLogin() {
-    $('.login-button').prop('disabled', true);
-    $('.login-err').show();
-    $('.login-button .login-text').hide();
+    $.ajax({ 
+        url: '/api/group/groupmemberauthority.php', //送信先
+        type: 'POST', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: {
+            'group_id': group_id,
+            'token_id': token_id,
+            'authority': authority,
+        }
+    })
+    .done(function(response) {
+        console.log(response);
+        $('.console').text("groupMemberAuthority");
+    })
+    .fail(function(response) {
+        console.log('通信失敗');
+        console.log(response);
+        //location.href = '/public/html/event-list/';
+    })
+}
+function groupList() {
+    var group_searchtype = $('.test-input1').val();
+    var group_pram = $('.test-input2').val() ? $('.test-input2').val() : 0;
+    $.ajax({ 
+        url: '/api/group/grouplist.php', //送信先
+        type: 'GET', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: {
+            'group_searchtype': group_searchtype,
+            'group_pram': group_pram,
+        }
+    })
+    .done(function(response) {
+        console.log(response);
+        $('.console').text("groupList");
+    })
+    .fail(function(response) {
+        console.log('通信失敗');
+        console.log(response);
+        //location.href = '/public/html/event-list/';
+    })
+}
+function groupInfo() {
+    var group_id = $('.test-input1').val();
+    $.ajax({ 
+        url: '/api/group/groupinfo.php', //送信先
+        type: 'GET', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: {
+            'group_id': group_id,
+        }
+    })
+    .done(function(response) {
+        console.log(response);
+        $('.console').text("groupInfo");
+    })
+    .fail(function(response) {
+        console.log('通信失敗');
+        console.log(response);
+        //location.href = '/public/html/event-list/';
+    })
+}
+function groupChatDisplay() {
+    var group_id = $('.test-input1').val();
+    //var token_id = $('.test-input2').val();
+    var chat_id = $('.test-input2').val();
 
-    loginInfo['userId'] = $('#exampleInputEmail1').val()
-    loginInfo['password'] = $('#exampleInputPassword1').val()
+    $.ajax({ 
+        url: '/api/group/groupchat.php', //送信先
+        type: 'GET', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: {
+            'group_id': group_id,
+            //'token_id': token_id,
+            'chat_id': chat_id,
+        }
+    })
+    .done(function(response) {
+        console.log(response);
+        $('.console').text("groupChatDisplay");
+    })
+    .fail(function(response) {
+        console.log('通信失敗');
+        console.log(response);
+        //location.href = '/public/html/event-list/';
+    })
+}
+function groupChatPoat() {
+    $('.console').text("groupCreate");
+    var group_id = $('.test-input1').val();
+    var token_id = $('.test-input2').val();
+    var chat_cont = $('.test-input3').val();
 
-    $.ajax({
-            url: '/api/member/login.php', //送信先
-            type: 'POST', //送信方法
-            datatype: 'json', //受け取りデータの種類
-            data: {
-                'mailaddress': loginInfo['userId'],
-                'password': loginInfo['password'],
-            }
-        })
-        .done(function(response) {
-            if (response['data']['success']) {
-                localStorage.setItem('token', response['data']['token']);
-                window.location.href = "/public/html/mypage/";
-            } else {
-                $('.login-button').prop('disabled', false);
-                $('.loading-icon').hide();
-                $('.login-button .login-text').show();
-                $('.login-err-text').show();
-            }
-        })
-        .fail(function(response) {
-            console.log('通信失敗');
-            console.log(response);
-            $('.login-button').prop('disabled', false);
-            $('.loading-icon').hide();
-            $('.login-button .login-text').show();
-            $('.login-err-text').show();
-        })
+    $.ajax({ 
+        url: '/api/group/groupchat.php', //送信先
+        type: 'POST', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: {
+            'group_id': group_id,
+            'token_id': token_id,
+            'chat_cont': chat_cont,
+        }
+    })
+    .done(function(response) {
+        console.log(response);
+        $('.console').text("groupChatDisplay");
+    })
+    .fail(function(response) {
+        console.log('通信失敗');
+        console.log(response);
+        //location.href = '/public/html/event-list/';
+    })
 }
