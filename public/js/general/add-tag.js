@@ -17,12 +17,12 @@ $(function() {
     $('#modal')[0].remove();
 
     $('#tag-button').click(function() {
-        modalDom.find('.tag-box .clear-float')[0].innerHTML = $('.detail-box .tag-box .clear-float')[0].innerHTML;
+        modalDom.find('.tag-box .clear-float')[0].innerHTML = $('#tag')[0].innerHTML;
         Swal.fire({
             title: 'タグの追加',
             html: modalDom.show()
         }).then(function(result) {
-            $('.detail-box .tag-box .clear-float')[0].innerHTML = $('#modal').find('.tag-box .clear-float')[0].innerHTML;
+            $('#tag')[0].innerHTML = $('#modal').find('.tag-box .clear-float')[0].innerHTML;
         });
 
         // ajax用の設定もあるが、matchedイベントを発火できないので別で取得
@@ -66,7 +66,7 @@ function addTag() {
 
         if (duplication === undefined) {
             let tagCardDOmClone = tagCardDom.clone().show();
-            if(tagCardDOmClone.find('span').text(targetTagInfo['tag_name'] == undefined)){return;}
+            if (tagCardDOmClone.find('span').text(targetTagInfo['tag_name'] == undefined)) { return; }
             tagCardDOmClone.find('span').text(targetTagInfo['tag_name']);
             $('#modal .tag-box .clear-float').append(tagCardDOmClone);
 
@@ -75,7 +75,7 @@ function addTag() {
 
             targetTagInfo = undefined;
         }
-    } else if($('.add-tag .tag-text').val() !== "") {
+    } else if ($('.add-tag .tag-text').val() !== "") {
         let targetTagInfo = {
             tag_id: undefined,
             tag_name: $('.add-tag .tag-text').val()

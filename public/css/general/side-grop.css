@@ -11,7 +11,14 @@ main {
 
 .side-grop {
     width: 300px;
-    position: fixed;
+    /* position: fixed; */
     height: 100%;
-    overflow: auto;
+    float: left;
+}
+
+.content {
+    /* position: fixed; */
+    /* height: 100%; */
+    width: calc(100% - 300px);
+    float: left;
 }

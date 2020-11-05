@@ -1,8 +1,6 @@
-.content {
-    padding: 0 0 0 300px;
-    position: fixed;
-    height: 100%;
+main {
     width: 100%;
+    height: calc(100% - 76px);
 }
 
 .message-window {
@@ -10,6 +8,7 @@
     position: fixed;
     bottom: 0px;
     width: calc(100% - 300px);
+    height: 60px;
 }
 
 .member-message {
@@ -17,8 +16,8 @@
 }
 
 .chat {
-    overflow: scroll;
-    height: 100%;
+    overflow-y: scroll;
+    height: calc(100% - 60px);
     width: 100%;
 }
 
