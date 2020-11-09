@@ -13,6 +13,10 @@
     padding: 10px;
 }
 
+.input-group {
+    display: initial;
+}
+
 .create-date {
     text-align: right;
 }
