@@ -15,7 +15,7 @@ $resary = [
 switch($_SERVER['REQUEST_METHOD']){
     case "GET":
 
-		$param = $_GET;		
+		$param = $_GET;
 		$ret = getGroupChat($param);
 		if($ret['success']){
 			$response['data'] = $ret['data'];
@@ -92,14 +92,14 @@ function getGroupChat($param){
 	try{
         if(empty($param['group_id']))			throw new ErrorException($errmsg."group_id");
 		//if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
-		if(empty($param['chat_id']))			throw new ErrorException($errmsg."chat_id");
+		// if(empty($param['chat_id']))			throw new ErrorException($errmsg."chat_id");
         
         $sql=  "SELECT group_id,chat_id,gc.member_id,m.nickname as name,m.icon as icon,chat_cont
                 FROM `group_chat` gc
                 LEFT OUTER JOIN member m
-                ON gc.member_id = m.member_id
-                WHERE group_id = :group_id
-				AND chat_id = :chat_id";
+                ON gc.member_id = m.member_id";
+                // WHERE group_id = :group_id
+				// AND chat_id = :chat_id";
 				/*AND gc.member_id IN(SELECT member_id
 				FROM access_token
 				WHERE token_id = :token_id)*/
@@ -108,7 +108,7 @@ function getGroupChat($param){
 		$stmt = PDO()->prepare($sql);
         $stmt -> bindValue(':group_id',  $param['group_id'],  PDO::PARAM_INT);
 		//$stmt -> bindValue(':token_id',  $param['token_id'],  PDO::PARAM_STR);
-		$stmt -> bindValue(':chat_id',  $param['chat_id'],  PDO::PARAM_INT);
+		// $stmt -> bindValue(':chat_id',  $param['chat_id'],  PDO::PARAM_INT);
 		$stmt -> execute();
 		$eventinfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		
