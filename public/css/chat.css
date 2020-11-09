@@ -17,7 +17,15 @@ main {
 
 .chat {
     overflow-y: scroll;
-    height: calc(100% - 60px);
+    height: calc(100vh - 76px);
+    width: 100%;
+}
+
+.peer {
+    text-align: right;
+}
+
+.peer .my-message {
     width: 100%;
 }
 
