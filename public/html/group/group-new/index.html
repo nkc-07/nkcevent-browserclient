@@ -54,19 +54,21 @@
     <main>
 
         <div class="card m-4 p-4">
-            <input type="text" class="form-control" placeholder="グループ名を入力">
+            <input type="text" class="form-control group-title" placeholder="グループ名を入力">
 
             <div class="create-date">
                 <p>20xx/xx/xx</p>
             </div>
 
             <div class="tag-box">
-                <div id="tag" class="clear-float">
+                
+                <div id="tag" class="clear-float" style="display:none;">
                     <div class="tag-card" title="タグを削除します">
                         <img src="/public/image/tag_icon.jpg">
                         <span>test</span>
                     </div>
                 </div>
+            
                 <input type="button" id="tag-button" class="btn btn-primary login-button" value="タグを追加する">
 
                 <div id="modal">
@@ -85,17 +87,18 @@
             </div>
 
             <div class="mt-3">
-                <textarea id="markdown-editor" class="form-control" cols="30" rows="10" placeholder="グループの説明(1000文字まで)"></textarea>
+                <textarea id="markdown-editor" class="form-control group-description" cols="30" rows="10" placeholder="グループの説明(1000文字まで)"></textarea>
             </div>
 
             <div class="m-3 text-right">
-                <button type="submit" class="btn btn-dark">イベントを作成</button>
+                <button type="submit" class="btn btn-dark create-group">イベントを作成</button>
             </div>
         </div>
 
         <script src="/public/js/general/markdown-edit.js"></script>
         <script src="/public/js/general/add-tag.js"></script>
         <script src="/public/js/general/sidemenu.js"></script>
+        <script src="/public/js/group-create.js"></script>
     </main>
 
 </body>
