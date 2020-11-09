@@ -96,7 +96,7 @@ function putEventattendance($param)
 	try {
 		if (empty($param['event_id']))			throw new ErrorException($errmsg . "event_id");
 		if (empty($param['token_id']))			throw new ErrorException($errmsg . "token_id");
-		if (empty($param['qrcode_value']))		throw new ErrorException($errmsg . "qrcode_value");
+		// if (empty($param['qrcode_value']))		throw new ErrorException($errmsg . "qrcode_value");
 		if (!isset($param['status']))			throw new ErrorException($errmsg . "status");
 
 		$sql = "SELECT event_participant.member_id, event.event_id, event.organizer
@@ -118,7 +118,10 @@ function putEventattendance($param)
 
 		if (
 			count($isparticipant) == 1 &&
-			hash_hmac("sha256", $isparticipant[0]['event_id'], "sionunofficialoffer") == $param['qrcode_value']
+			(
+				$param['status'] == 1 ||
+				hash_hmac("sha256", $isparticipant[0]['event_id'], "sionunofficialoffer") == $param['qrcode_value']
+			)
 		) {
 			$splUpdate = "UPDATE event_participant
                     SET is_attendance = :status
