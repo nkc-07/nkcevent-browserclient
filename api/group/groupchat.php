@@ -28,8 +28,8 @@ switch($_SERVER['REQUEST_METHOD']){
 		break;
 	
 	case "POST":
-
-		$ret = postGroupChat($_POST);
+		parse_str(file_get_contents('php://input'), $param);
+		$ret = postGroupChat($param);
 		if($ret['success']){
 			$response['data'] = $ret['data'];
 		}else{
@@ -147,6 +147,7 @@ function postGroupChat($param){
     
 	//$db = new DB();
 	try{
+
         if(empty($param['group_id']))			throw new ErrorException($errmsg."group_id");
         if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
         if(empty($param['chat_cont']))			throw new ErrorException($errmsg."chat_cont");
