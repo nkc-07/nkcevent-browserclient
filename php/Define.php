@@ -2,7 +2,7 @@
 
 header("Access-Control-Allow-Origin: *");           // TODO: サーバにアップ次第変更...
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE, PUT");
-header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, X-Token-Auth, Authorization');
+header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, X-Token-Auth, Authorization');
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {		// TODO: ちゃんとしたCORS処理に変更　上記のも...
 	exit;
