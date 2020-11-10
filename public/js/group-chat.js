@@ -38,20 +38,7 @@ $(function() {
     })
     .done(function(response) {
         response['data'].forEach(element => {
-            let tempMessageDom;
-            if(element['is_client'] === "0") {
-                tempMessageDom = clientMessageDom.clone();
-            } else {
-                tempMessageDom = peerMessageDom.clone();
-            }
-
-            tempMessageDom.find('img.icon').attr('src', element['icon']);
-            tempMessageDom.find('p.name').text(element['name']);
-            tempMessageDom.find('.message').text(element['chat_cont']);
-
-            $('.chat').append(
-                tempMessageDom.show()
-            );
+            addMessage(element)
         });
     })
     .fail(function(response) {
@@ -59,7 +46,17 @@ $(function() {
         console.log(response);
     })
 
-    $('#send-message-button').click(sendMessage);
+    $('#send-message-button').click(function() {
+        sendMessage();
+        $('#send-message-input').val('');
+    });
+
+    $('#send-message-input').keypress(function(event){
+        if(event.keyCode == '13'){
+            sendMessage();
+            $(this).val('');
+        }
+    });
 })
 
 function sendMessage() {
@@ -73,6 +70,24 @@ function sendMessage() {
 }
 
 conn.onmessage = function(e) {
-    memberData = JSON.parse(e.data)
-    console.log(memberData);
+    memberData = JSON.parse(e.data);
+    console.log(memberData)
+    addMessage(memberData);
 };
+
+function addMessage(element) {
+    let tempMessageDom;
+    if(element['is_client'] === "0") {
+        tempMessageDom = clientMessageDom.clone();
+    } else {
+        tempMessageDom = peerMessageDom.clone();
+    }
+
+    tempMessageDom.find('img.icon').attr('src', element['icon']);
+    tempMessageDom.find('p.name').text(element['name']);
+    tempMessageDom.find('.message').text(element['chat_cont']);
+
+    $('.chat').append(
+        tempMessageDom.show()
+    );
+}
