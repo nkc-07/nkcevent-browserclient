@@ -40,6 +40,7 @@ $(function() {
         response['data'].forEach(element => {
             addMessage(element)
         });
+        bottomScroll();
     })
     .fail(function(response) {
         console.log('通信失敗');
@@ -58,6 +59,11 @@ $(function() {
         }
     });
 })
+
+function bottomScroll() {
+    let height = $('.chat').height();
+    $('.chat').scrollTop(height);
+}
 
 function sendMessage() {
     let sendJsonMessage = {
@@ -90,4 +96,5 @@ function addMessage(element) {
     $('.chat').append(
         tempMessageDom.show()
     );
+    bottomScroll();
 }
