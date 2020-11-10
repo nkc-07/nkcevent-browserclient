@@ -25,6 +25,7 @@ $(function() {
         type: 'GET', //送信方法
         datatype: 'json', //受け取りデータの種類
         data: {
+            'token_id': localStorage.getItem('token'),
             'group_id': getRequestParams.get('group-id')
         }
     })
@@ -33,14 +34,19 @@ $(function() {
 
         response['data'].forEach(element => {
             console.log(element)
-            let tempClientMessageDom = clientMessageDom.clone();
+            let tempMessageDom;
+            if(element['is_client'] === "0") {
+                tempMessageDom = clientMessageDom.clone();
+            } else {
+                tempMessageDom = peerMessageDom.clone();
+            }
 
-            tempClientMessageDom.find('img.icon').attr('src', element['icon']);
-            tempClientMessageDom.find('p.name').text(element['name']);
-            tempClientMessageDom.find('.message').text(element['chat_cont']);
+            tempMessageDom.find('img.icon').attr('src', element['icon']);
+            tempMessageDom.find('p.name').text(element['name']);
+            tempMessageDom.find('.message').text(element['chat_cont']);
 
             $('.chat').append(
-                tempClientMessageDom.show()
+                tempMessageDom.show()
             );
         });
     })
