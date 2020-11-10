@@ -1,6 +1,13 @@
 let getRequestParams = (new URL(document.location)).searchParams;
+
+var conn = new WebSocket('ws://localhost:81?mode=chat&group-id=1');
+
 let clientMessageDom = $('.chat .client');
 let peerMessageDom = $('.chat .peer');
+
+conn.onopen = function(e) {
+    console.log("Connection established!");
+}
 
 $.ajax({
     url: '/api/member/logincheck.php', //送信先
@@ -30,10 +37,7 @@ $(function() {
         }
     })
     .done(function(response) {
-        console.log(response);
-
         response['data'].forEach(element => {
-            console.log(element)
             let tempMessageDom;
             if(element['is_client'] === "0") {
                 tempMessageDom = clientMessageDom.clone();
@@ -54,4 +58,21 @@ $(function() {
         console.log('通信失敗');
         console.log(response);
     })
+
+    $('#send-message-button').click(sendMessage);
 })
+
+function sendMessage() {
+    let sendJsonMessage = {
+        'token_id': localStorage.getItem('token'),
+        'group_id': getRequestParams.get('group-id'),
+        'chat_cont': $('#send-message-input').val(),
+    };
+
+    conn.send(JSON.stringify(sendJsonMessage));
+}
+
+conn.onmessage = function(e) {
+    memberData = JSON.parse(e.data)
+    console.log(memberData);
+};
