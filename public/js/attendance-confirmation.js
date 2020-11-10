@@ -20,7 +20,11 @@ let attendanceIcons = { // 出席状況のアイコンとテキスト
 
 let attendanceUserDom = $('.attendance-user');
 
+<<<<<<< HEAD
 var conn = new WebSocket('ws://52.196.112.175:8080?mode=attendance&participation_event=' + getRequestParams.get('event-id'));
+=======
+var conn = new WebSocket('ws://192.168.137.1:81?mode=attendance&participation_event=' + getRequestParams.get('event-id'));
+>>>>>>> dfad155... 出席確認用のapiを修正
 conn.onopen = function(e) {
     console.log("Connection established!");
 };
