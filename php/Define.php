@@ -31,6 +31,8 @@ define("CURRENT_TIMESTAMP",		"CURRENT_TIMESTAMP");		// sqlで使う、サーバ�
 define("DATE_INIT_VALUE",		"1899-12-30 00:00:00");		// 日付の初期値
 define("DEBUG_MODE",		0);		// デバッグモード
 
+define("AWS_S3_URL",			"https://test-bucket-aws-aws.s3-ap-northeast-1.amazonaws.com"); //AWS-S3サービスのURL
+define("AWS_S3_ARN",			"arn:aws:s3:ap-northeast-1:335613641617:accesspoint/test-local-point"); //AWS-S3サービスのアクセスポイント
 global $errmsg;
 $errmsg = "";
 

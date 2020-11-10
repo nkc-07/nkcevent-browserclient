@@ -13,10 +13,13 @@
     padding: 10px;
 }
 
+<<<<<<< HEAD
 .input-group {
     display: initial;
 }
 
+=======
+>>>>>>> atsumi-image-move-to-S3
 .create-date {
     text-align: right;
 }
