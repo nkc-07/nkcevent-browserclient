@@ -26,6 +26,7 @@ $('.create-group').on('click', function() {
             type: 'POST', //送信方法
             datatype: 'json', //受け取りデータの種類
             data: {
+                'token': localStorage.getItem('token'),
                 'description': description,
                 'group_tag': group_tag,
                 'group_name': group_name,
@@ -34,11 +35,11 @@ $('.create-group').on('click', function() {
         .done(function(response) {
             console.log(response);
             $('.console').text("groupCreate");
+            location.href = '/public/html/group/index.html';
         })
         .fail(function(response) {
             console.log('通信失敗');
             console.log(response);
-            location.href = '/public/html/event-list/';
         })
     });
 });
