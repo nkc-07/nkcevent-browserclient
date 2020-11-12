@@ -242,6 +242,21 @@ $('.participation-event').click(function(e) {
         $(".no-held-err-text").css('display', 'none');
     }
 
+    //コメント未入力処理
+    if (simplemde.value() === "") {
+        console.log($('.CodeMirror-wrap').text())
+        console.log($('.event-comment').text())
+
+        $(".err-member-comment-text").css('display', 'block');
+        $(".CodeMirror").css('border-color', '#ff0000');
+        errFlag = 1;
+    }else{
+        console.log($('.CodeMirror-wrap').text())
+        console.log($('.event-comment').text())
+        $(".err-member-comment-text").css('display', 'none');
+        $(".CodeMirror").css('border-color', '#c0c0c0');
+    }
+
     if (errFlag === 1) {
         alert("未入力項目があります。")
     }
