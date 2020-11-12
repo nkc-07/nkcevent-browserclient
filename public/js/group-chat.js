@@ -61,7 +61,7 @@ $(function() {
 })
 
 function bottomScroll() {
-    let height = $('.chat').height();
+    let height = $('.chat')[0].scrollHeight;
     $('.chat').scrollTop(height);
 }
 
