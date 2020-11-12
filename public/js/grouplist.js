@@ -105,11 +105,18 @@ $(function() {
             //location.href = '/public/html/event-list/';
         })
     }
-    $('.serch-button').on('click', function() {
+    $('.serch-button').on('click', serchGroupList);
+    $('.serch-input').on('keyup', function (e) {
+        if (e.keyCode == '13') {
+            serchGroupList();
+        }
+    })
+
+    function serchGroupList() {
         var group_searchtype = 4;
-        var group_pram = $(".search-box input").val() ?  $(".search-box input").val() : "";
+        var group_pram = $(".search-box input").val() ? $(".search-box input").val() : "";
         console.log(group_pram);
-        $.ajax({ 
+        $.ajax({
             url: '/api/group/grouplist.php', //送信先
             type: 'GET', //送信方法
             datatype: 'json', //受け取りデータの種類
@@ -118,29 +125,29 @@ $(function() {
                 'group_pram': group_pram,
             }
         })
-        .done(function(response) {
-            $('.group-card').not(':first').remove();
-            let groupsearchDom = $('.group-card');
-            grouplist = response.data;
-            if (grouplist.length > 0) {
-                grouplist.forEach(function(groupsearchInfo) {
-                    groupsearchDom = groupsearchDom.clone();
-                    //console.log(groupsearchInfo);
-                    groupsearchDom.find('.group-name').html(groupsearchInfo.group_name);
-                    groupsearchDom.find('.group-detail').html(groupsearchInfo.description);
-                    groupsearchDom.find('.user-info p').html(groupsearchInfo.nickname);
-                    groupsearchDom.find('.user-info img').attr('src', "/image/"+groupsearchInfo.icon);
-                    groupsearchDom.attr('href', '/public/html/group/group-detail/index.html?group-id='+groupsearchInfo.group_id);
-                    groupsearchDom.find('a').html(groupsearchInfo.group_name);
-                    groupsearchDom.show();
-                    $(".group-list").append(groupsearchDom);
-                })
-            }
-        })
-        .fail(function(response) {
-            console.log('通信失敗');
-            console.log(response);
-            //location.href = '/public/html/event-list/';
-        })
-    })
+            .done(function (response) {
+                $('.group-card').not(':first').remove();
+                let groupsearchDom = $('.group-card');
+                grouplist = response.data;
+                if (grouplist.length > 0) {
+                    grouplist.forEach(function (groupsearchInfo) {
+                        groupsearchDom = groupsearchDom.clone();
+                        //console.log(groupsearchInfo);
+                        groupsearchDom.find('.group-name').html(groupsearchInfo.group_name);
+                        groupsearchDom.find('.group-detail').html(groupsearchInfo.description);
+                        groupsearchDom.find('.user-info p').html(groupsearchInfo.nickname);
+                        groupsearchDom.find('.user-info img').attr('src', "/image/" + groupsearchInfo.icon);
+                        groupsearchDom.attr('href', '/public/html/group/group-detail/index.html?group-id=' + groupsearchInfo.group_id);
+                        groupsearchDom.find('a').html(groupsearchInfo.group_name);
+                        groupsearchDom.show();
+                        $(".group-list").append(groupsearchDom);
+                    })
+                }
+            })
+            .fail(function (response) {
+                console.log('通信失敗');
+                console.log(response);
+                //location.href = '/public/html/event-list/';
+            })
+    }
 })
