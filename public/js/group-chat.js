@@ -1,6 +1,6 @@
 let getRequestParams = (new URL(document.location)).searchParams;
 
-var conn = new WebSocket('ws://localhost:81?mode=chat&group-id=1');
+var conn = new WebSocket('ws://localhost:81?mode=chat&group-id=' + getRequestParams.get('group-id'));
 
 let clientMessageDom = $('.chat .client');
 let peerMessageDom = $('.chat .peer');

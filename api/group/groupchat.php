@@ -101,6 +101,7 @@ function getGroupChat($param){
 				WHERE gc.member_id IN(SELECT member_id
 				FROM access_token
 				WHERE token_id = :token_id)
+				AND group_id = :group_id
 			UNION ALL
 				SELECT group_id,chat_id,gc.member_id,m.nickname as name,m.icon as icon,chat_cont,false as is_client
 				FROM `group_chat` gc
@@ -109,8 +110,8 @@ function getGroupChat($param){
 				WHERE gc.member_id NOT IN(SELECT member_id
 				FROM access_token
 				WHERE token_id = :token_id)
+				AND group_id = :group_id
 			ORDER BY chat_id";
-                // WHERE group_id = :group_id
 				// AND chat_id = :chat_id";
 				/*AND gc.member_id IN(SELECT member_id
 				FROM access_token
