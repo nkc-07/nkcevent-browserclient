@@ -1,3 +1,12 @@
+main {
+    width: 100%;
+    height: calc(100% - 76px);
+}
+
+.content {
+    width: calc(100vw - 350px);
+}
+
 .group-box {
     height: auto;
     min-height: 80%;
