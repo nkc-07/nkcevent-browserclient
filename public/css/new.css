@@ -146,6 +146,7 @@ input {
     text-align: left
 }
 
+.err-member-comment-text,
 .no-held-err-text,
 .err2-member-limit-text,
 .no-err-address-text,

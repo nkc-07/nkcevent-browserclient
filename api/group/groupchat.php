@@ -28,8 +28,8 @@ switch($_SERVER['REQUEST_METHOD']){
 		break;
 	
 	case "POST":
-
-		$ret = postGroupChat($_POST);
+		parse_str(file_get_contents('php://input'), $param);
+		$ret = postGroupChat($param);
 		if($ret['success']){
 			$response['data'] = $ret['data'];
 		}else{
@@ -101,6 +101,7 @@ function getGroupChat($param){
 				WHERE gc.member_id IN(SELECT member_id
 				FROM access_token
 				WHERE token_id = :token_id)
+				AND group_id = :group_id
 			UNION ALL
 				SELECT group_id,chat_id,gc.member_id,m.nickname as name,m.icon as icon,chat_cont,false as is_client
 				FROM `group_chat` gc
@@ -109,8 +110,8 @@ function getGroupChat($param){
 				WHERE gc.member_id NOT IN(SELECT member_id
 				FROM access_token
 				WHERE token_id = :token_id)
+				AND group_id = :group_id
 			ORDER BY chat_id";
-                // WHERE group_id = :group_id
 				// AND chat_id = :chat_id";
 				/*AND gc.member_id IN(SELECT member_id
 				FROM access_token
@@ -147,6 +148,7 @@ function postGroupChat($param){
     
 	//$db = new DB();
 	try{
+
         if(empty($param['group_id']))			throw new ErrorException($errmsg."group_id");
         if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
         if(empty($param['chat_cont']))			throw new ErrorException($errmsg."chat_cont");

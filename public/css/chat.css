@@ -17,8 +17,9 @@ main {
 
 .chat {
     overflow-y: scroll;
-    height: calc(100vh - 76px);
+    height: calc(100vh - 76px - 60px);
     width: 100%;
+    padding: 10px;
 }
 
 .peer {
