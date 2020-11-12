@@ -49,7 +49,6 @@ if($resary['success']){
  * ----------------------------------------------------------------------------
  */
 
- //メンバー権限不要
 function PostMemberParticipation($param){
 
 	$ret = [

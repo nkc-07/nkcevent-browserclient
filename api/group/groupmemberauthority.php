@@ -13,6 +13,18 @@ $resary = [
 
 switch($_SERVER['REQUEST_METHOD']){
 	
+	case "GET":
+
+		$ret = GetMemberAuthority($_GET);
+		if($ret['success']){
+			$response['data'] = $ret['data'];
+		}else{
+			$resary['success'] = false;
+			$resary['code'] = 400;
+			$resary['msg'] = $ret['msg'];
+		}
+
+		break;
 	case "POST":
 
 		$ret = PostMemberAuthority($_POST);
@@ -49,7 +61,38 @@ if($resary['success']){
  * ----------------------------------------------------------------------------
  */
 
- //メンバー権限不要
+function GetMemberAuthority($param){
+
+	$ret = [
+		'success' => true,
+		'msg' => "",
+	];
+
+	//$db = new DB();
+	try{
+		if(empty($param['group_id']))			throw new ErrorException($errmsg."group_id");
+		if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
+
+		$sql = "SELECT gm.authority
+				FROM `group` g 
+				LEFT OUTER JOIN group_member gm ON g.group_id = gm.group_id 
+				WHERE member_id IN (SELECT member_id FROM access_token WHERE token_id = :token_id)
+				AND gm.group_id = :group_id";
+		
+		$stmt =  PDO()->prepare($sql);
+		$stmt -> bindValue(':group_id',  $param['group_id'], PDO::PARAM_INT);
+		$stmt -> bindValue(':token_id', $param['token_id'], PDO::PARAM_STR);
+
+		$stmt -> execute();
+		//$ret['data'] = $data;
+
+	}catch(Exception $err){
+		//exceptionErrorPut($err, "EXCEPTION");
+		$ret['success'] = false;
+		$ret['msg'] = "[".date("Y-m-d H:i:s")."]".$err->getMessage();
+	}
+	return $ret;
+}
 function PostMemberAuthority($param){
 
 	$ret = [
