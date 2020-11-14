@@ -24,7 +24,7 @@ $(function() {
                     groupDom.find('.group-name').html(groupInfo.group_name);
                     groupDom.find('.group-detail').html(groupInfo.description);
                     groupDom.find('.user-info p').html(groupInfo.nickname);
-                    groupDom.find('.user-info img').attr('src', "/image/"+groupInfo.icon);
+                    groupDom.find('.user-info img').attr('src', groupInfo.icon);
 
                     groupDom.attr('href', '/public/html/group/group-detail/index.html?group-id='+groupInfo.group_id);
                     groupDom.find('a').html(groupInfo.group_name);
@@ -59,7 +59,7 @@ $(function() {
                 grouplist.forEach(function(groupparticipatedInfo) {
                     groupparticipatedDom = groupparticipatedDom.clone();
                     //console.log(groupparticipatedInfo);
-                    groupparticipatedDom.find('a').attr('href', '/public/html/group/group-detail/index.html?group-id='+groupparticipatedInfo.group_id);
+                    groupparticipatedDom.find('a').attr('href', '/public/html/group/group-detail/chat/index.html?group-id='+groupparticipatedInfo.group_id);
                     groupparticipatedDom.find('a').html(groupparticipatedInfo.group_name);
                     groupparticipatedDom.show();
                     $(".group-participated-list").append(groupparticipatedDom);
