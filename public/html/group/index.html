@@ -53,41 +53,30 @@
         <div>
             <div class="side-grop border-top border-light bg-dark">
                 <ul class="list-group">
-                    <li>
+                    <li class ="group-participated-list">
                         <h3 class="h4 m-3 text-white">参加グループ</h3>
                     </li>
-                    <li class="list-group ml-4">
+                    <li class="list-group group-participated ml-4" style="display: none;">
                         <a class="drawer-menu-item color-white-100 text-white" href="#">test user</a>
                     </li>
-                    <li class="list-group ml-4">
-                        <a class="drawer-menu-item color-white-100 text-white" href="#">test user</a>
-                    </li>
-                    <li class="list-group ml-4">
-                        <a class="drawer-menu-item color-white-100 text-white" href="#">test user</a>
-                    </li>
-                    <li class="list-group ml-4">
-                        <a class="drawer-menu-item color-white-100 text-white" href="#">test user</a>
-                    </li>
+                    
 
                     <li><span class="border-top"></span></li>
 
-                    <li>
+                    <li class ="group-appry-list">
                         <h3 class="h4 m-3 text-white">参加申請中グループ</h3>
                     </li>
-                    <li class="list-group ml-4">
-                        <a class="drawer-menu-item color-white-100 text-white" href="#">test user</a>
-                    </li>
-                    <li class="list-group ml-4">
+                    <li class="list-group ml-4 group-appry" style="display: none;">
                         <a class="drawer-menu-item color-white-100 text-white" href="#">test user</a>
                     </li>
                 </ul>
             </div>
-            <div class="content p-3">
-                <div class="search-box">
-                    <form class="form-inline" method="get">
-                        <input type="serch" name="event_name">
+            <div class="content m-3">
+                <div class="search-box mb-3">
+                    <div class="form-inline" >
+                        <input class="serch-input" type="serch" name="event_name">
                         <button class="serch-button"></button>
-                    </form>
+                    </div>
                 </div>
 
                 <div class="group-box card">
@@ -95,12 +84,12 @@
                         <p class="card-text">グループが見つかりませんでした...</p>
                     </div>
 
-                    <div class="d-inline">
-                        <a class="card-link mt-3 ml-3" href="/public/html/group/group-detail/index.html">
+                    <div class="d-inline group-list">
+                        <a class="card-link mt-3 ml-3 group-card" href="/public/html/group/group-detail/index.html" style="display:none;">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
+                                    <h4 class="card-text group-name">グループ名</h4>
+                                    <p class="card-text  group-detail">
                                         test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
                                     </p>
                                     <div class="user-info">
@@ -111,249 +100,7 @@
                             </div>
                         </a>
 
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="card-link mt-3 ml-3" href="/public/html/group/group-detail/index.html">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a class="card-link mt-3 ml-3" href="#">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-text event-name">グループ名</h4>
-                                    <p class="card-text detail">
-                                        test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test
-                                    </p>
-                                    <div class="user-info">
-                                        <p>test user</p>
-                                        <img class="user-img" src="/image/5f85198f2962e.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                        
                     </div>
 
                     <nav aria-label="検索結果ページ">
@@ -380,6 +127,7 @@
         </div>
 
         <script src="/public/js/general/sidemenu.js"></script>
+        <script src="/public/js/grouplist.js"></script>
     </main>
 
 </body>
