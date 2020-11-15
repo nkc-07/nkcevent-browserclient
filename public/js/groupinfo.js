@@ -1,5 +1,6 @@
 let getRequestParams = (new URL(document.location)).searchParams;
 let participationUserDom = $('.participation-user');
+let organizerUserDom = $('.organizer-user');
 var member_list = []; // 権限保持者のみ使う、参加者メンバーの一覧変数
 
 let participationStatus = [
@@ -9,6 +10,34 @@ let participationStatus = [
 ];
 
 $(function() {
+    $(document).on('click', '.filtering .dropdown-item', function(e) {
+        showAuthorityList($(this).val());
+        var visibleItem = $('.dropdown-toggle', $(this).closest('.dropdown'));
+        visibleItem.text($(this).text());
+    });
+
+    $(document).on('click', '.participation-list .dropdown-item', function(e) {
+        let clickDom = $(this);
+        $.ajax({
+                url: 'http://localhost:8080/api/group/groupmemberauthority.php', //送信先
+                type: 'PUT', //送信方法
+                datatype: 'json', //受け取りデータの種類
+                data: {
+                    'group_id': getRequestParams.get('group-id'),
+                    'token_id': localStorage.getItem('token'),
+                    'target_id': clickDom.parents('.participation-user').attr('class').replace(/[^0-9]/g, ''),
+                    'authority': clickDom.val()
+                }
+            })
+            .done(function(response) {
+                clickDom.parents('.participation-user').find('.dropdown-toggle').text(participationStatus[clickDom.val()]);
+            })
+            .fail(function(response) {
+                console.log('通信失敗');
+                console.log(response);
+            })
+    });
+
     $.ajax({
             url: 'http://localhost:8080/api/group/groupmemberauthority.php', //送信先
             type: 'GET', //送信方法
@@ -113,21 +142,35 @@ function editAuthority() {
         .done(function(response) {
             member_list = response['data']['data'];
 
-            member_list.forEach(element => {
-                if (element['authority'] == 3) {
-                    $('.organizer-user img').attr('src', element['icon']);
-                    $('.organizer-user .user-name').text(element['nickname']);
-                } else {
-                    let tempParticipationUserDom = participationUserDom.clone();
-                    tempParticipationUserDom.find('img').attr('src', element['icon']);
-                    tempParticipationUserDom.find('.user-name').text(element['nickname']);
-                    tempParticipationUserDom.find('button').text(participationStatus[element['authority']]);
-                    $(".participation-list").append(tempParticipationUserDom.show());
-                }
-            });
+            showAuthorityList('all');
         })
         .fail(function(response) {
             console.log('通信失敗');
             console.log(response);
         })
+}
+
+function showAuthorityList(changeDisplay) {
+    $('.participation-list').empty();
+
+    let loopFlag = true;
+    member_list.forEach(items => {
+        if (
+            items.authority == changeDisplay ||
+            changeDisplay === 'all' &&
+            items.authority !== '3'
+        ) {
+            let tempParticipationUserDom = participationUserDom.clone();
+            tempParticipationUserDom.addClass('member-id-' + items.member_id);
+            tempParticipationUserDom.find('img').attr('src', items['icon']);
+            tempParticipationUserDom.find('.user-name').text(items['nickname']);
+            tempParticipationUserDom.find('.dropdown-toggle').text(participationStatus[items['authority']]);
+            $(".participation-list").append(tempParticipationUserDom.show());
+
+            loopFlag = false;
+        }
+    });
+    if (loopFlag) {
+        $('.participation-list').text('該当するユーザーが存在しません');
+    }
 }
