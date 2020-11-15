@@ -61,6 +61,10 @@ if($resary['success']){
  * ----------------------------------------------------------------------------
  */
 
+
+/**
+ * 1: 参加者 2: 参加申込中 3: 権限保持者
+ */
 function GetMemberAuthority($param){
 
 	$ret = [
@@ -84,7 +88,9 @@ function GetMemberAuthority($param){
 		$stmt -> bindValue(':token_id', $param['token_id'], PDO::PARAM_STR);
 
 		$stmt -> execute();
-		//$ret['data'] = $data;
+
+		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$ret['data'] = $data;
 
 	}catch(Exception $err){
 		//exceptionErrorPut($err, "EXCEPTION");
@@ -104,7 +110,7 @@ function PostMemberAuthority($param){
 	try{
 		if(empty($param['group_id']))			throw new ErrorException($errmsg."group_id");
 		if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
-		if(empty($param['authority']))			throw new ErrorException($errmsg."authority"); 
+		if(empty($param['authority']))			throw new ErrorException($errmsg."authority");
 
 		$sql = "UPDATE group_member gm
 				SET   gm.authority = :authority
