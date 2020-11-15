@@ -88,8 +88,7 @@ $(function() {
             console.log(response.data[0].group_name);
             // $('.console').text("groupInfo");
             $(".group-name").text(response.data[0].group_name);
-            $(".group-description").text(response.data[0].description);
-
+            $(".group-description").html(marked(response.data[0].description));
             var last_postdate = response.data[0].last_postdate;
             last_postdate = (last_postdate.substr(0, 4) + '-' + last_postdate.substr(5, 2) + '-' + last_postdate.substr(8, 2));
             $(".create-day p").text(last_postdate);
