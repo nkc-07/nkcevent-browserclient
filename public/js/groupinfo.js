@@ -1,8 +1,13 @@
-/*let loginInfo = {
-    userId: undefined,
-    password: undefined
-};*/
 let getRequestParams = (new URL(document.location)).searchParams;
+let participationUserDom = $('.participation-user');
+var member_list = []; // 権限保持者のみ使う、参加者メンバーの一覧変数
+
+let participationStatus = [
+    '参加申込中ユーザー',
+    '一般参加者',
+    '参加登録権限保持者'
+];
+
 $(function() {
     $.ajax({
             url: 'http://localhost:8080/api/group/groupmemberauthority.php', //送信先
@@ -95,4 +100,34 @@ function editAuthority() {
     ).show();
     $('.owner-icon').show();
     $('.participation-table').show();
+
+    $.ajax({
+            url: 'http://localhost:8080/api/group/groupparticipation.php', //送信先
+            type: 'GET', //送信方法
+            datatype: 'json', //受け取りデータの種類
+            data: {
+                'group_id': getRequestParams.get('group-id'),
+                'token_id': localStorage.getItem('token')
+            }
+        })
+        .done(function(response) {
+            member_list = response['data']['data'];
+
+            member_list.forEach(element => {
+                if (element['authority'] == 3) {
+                    $('.organizer-user img').attr('src', element['icon']);
+                    $('.organizer-user .user-name').text(element['nickname']);
+                } else {
+                    let tempParticipationUserDom = participationUserDom.clone();
+                    tempParticipationUserDom.find('img').attr('src', element['icon']);
+                    tempParticipationUserDom.find('.user-name').text(element['nickname']);
+                    tempParticipationUserDom.find('button').text(participationStatus[element['authority']]);
+                    $(".participation-list").append(tempParticipationUserDom.show());
+                }
+            });
+        })
+        .fail(function(response) {
+            console.log('通信失敗');
+            console.log(response);
+        })
 }

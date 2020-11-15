@@ -14,3 +14,9 @@
 .btn-box {
     text-align: right;
 }
+
+.user-icon {
+    width: 50px;
+    height: auto;
+    float: left;
+}
