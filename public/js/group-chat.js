@@ -128,6 +128,10 @@ function groupparticipatedList() {
                     groupparticipatedDom.find('a').html(groupparticipatedInfo.group_name);
                     groupparticipatedDom.show();
                     $(".group-participated-list").append(groupparticipatedDom);
+
+                    if (groupparticipatedInfo.group_id == getRequestParams.get('group-id')) {
+                        $('.group-name a p').text(groupparticipatedInfo.group_name + $('.group-name a p').text());
+                    }
                 })
             }
         })
