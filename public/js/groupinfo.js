@@ -14,19 +14,28 @@ $(function() {
             }
         })
         .done(function(response) {
-            $('.chat-button').attr('href', $('.chat-button').attr('href') + getRequestParams.get('group-id')).show();
-            switch (response['data'][0]['authority']) {
-                case '1':
-                    break;
-                case '2':
-                    break;
-                case '3':
-                    editAuthority();
-                    break;
+            console.log(response);
+            if (response['data'].length !== 0) {
+                switch (response['data'][0]['authority']) {
+                    case '0':
+                        break;
+                    case '1':
+                        break;
+                    case '2':
+                        break;
+                    case '3':
+                    case '4':
+                        editAuthority();
+                        break;
+                }
+            } else {
+                $('.request-btn').show();
+                $('.request-btn').on('click', noAuthority);
             }
         })
         .fail(function(response) {
             $('.request-btn').show();
+            $('.request-btn').on('click', noAuthority);
         })
 
     //console.log(getRequestParams.get('group-id'));
@@ -57,6 +66,29 @@ $(function() {
 });
 //group-title
 
+function noAuthority() {
+    $.ajax({
+            url: 'http://localhost:8080/api/group/groupparticipation.php', //送信先
+            type: 'POST', //送信方法
+            datatype: 'json', //受け取りデータの種類
+            data: {
+                'group_id': getRequestParams.get('group-id'),
+                'token_id': localStorage.getItem('token')
+            }
+        })
+        .done(function(response) {
+            location.reload();
+        })
+        .fail(function(response) {
+            console.log('通信失敗');
+            console.log(response);
+        })
+}
+
 function editAuthority() {
+    $('.chat-button').attr(
+        'href',
+        $('.chat-button').attr('href') + getRequestParams.get('group-id')
+    ).show();
     $('.owner-icon').show();
 }

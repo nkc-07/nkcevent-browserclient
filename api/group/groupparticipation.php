@@ -61,9 +61,9 @@ function PostMemberParticipation($param){
 		if(empty($param['group_id']))			throw new ErrorException($errmsg."group_id");
 		if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
 
-		$sql = "INSERT INTO group_member(group_id, member_id, authority) 
-				VALUES (:group_id,(SELECT member_id FROM access_token WHERE token_id = :token_id),0)";
-		
+		$sql = "INSERT INTO group_member(group_id, member_id, authority)
+				VALUES (:group_id, (SELECT member_id FROM access_token WHERE token_id = :token_id),0)";
+
 		$stmt =  PDO()->prepare($sql);
 		$stmt -> bindValue(':group_id',  $param['group_id'], PDO::PARAM_INT);
 		$stmt -> bindValue(':token_id', $param['token_id'], PDO::PARAM_STR);

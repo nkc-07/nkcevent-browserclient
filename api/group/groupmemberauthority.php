@@ -63,7 +63,7 @@ if($resary['success']){
 
 
 /**
- * 1: 参加者 2: 参加申込中 3: 権限保持者
+ * null: 未参加 0: 参加申込中 1: 参加者 2: 権限保持者 3: 作成者
  */
 function GetMemberAuthority($param){
 
