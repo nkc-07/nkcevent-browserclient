@@ -18,13 +18,16 @@ $(function() {
             if (response['data'].length !== 0) {
                 switch (response['data'][0]['authority']) {
                     case '0':
+                        $('.applying-btn').show();
                         break;
                     case '1':
+                        $('.chat-button').attr(
+                            'href',
+                            $('.chat-button').attr('href') + getRequestParams.get('group-id')
+                        ).show();
                         break;
                     case '2':
-                        break;
                     case '3':
-                    case '4':
                         editAuthority();
                         break;
                 }
@@ -91,4 +94,5 @@ function editAuthority() {
         $('.chat-button').attr('href') + getRequestParams.get('group-id')
     ).show();
     $('.owner-icon').show();
+    $('.participation-table').show();
 }

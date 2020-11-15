@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/public/css/group-detail.css">
 
     <script src="/public/vender/jquery-3.5.1.min/index.js"></script>
+    <script src="/public/vender/bootstrap-4.4.1-dist/js/popper.js"></script>
     <script src="/public/vender/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
     <script src="/public/vender/sidemenu/iscroll.min/index.js"></script>
     <script src="/public/vender/sidemenu/drawer.3.2.2.min/index.js"></script>
@@ -51,27 +52,83 @@
 
     <main>
         <div class="card m-4 p-4">
-            <h2 class="group-name">test grop name</h2>
+            <h2 class="group-name"></h2>
 
             <div class="create-day">
-                <p>20xx/xx/xx</p>
+                <p></p>
             </div>
             <div class="card m-2 p-2">
                 <h3>グループ詳細</h3>
                 <div class="group-description">
-                    markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown
-                    markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown markdown
                 </div>
 
                 <div class="btn-box">
                     <button type="button" class="request-btn btn btn-dark" style="display: none;">グループ参加申し込み</button>
-                    <button type="button" class="btn btn-dark" disabled style="display: none;">申請中...</button>
-                    <a href="/public/html/group/group-detail/edit/index.html" class="btn btn-dark" style="display: none;">グループの編集、参加申請許可</a>
+                    <button type="button" class="applying-btn btn btn-dark" disabled style="display: none;">申請中...</button>
+                    <!-- <a href="/public/html/group/group-detail/edit/index.html" class="btn btn-dark" style="display: none;">グループの編集、参加申請許可</a> -->
                     <a href="/public/html/group/group-detail/chat/index.html?group-id=" class="chat-button btn btn-dark" style="display: none;">チャットへ移動</a>
+                </div>
+            </div>
+
+            <div class="participation-table card m-2 p-2" style="display: none;">
+                <h2>参加ユーザ一覧</h2>
+                <div class="m-3">
+                    <div class="text-right m-1">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">権限でフィルタリング</button>
+                            <ul class="dropdown-menu filtering">
+                                <li><button class="dropdown-item" value="all">すべて表示</button></li>
+                                <li><button class="dropdown-item" value="2">参加登録権限保持者</button></li>
+                                <li><button class="dropdown-item" value="1">一般参加者</button></li>
+                                <li><button class="dropdown-item" value="0">参加申込ユーザ</button></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ユーザー名</th>
+                                <th scope="col">権限</th>
+                            </tr>
+                        </thead>
+                        <tbody class="participation-list">
+                            <tr class="participation-user">
+                                <td>
+                                    <div class="user-icon blockquote text-left">
+                                        <img src="#" alt="user image">
+                                        <p></p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p>作成者</p>
+                                </td>
+                            </tr>
+                            <tr class="participation-user" style="display: none;">
+                                <td>
+                                    <div class="user-icon blockquote text-left">
+                                        <img src="#" alt="user image">
+                                        <p></p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dropdown user-status">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">参加申込中ユーザー</button>
+                                        <ul class="dropdown-menu">
+                                            <li><button class="dropdown-item" value="2">参加登録権限保持者</button></li>
+                                            <li><button class="dropdown-item" value="1">一般参加者</button></li>
+                                            <li><button class="dropdown-item" value="0">参加申込中ユーザー</button></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
+        <script src="/public/js/general/sidemenu.js"></script>
         <script src="/public/js/groupinfo.js"></script>
     </main>
 </body>
