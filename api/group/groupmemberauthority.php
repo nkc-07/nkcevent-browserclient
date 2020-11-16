@@ -145,7 +145,7 @@ function putMemberAuthority($param){
 		$stmt2 -> bindValue(':group_id',  $param['group_id'], PDO::PARAM_INT);
 		$stmt2 -> bindValue(':member_id', $data['member_id'], PDO::PARAM_INT);
 
-		$stmt -> execute();
+		$stmt2 -> execute();
 		//$ret['data'] = $data;
 
 	}catch(Exception $err){

@@ -91,11 +91,17 @@ function getEventinfo($param){
 	//$db = new DB();
 	try{
 		if(empty($param['event_id']))			throw new ErrorException($errmsg."event_id");
-        $sql=  "SELECT event_id, event_name, event_comment, map, image, post_date, deadline_date, held_date, m.nickname AS organizer_nickname,m.icon as organizer_icon, m.member_id AS organizer_id, member_limit, event_cancellation 
-                FROM `event` e
-                INNER JOIN member m
-                ON e.organizer = m.member_id
-                WHERE event_id = :event_id";
+        $sql=  "SELECT e.event_id, e.event_name, e.event_comment, e.map, e.image, e.post_date, e.deadline_date, e.held_date,
+					m.nickname AS organizer_nickname, m.icon as organizer_icon, m.member_id AS organizer_id, e.member_limit, e.event_cancellation,
+					e.group_id, IFNULL((
+						SELECT g.group_name
+						FROM `group` g
+						WHERE g.group_id = e.group_id
+						), null) as group_name
+				FROM `event` e
+				INNER JOIN member m
+				ON e.organizer = m.member_id
+				WHERE event_id = :event_id";
 
 		$stmt = PDO()->prepare($sql);
         $stmt -> bindValue(':event_id',  $param['event_id'],  PDO::PARAM_INT);
@@ -146,9 +152,9 @@ function postEventinfo($param){
 		if(empty($param['member_limit']))		throw new ErrorException($errmsg."member_limit");
 
 		//event_cancellationは1で挿入(開催)
-		$sql = "INSERT INTO `event`(event_name, event_kana, event_comment, map, `image`, post_date, deadline_date, held_date, organizer, member_limit, event_cancellation) 
+		$sql = "INSERT INTO `event`(event_name, event_kana, event_comment, map, `image`, post_date, deadline_date, held_date, group_id, organizer, member_limit, event_cancellation) 
 				VALUES (:event_name, :event_kana, :event_comment, :map, :image,:post_date,
-				:deadline_date, :held_date, 
+				:deadline_date, :held_date, :group_id, 
 				(
 					SELECT member_id
 					FROM access_token
@@ -165,6 +171,11 @@ function postEventinfo($param){
 		$stmt -> bindValue(':post_date', 	 $param['post_date'], PDO::PARAM_STR);
 		$stmt -> bindValue(':deadline_date', $param['deadline_date'], PDO::PARAM_STR);
 		$stmt -> bindValue(':held_date', 	 $param['held_date'], PDO::PARAM_STR);
+		if($param['group_id'] == 'null') {
+			$stmt -> bindValue(':group_id',  null, PDO::PARAM_INT);
+		} else {
+			$stmt -> bindValue(':group_id',  $param['group_id'], PDO::PARAM_INT);
+		}
 		$stmt -> bindValue(':token_id', 	 $param['token_id'], PDO::PARAM_STR);
 		$stmt -> bindValue(':member_limit',  $param['member_limit'], PDO::PARAM_INT);
 		$stmt -> execute();
