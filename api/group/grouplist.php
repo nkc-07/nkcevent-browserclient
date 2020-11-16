@@ -61,7 +61,7 @@ function getGrouplist($param){
 
 	//$db = new DB();
 	try{
-		//group_searchtypeでは検索の種類(1:全検索　2:参加済みユーザー 3:参加申請中ユーザー　4:タグ検索)
+		//group_searchtypeでは検索の種類(1:全検索　2:参加済みユーザー 3:参加申請中ユーザー　4:タグ検索 6:グループ主催権限のあるグループ一覧)
 		//group_pramでは検索の種類に応じた値(ユーザーIDやタグIDなど)
 		if(empty($param['group_searchtype']))			throw new ErrorException($errmsg."group_searchtype");
 		$sql = "";
@@ -104,6 +104,18 @@ function getGrouplist($param){
 					FROM `group` g 
 					WHERE g.group_tag = :group_pram ";
 		}
+		if($param['group_searchtype'] == 6){
+			$sql = "SELECT g.group_name, g.group_id
+					FROM group_member gm
+					INNER JOIN `group` g
+					ON g.group_id = gm.group_id
+					WHERE gm.member_id = (
+						SELECT at.member_id
+						FROM access_token at
+						WHERE at.token_id = :token_id
+					)
+					AND gm.authority IN (2, 3)";
+		}
 		$stmt =  PDO()->prepare($sql);
 		//$stmt -> bindValue(':group_searchtype',   $param['group_searchtype']	 ,  PDO::PARAM_INT);
 		if($param['group_searchtype'] == 2 || $param['group_searchtype'] == 3 || $param['group_searchtype'] == 4){
@@ -114,9 +126,23 @@ function getGrouplist($param){
 			if(empty($param['group_pram']))			throw new ErrorException($errmsg."group_pram");
 			$stmt -> bindValue(':group_pram',   $param['group_pram']	 ,  PDO::PARAM_INT);
 		}
+		if($param['group_searchtype'] == 6){
+			if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
+			$stmt -> bindValue(':token_id',   $param['token_id']	 ,  PDO::PARAM_STR);
+		}
 		$stmt -> execute();
 		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		
+
+		if($param['group_searchtype'] == 6){
+			$ret['data']['groupInfo'] = $data;
+
+			$stmt -> execute();
+			$data = $stmt->fetchAll(PDO::FETCH_COLUMN);
+			$ret['data']['autocompleteInfo'] = $data;
+
+			return $ret;
+		}
+
 		//$ret['data'] = $pdo->lastInsertId();
 		$ret['data'] = $data;
 
