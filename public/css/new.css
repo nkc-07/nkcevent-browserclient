@@ -152,7 +152,8 @@ input {
 .no-err-address-text,
 .err-member-limit-text,
 .err-deadline-date-text,
-.no-postal-err-text {
+.no-postal-err-text,
+.err-group-date-text {
     font-size: initial;
     font-size: 15pt;
     color: red;

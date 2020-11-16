@@ -60,7 +60,8 @@ let createEventInfo = {
     'deadline_date': undefined,
     'held_date': undefined,
     'token_id': undefined,
-    'member_limit': undefined
+    'member_limit': undefined,
+    'group_id': null
 }
 
 let createPermissionGroupList = {};
@@ -285,7 +286,21 @@ $('.participation-event').click(function(e) {
     }
 
     if ($('.group-check input[type=checkbox]').prop('checked')) {
-
+        let targetGroupInfo = undefined;
+        targetGroupInfo = createPermissionGroupList['groupInfo'].find(
+            ({ group_name }) => group_name == $('.group-name').val()
+        );
+        if (targetGroupInfo == undefined) {
+            $(".err-group-date-text").show();
+            $(".group-name").css('border-color', '#ff0000');
+            errFlag = 1;
+        } else {
+            createEventInfo['group_id'] = targetGroupInfo['group_id'];
+            $(".err-group-date-text").hide();
+            $(".group-name").css('border-color', '#c0c0c0');
+        }
+    } else {
+        createEventInfo['group_id'] = 'null';
     }
 
     if (errFlag === 1) {
