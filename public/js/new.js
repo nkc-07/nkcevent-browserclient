@@ -24,6 +24,10 @@ $(function() {
             $('.member_limit').val("");
         }
     });
+
+    $('.group-check input[type=checkbox]').on('click', function() {
+        $('.group-name').prop("disabled", !$(this).prop('checked'));
+    })
 });
 
 // var simplemde = new SimpleMDE({
@@ -59,6 +63,8 @@ let createEventInfo = {
     'member_limit': undefined
 }
 
+let createPermissionGroupList = {};
+
 $.ajax({
     url: '/api/member/memberinfo.php', //送信先
     type: 'GET', //送信方法
@@ -74,6 +80,27 @@ $.ajax({
 
     createEventInfo['token_id'] = localStorage.getItem('token');
 });
+
+$.ajax({ //ログインチェック
+        url: '/api/group/grouplist.php', //送信先
+        type: 'GET', //送信方法
+        datatype: 'json', //受け取りデータの種類
+        data: {
+            'group_searchtype': 6,
+            'token_id': localStorage.getItem('token')
+        }
+    })
+    .done(function(response) {
+        createPermissionGroupList = response['data'];
+        $('.group-name').MySuggest({
+            msArrayList: createPermissionGroupList['autocompleteInfo'],
+            msRegExpAll: true
+        });
+    })
+    .fail(function(response) {
+        console.log('通信失敗');
+        console.log(response);
+    })
 
 let citieNameTmp = undefined;
 $('.postal-code').keyup(function(e) {
@@ -250,11 +277,15 @@ $('.participation-event').click(function(e) {
         $(".err-member-comment-text").css('display', 'block');
         $(".CodeMirror").css('border-color', '#ff0000');
         errFlag = 1;
-    }else{
+    } else {
         console.log($('.CodeMirror-wrap').text())
         console.log($('.event-comment').text())
         $(".err-member-comment-text").css('display', 'none');
         $(".CodeMirror").css('border-color', '#c0c0c0');
+    }
+
+    if ($('.group-check input[type=checkbox]').prop('checked')) {
+
     }
 
     if (errFlag === 1) {
