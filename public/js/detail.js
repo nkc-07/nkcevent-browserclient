@@ -21,7 +21,9 @@ let geteventInfo = {
     organizer_nickname: undefined,
     organizer_icon: undefined,
     eventcancellation: undefined,
-    memberlimit: undefined
+    memberlimit: undefined,
+    group_id: undefined,
+    group_name: undefined
 };
 
 let sendeventInfo = {
@@ -72,7 +74,7 @@ $(function() {
             sendMemberInfo = memberInfo;
             myMembername = memberInfo['nickname']
             myMemberId = memberInfo['member_id']
-            //$(".user-icon img").attr("src", memberInfo["icon"])
+                //$(".user-icon img").attr("src", memberInfo["icon"])
         })
         .fail(function(response) {
             console.log('通信失敗');
@@ -102,6 +104,8 @@ $(function() {
             geteventInfo['organizer_icon'] = eventdata.organizer_icon;
             geteventInfo['eventcancellation'] = eventdata.event_cancellation;
             geteventInfo['memberlimit'] = eventdata.member_limit;
+            geteventInfo['group_id'] = eventdata.group_id;
+            geteventInfo['group_name'] = eventdata.group_name;
             eventTags = response.data.event_tag;
 
             console.log(eventdata)
@@ -148,6 +152,14 @@ $(function() {
                     $('.googlemap-address').attr('href', `https://www.google.com/maps/search/?api=1&query=${geteventInfo["map"]}`);
                     $('#max-member').text(geteventInfo['memberlimit']);
 
+                    if (geteventInfo['group_id'] != null) {
+                        $('.group-list').show();
+                        $('.group-list .group-name').text(geteventInfo['group_name'] + $('.group-list .group-name').text());
+                        $('.group-list').on('click', function() {
+                            location.href = '/public/html/group/group-detail/index.html?group-id=' + geteventInfo['group_id']
+                        })
+                    }
+
                     //tag関係
                     let userTag = $('.tag-card');
                     eventTags.forEach(eventTag => {
@@ -161,7 +173,7 @@ $(function() {
 
                     //ユーザ名の追加
                     $(".user-icon span").text(geteventInfo["organizer_nickname"])
-                    $(".user-icon img").attr("src",geteventInfo["organizer_icon"])
+                    $(".user-icon img").attr("src", geteventInfo["organizer_icon"])
 
                     helddate = new Date(geteventInfo['helddate']);
                     let helddateday = ("0" + (helddate.getDate())).slice(-2);
