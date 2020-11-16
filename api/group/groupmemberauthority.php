@@ -113,11 +113,7 @@ function putMemberAuthority($param){
 		if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
 		if(!isset($param['authority']))			throw new ErrorException($errmsg."authority");
 
-		$sql = "UPDATE group_member gm
-				SET   gm.authority = :authority
-				WHERE gm.group_id = :group_id
-				AND gm.member_id = (
-					SELECT m.member_id
+		$sql1 = "SELECT m.member_id
 					FROM member m
 					INNER JOIN group_member gm
 					ON m.member_id = gm.member_id
@@ -130,14 +126,24 @@ function putMemberAuthority($param){
 						AND gm.group_id = :group_id
 					) IN (2, 3)
 					AND m.member_id = :target_id
-					AND gm.group_id = :group_id
-				)";
-		
-		$stmt =  PDO()->prepare($sql);
-		$stmt -> bindValue(':authority', $param['authority'], PDO::PARAM_INT);
+					AND gm.group_id = :group_id";
+		$stmt =  PDO()->prepare($sql1);
 		$stmt -> bindValue(':target_id', $param['target_id'], PDO::PARAM_INT);
 		$stmt -> bindValue(':group_id',  $param['group_id'], PDO::PARAM_INT);
 		$stmt -> bindValue(':token_id', $param['token_id'], PDO::PARAM_STR);
+		$stmt -> execute();
+		$data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		$sql2 = "UPDATE group_member gm
+				SET   gm.authority = :authority
+				WHERE gm.group_id = :group_id
+				AND gm.member_id = :member_id";
+		
+		
+		$stmt2 =  PDO()->prepare($sql2);
+		$stmt2 -> bindValue(':authority', $param['authority'], PDO::PARAM_INT);
+		$stmt2 -> bindValue(':group_id',  $param['group_id'], PDO::PARAM_INT);
+		$stmt2 -> bindValue(':member_id', $data['member_id'], PDO::PARAM_INT);
 
 		$stmt -> execute();
 		//$ret['data'] = $data;
