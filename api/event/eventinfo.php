@@ -91,11 +91,17 @@ function getEventinfo($param){
 	//$db = new DB();
 	try{
 		if(empty($param['event_id']))			throw new ErrorException($errmsg."event_id");
-        $sql=  "SELECT event_id, event_name, event_comment, map, image, post_date, deadline_date, held_date, m.nickname AS organizer_nickname,m.icon as organizer_icon, m.member_id AS organizer_id, member_limit, event_cancellation 
-                FROM `event` e
-                INNER JOIN member m
-                ON e.organizer = m.member_id
-                WHERE event_id = :event_id";
+        $sql=  "SELECT e.event_id, e.event_name, e.event_comment, e.map, e.image, e.post_date, e.deadline_date, e.held_date,
+					m.nickname AS organizer_nickname, m.icon as organizer_icon, m.member_id AS organizer_id, e.member_limit, e.event_cancellation,
+					e.group_id, IFNULL((
+						SELECT g.group_name
+						FROM `group` g
+						WHERE g.group_id = e.group_id
+						), null) as group_name
+				FROM `event` e
+				INNER JOIN member m
+				ON e.organizer = m.member_id
+				WHERE event_id = :event_id";
 
 		$stmt = PDO()->prepare($sql);
         $stmt -> bindValue(':event_id',  $param['event_id'],  PDO::PARAM_INT);
