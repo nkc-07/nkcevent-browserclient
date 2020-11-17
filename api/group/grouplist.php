@@ -61,18 +61,20 @@ function getGrouplist($param){
 
 	//$db = new DB();
 	try{
-		//group_searchtypeでは検索の種類(1:全検索　2:参加済みユーザー 3:参加申請中ユーザー　4:タグ検索 6:グループ主催権限のあるグループ一覧)
+		//group_searchtypeでは検索の種類(1:全検索　2:参加済みユーザー 3:参加申請中ユーザー　4:検索 6:グループ主催権限のあるグループ一覧)
 		//group_pramでは検索の種類に応じた値(ユーザーIDやタグIDなど)
 		if(empty($param['group_searchtype']))			throw new ErrorException($errmsg."group_searchtype");
 		$sql = "";
 		if($param['group_searchtype'] == 1){
-			$sql = "SELECT g.group_id, g.group_name, g.last_postdate ,g.description,m.nickname,m.icon,g.group_tag
+			$sql = "SELECT g.group_id, g.group_name, g.last_postdate ,g.description,m.nickname,m.icon,t.tag_name
 					FROM `group` g 
 					INNER JOIN group_member gm
 					ON g.group_id = gm.group_id
 					AND authority = 3
 					INNER JOIN member m
-					ON gm.member_id = m.member_id";
+					ON gm.member_id = m.member_id
+					INNER JOIN tag t
+					ON g.group_tag = t.tag_id";
 		}
 		if($param['group_searchtype'] == 2){//左のリストで使う
 			$sql = "SELECT g.group_id, g.group_name, g.last_postdate 
@@ -89,13 +91,15 @@ function getGrouplist($param){
 					AND authority = 0";
 		}
 		if($param['group_searchtype'] == 4){
-			$sql = "SELECT g.group_id, g.group_name, g.last_postdate ,g.description,m.nickname,m.icon,g.group_tag
+			$sql = "SELECT g.group_id, g.group_name, g.last_postdate ,g.description,m.nickname,m.icon,t.tag_name
 					FROM `group` g 
 					INNER JOIN group_member gm
 					ON g.group_id = gm.group_id
 					AND authority = 3
 					INNER JOIN member m
 					ON gm.member_id = m.member_id
+					INNER JOIN tag t
+					ON g.group_tag = t.tag_id
 					WHERE group_name LIKE :group_pram";
 			$param['group_pram'] = "%".$param['group_pram']."%";	
 		}
