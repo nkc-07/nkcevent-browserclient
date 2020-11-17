@@ -88,7 +88,7 @@ $.ajax({ //ログインチェック
         datatype: 'json', //受け取りデータの種類
         data: {
             'group_searchtype': 6,
-            'token_id': localStorage.getItem('token')
+            'group_pram': localStorage.getItem('token')
         }
     })
     .done(function(response) {

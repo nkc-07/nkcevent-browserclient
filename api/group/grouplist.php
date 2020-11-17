@@ -66,7 +66,7 @@ function getGrouplist($param){
 		if(empty($param['group_searchtype']))			throw new ErrorException($errmsg."group_searchtype");
 		$sql = "";
 		if($param['group_searchtype'] == 1){
-			$sql = "SELECT g.group_id, g.group_name, g.last_postdate ,g.description,m.nickname,m.icon
+			$sql = "SELECT g.group_id, g.group_name, g.last_postdate ,g.description,m.nickname,m.icon,g.group_tag
 					FROM `group` g 
 					INNER JOIN group_member gm
 					ON g.group_id = gm.group_id
@@ -74,14 +74,14 @@ function getGrouplist($param){
 					INNER JOIN member m
 					ON gm.member_id = m.member_id";
 		}
-		if($param['group_searchtype'] == 2){
+		if($param['group_searchtype'] == 2){//左のリストで使う
 			$sql = "SELECT g.group_id, g.group_name, g.last_postdate 
 					FROM `group` g 
 					JOIN group_member gm ON g.group_id = gm.group_id 
 					WHERE member_id IN (SELECT member_id FROM access_token WHERE token_id = :group_pram)
 					AND authority > 0";
 		}
-		if($param['group_searchtype'] == 3){
+		if($param['group_searchtype'] == 3){//左のリストで使う
 			$sql = "SELECT g.group_id, g.group_name, g.last_postdate 
 					FROM `group` g 
 					JOIN group_member gm ON g.group_id = gm.group_id 
@@ -89,7 +89,7 @@ function getGrouplist($param){
 					AND authority = 0";
 		}
 		if($param['group_searchtype'] == 4){
-			$sql = "SELECT g.group_id, g.group_name, g.last_postdate ,g.description,m.nickname,m.icon
+			$sql = "SELECT g.group_id, g.group_name, g.last_postdate ,g.description,m.nickname,m.icon,g.group_tag
 					FROM `group` g 
 					INNER JOIN group_member gm
 					ON g.group_id = gm.group_id
@@ -112,13 +112,13 @@ function getGrouplist($param){
 					WHERE gm.member_id = (
 						SELECT at.member_id
 						FROM access_token at
-						WHERE at.token_id = :token_id
+						WHERE at.token_id = :group_pram
 					)
 					AND gm.authority IN (2, 3)";
 		}
 		$stmt =  PDO()->prepare($sql);
 		//$stmt -> bindValue(':group_searchtype',   $param['group_searchtype']	 ,  PDO::PARAM_INT);
-		if($param['group_searchtype'] == 2 || $param['group_searchtype'] == 3 || $param['group_searchtype'] == 4){
+		if($param['group_searchtype'] == 2 || $param['group_searchtype'] == 3 || $param['group_searchtype'] == 4 || $param['group_searchtype'] == 6){
 			if(empty($param['group_pram']))			throw new ErrorException($errmsg."group_pram");
 			$stmt -> bindValue(':group_pram',   $param['group_pram']	 ,  PDO::PARAM_STR);
 		}
@@ -126,10 +126,7 @@ function getGrouplist($param){
 			if(empty($param['group_pram']))			throw new ErrorException($errmsg."group_pram");
 			$stmt -> bindValue(':group_pram',   $param['group_pram']	 ,  PDO::PARAM_INT);
 		}
-		if($param['group_searchtype'] == 6){
-			if(empty($param['token_id']))			throw new ErrorException($errmsg."token_id");
-			$stmt -> bindValue(':token_id',   $param['token_id']	 ,  PDO::PARAM_STR);
-		}
+		
 		$stmt -> execute();
 		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
