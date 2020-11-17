@@ -36,3 +36,7 @@ a.card-link {
 .card-body .user-info .user-img {
     width: 20px;
 }
+.tag_icon{
+    width: 25px;
+    height: auto;
+}

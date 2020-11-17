@@ -22,7 +22,7 @@ $(function() {
                     groupDom = groupDom.clone();
                     //console.log(groupInfo);
                     groupDom.find('.group-name').html(groupInfo.group_name);
-                    groupDom.find('.group-detail').html(groupInfo.description);
+                    groupDom.find('.group-detail').html(groupInfo.tag_name);
                     groupDom.find('.user-info p').html(groupInfo.nickname);
                     groupDom.find('.user-info img').attr('src', groupInfo.icon);
 
@@ -134,7 +134,7 @@ $(function() {
                         groupsearchDom = groupsearchDom.clone();
                         //console.log(groupsearchInfo);
                         groupsearchDom.find('.group-name').html(groupsearchInfo.group_name);
-                        groupsearchDom.find('.group-detail').html(groupsearchInfo.description);
+                        groupsearchDom.find('.group-detail').html(groupsearchInfo.tag_name);
                         groupsearchDom.find('.user-info p').html(groupsearchInfo.nickname);
                         groupsearchDom.find('.user-info img').attr('src', "/image/" + groupsearchInfo.icon);
                         groupsearchDom.attr('href', '/public/html/group/group-detail/index.html?group-id=' + groupsearchInfo.group_id);
