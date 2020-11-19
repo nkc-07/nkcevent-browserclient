@@ -2,7 +2,17 @@
 
 require_once(__DIR__.'/../../php/Define.php');
 require_once(__DIR__.'/../../php/db.php');
+require_once(__DIR__.'../../vendor/autoload.php');
 //require_once(__DIR__.'/../../php/ErrorHandling.php');
+
+use Aws\S3\S3Client;
+use Aws\S3\Exception\S3Exception;
+
+$s3client = new S3Client([
+	'version' => 'latest',
+	'region' => 'ap-northeast-1',
+	'credential' => false
+]);
 
 $response = [];
 $resary = [
@@ -20,7 +30,27 @@ switch($_SERVER['REQUEST_METHOD']){
 		$img = str_replace('data:image/jpeg;base64,', '', $img);
 		//$img = str_replace(' ', '+', $img);
 		$fileData = base64_decode($img);
-		file_put_contents($file_save,$fileData); // アップロード処理
+		$uploadResult = $s3client -> putObject([
+			'Bucket' => AWS_S3_ARN,
+			'Key'    => $file_save,
+			'Body'   => $fileData
+		]);
+		if($uploadResult['@metadata']["statusCode"]==400){
+			$ret['success'] = false;
+			$resary['code'] = 500;
+			$resary['msg'] = "S3側に問題が発生しています(400:パラメータに不正が確認されました)";
+		}
+		if($uploadResult['@metadata']["statusCode"]==403){
+			$ret['success'] = false;
+			$resary['code'] = 500;
+			$resary['msg'] = "S3側に問題が発生しています(403:アクセスが拒否されました)";
+		}
+		if($uploadResult['@metadata']["statusCode"]==408){
+			$ret['success'] = false;
+			$resary['code'] = 500;
+			$resary['msg'] = "S3側に問題が発生しています(408:タイムアウトが発生しました。障害が発生している可能性があります。)";
+		}
+
 		if($ret['success']){
 			$data = $img;
 			$response['data'] = $file_name .".jpg";
