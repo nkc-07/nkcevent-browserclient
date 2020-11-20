@@ -2,7 +2,7 @@
 
 require_once(__DIR__.'/../../php/Define.php');
 require_once(__DIR__.'/../../php/db.php');
-require_once(__DIR__.'../../vendor/autoload.php');
+require_once(__DIR__.'/../../vendor/autoload.php');
 //require_once(__DIR__.'/../../php/ErrorHandling.php');
 
 use Aws\S3\S3Client;
@@ -25,7 +25,7 @@ switch($_SERVER['REQUEST_METHOD']){
 	case "POST":
 		$ret['success'] = 1;
 		$file_name = uniqid(); // アップロード時のファイル名を設定
-		$file_save = "../../image/" . $file_name .".jpg"; // アップロード対象のディレクトリを指定
+		$file_save = "image/" . $file_name .".jpg"; // アップロード対象のディレクトリを指定
 		$img = $_POST['image']['data'];
 		$img = str_replace('data:image/jpeg;base64,', '', $img);
 		//$img = str_replace(' ', '+', $img);
