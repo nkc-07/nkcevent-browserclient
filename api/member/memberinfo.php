@@ -195,7 +195,7 @@ function PutMemberInformation($param){
         $stmt -> bindValue(':nickname', $param['nickname'], PDO::PARAM_STR);
         $stmt -> bindValue(':gender', $param['gender'], PDO::PARAM_INT);
 		$stmt -> bindValue(':birthday', $param['birthday'], PDO::PARAM_STR);
-		if preg_match("{".AWS_S3_URL."}",$param['icon'] == 1)
+		if (preg_match("{".AWS_S3_URL."}",$param['icon']) == 1)
 			$stmt -> bindValue(':icon', $param['icon'], PDO::PARAM_STR);
 		else
 			$stmt -> bindValue(':icon', AWS_S3_URL.$param['icon'], PDO::PARAM_STR);
