@@ -66,3 +66,22 @@
 .login-err {
     display: none;
 }
+
+.playsize{
+    width: 25% ;
+    height: 30%
+}
+
+.minesize{
+    width: 33%;
+     height: 40%
+}
+
+.pcIphonesize{
+    width: 28%;
+    height: 25%
+}
+
+.card .fontsize{
+    font-size: 25px;
+}
