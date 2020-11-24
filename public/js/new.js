@@ -157,7 +157,7 @@ $('.deadline-date').change(function(e) {
 });
 let toDayObjcr = new Date();
 let toDayStr = toDayObjcr.getFullYear() + '-' +
-    toDayObjcr.getMonth() + '-' +
+    (toDayObjcr.getMonth() + 1) + '-' +
     toDayObjcr.getDate();
 $('.create-day').text(toDayStr);
 createEventInfo['post_date'] = toDayStr;
